@@ -6,15 +6,15 @@ CREATE TABLE employees(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	password VARCHAR(255) NOT NULL,
 	first_name VARCHAR(255),
 	last_name VARCHAR(255),
-	hourly_rate INT NOT NULL,
 	remaining_leaves INT NOT NULL,
 	employee_type VARCHAR(255) NOT NULL,
 	holiday_type VARCHAR(255) NOT NULL,
-	employee_contracts_id INT NOT NULL); 
+	employee_contracts_id INT); 
 
 CREATE TABLE employee_contracts(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	start_date DATE NOT NULL,
 	duration DATE NOT NULL,
+	hourly_rate DOUBLE NOT NULL,
 	employees_id INT NOT NULL,
 	FOREIGN KEY(employees_id) REFERENCES employees(id));
 
