@@ -49,3 +49,5 @@ ADD FOREIGN KEY(workdays_id) REFERENCES workdays(id);
 
 ALTER TABLE workdays
 ADD COLUMN employees_hourly_rate DECIMAL NOT NULL;
+
+INSERT INTO employees(username, password, employee_type, holiday_type) VALUES ('admin', 'password', 'manager', 'regular');
