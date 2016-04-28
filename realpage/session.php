@@ -27,6 +27,7 @@ if(!$result = $db->query($fetch_info)){
 
 $row = $result->fetch_assoc();
 $login_session = $row['username'];
+$first_name = $row['first_name'];
 if(isset($login_session)){
     $db->close();
     //header("location: index.php");

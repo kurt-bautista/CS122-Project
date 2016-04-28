@@ -1,13 +1,14 @@
-/*Login Page*/
-.center_div{
-    width: 100px;
-    height: 100px;
-    
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    
-    margin: auto;
+.vertical_center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card_padding{
+    padding: 50px;
+}
+
+.apply_roboto{
+    font-family: "Roboto",sans serif;
+    font-weight: 300;
 }
