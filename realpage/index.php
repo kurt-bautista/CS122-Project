@@ -18,23 +18,24 @@ if(isset($_SESSION['login_user'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
-<body>
+<body class="blue-grey darken-4 vertical_center">
     <div id="main" class="container">
         
-        
         <div id="card_row" class="row center-align">
-            <div class="card col s4">
+            
+            <div class="card col s4 offset-s8">
                 <form action="" method="post">
                 <div class="card-content">
                     <span class="card-title">Welcome</span>
                     <div class="input-field left-align">
-                        <input id="username" name="username" type="text" class="validate">
+                        <input id="username" name="username" type="text">
                         <label for="username">Username</label>
                     </div>
                     <div class="input-field left-align">
-                        <input id="password" name="password" type="password" class="validate">
+                        <input id="password" name="password" type="password">
                         <label for="password">Password</label>
                     </div>
+                    <span id="login_error" class="red-text text-darken-1"><?php echo $error; ?></span>
                 </div>
                 <div class="card-action">
                     <button class="btn waves-effect waves-light" type="submit" name="submit" value="login">
@@ -43,6 +44,7 @@ if(isset($_SESSION['login_user'])){
                 </div>
                 </form>
             </div>
+            
         </div>
         
     </div>
