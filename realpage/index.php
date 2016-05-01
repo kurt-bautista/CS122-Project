@@ -23,7 +23,11 @@ if(isset($_SESSION['login_user'])){
         
         <div id="card_row" class="row center-align">
             
-            <div class="card col s4 offset-s8">
+            <div class="col s7">
+                <img class="responsive-img" src="img/company-logo.png">
+            </div>
+            
+            <div class="card col s4 offset-s1">
                 <form action="" method="post">
                 <div class="card-content">
                     <span class="card-title">Welcome</span>
