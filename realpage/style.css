@@ -36,3 +36,17 @@ header, body, footer{
 .leave_summary_card{
     height: 650px
 }
+
+#canvas .circle{
+    display: inline-block;
+    margin: 1em;
+}
+
+.anchor{
+    position: relative;
+}
+
+.anchor_bottom{
+    position: absolute;
+    bottom: 0;
+}

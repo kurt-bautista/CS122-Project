@@ -33,6 +33,7 @@
         <div id="main" class="center_container">
 
             <!--Column Guide-->
+            <!--
             <div class="row">
                 <div class="col s1 teal">1</div>
                 <div class="col s1 teal accent-3">2</div>
@@ -47,16 +48,20 @@
                 <div class="col s1 teal">11</div>
                 <div class="col s1 teal accent-3">12</div>
             </div>
+            -->
             <!--Column Guide-->
             
             <div class="row">
                 <!--Remaining Leaves Card-->
-                <div class="card medium col s4  hoverable">
+                <div class="card col s4 hoverable">
                     <div class="card-content center">
                         <span class="card-title" style="font-size:26px">Remaining Leaves</span>
-                        <p class="apply_roboto"></p>
-                        <!--<p class="appl_roboto teal-text text-accent-4" style="font-size:65px">420</p>--> <!--Change this to PHP [Query SQL] -->
-                        <div class="circle" id="leaves_circle"></div>
+                        
+                        <div id="canvas">
+                            <div class="circle" id="leaves_circle"></div>
+                        </div>
+                        
+                        <p class="apply_roboto" style="font-size:18px">Total Leaves: 420</p>                   
                     </div>
                     
                     <div class="card-reveal blue-grey darken-4 white-text">
@@ -79,13 +84,45 @@
                         <a class="activator clickable_text teal-text">Request Leave</a>                        
                     </div>
                 </div>
+                <!--Remaining Leaves Card-->
                 
                 <!--Leaves Summary-->
                 <div class="card leave_summary_card col s7 offset-s1 hoverable">
+                    
                     <div class="card-content center">
-                        <span class="card-title">Leaves Summary</span>
+                        <span class="card-title">Leaves Summary</span>                       
                     </div>
+                    
+                    <div class="row center">
+                        <div class="col s4" id="canvas">
+                            <div class="circle" id="leaves_summary1"></div>
+                            <p class="apply_roboto" style="font-size: 18px">Leaves Taken</p>
+                        </div>
+                        <div class="col s4" id="canvas">
+                            <div class="circle" id="leaves_summary2"></div>
+                            <p class="apply_roboto" style="font-size: 18px">Paid Leave</p>
+                        </div>
+                        <div class="col s4" id="canvas">
+                            <div class="circle" id="leaves_summary3"></div>
+                            <p class="apply_roboto" style="font-size: 18px">Sick Leave</p>
+                        </div>                                                
+                    </div>
+                    
+                    <div class="divider"></div>
+                    <div class="row center">
+                        <div class="col s4">
+                            <p class="apply_roboto" style="font-size: 20px">Duaration</p>
+                        </div>
+                        <div class="col s4">
+                            <p class="apply_roboto" style="font-size: 20px">Date</p>
+                        </div>
+                        <div class="col s4">
+                            <p class="apply_roboto" style="font-size: 20px">Type</p>
+                        </div>
+                    </div>
+                    
                 </div>
+                <!--Leave Summary-->
                 
             </div>
             
@@ -94,8 +131,7 @@
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="https://code.jquery.com/ui/1.12.0-rc.2/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
-        <script src="js/cirlces.js"></script>
-        <script src="js/cirlces.min.js"></script>
+        <script type="text/javascript" src="js/circles.min.js"></script>
         <script type="text/javascript" src="js/picker.js"></script>
         <script type="text/javascript" src="js/picker.date.js"></script>
         
@@ -114,13 +150,13 @@
                
                var myCircle = Circles.create({
                     id:                  'leaves_circle',
-                    radius:              60,
-                    value:               43,
-                    maxValue:            100,
+                    radius:              70,
+                    value:               69, //Replace with php query
+                    maxValue:            100, //Replace with php query
                     width:               10,
                     text:                function(value){return value;},
-                    colors:              ['#D3B6C6', '#4B253A'],
-                    duration:            400,
+                    colors:              ['#b2dfdb', '#009688'],
+                    duration:            900,
                     wrpClass:            'circles-wrp',
                     textClass:           'circles-text',
                     valueStrokeClass:    'circles-valueStroke',
@@ -128,6 +164,31 @@
                     styleWrapper:        true,
                     styleText:           true
                });
+               
+               var circles = [];
+               
+               for (var i = 1; i <= 3; i++){
+                   var circle = document.getElementById('leaves_summary' + i);
+                   var circle_val = (i  * 10); //Replace with php query
+                   
+                   circles.push(Circles.create({
+                        id:                  circle.id,
+                        radius:              45,
+                        value:               circle_val, //Replace with php query
+                        maxValue:            100, //Replace with php query
+                        width:               10,
+                        text:                function(value){return value;},
+                        colors:              ['#b2dfdb', '#009688'],
+                        duration:            900,
+                        wrpClass:            'circles-wrp',
+                        textClass:           'circles-text',
+                        valueStrokeClass:    'circles-valueStroke',
+                        maxValueStrokeClass: 'circles-maxValueStroke',
+                        styleWrapper:        true,
+                        styleText:           true                     
+                   }));
+               }
+               
             });
         </script>
         
