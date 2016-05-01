@@ -9,27 +9,27 @@ if(isset($_POST['submit'])){
     else{
         $username = $_POST['username'];
         $password = $_POST['password'];
-        
+
         //Variables for MySQL
         $server = 'localhost';
         $server_user = 'root';
         $server_pass = '';
         $database_name = 'realpagetest';
-        
+
         $db = new mysqli($server, $server_user, $server_pass, $database_name);
-        
+
         if($db->connect_errno > 0){
             die('Unable to connect to database ['. $db->connect_error.']');
         }
-        
+
         $username = stripslashes($username);
         $password = stripslashes($password);
         $username = mysqli_real_escape_string($db,$username);
         $password = mysqli_real_escape_string($db,$password);
-        
+
         //MySQLi Query [Checks if username and passowrd matched]
         $verify_login = <<<SQL
-            SELECT * FROM login 
+            SELECT * FROM employees
             WHERE username='$username' AND password='$password'
 SQL;
 
@@ -37,10 +37,12 @@ SQL;
         if(!$result = $db->query($verify_login)){
             die('Error retrieving information from database ['. $db->error.']');
         }
-        
+
         //There must be exactly one row
         if($result->num_rows == 1){
             $_SESSION['login_user'] = $username;
+            $row = $result->fetch_assoc();
+            $_SESSION['employee_id'] = $row['id'];
             header("location: dashboard.php");
         }
         else{
@@ -48,6 +50,6 @@ SQL;
         }
         $result->free();
         $db->close();
-    } 
+    }
 }
 ?>
