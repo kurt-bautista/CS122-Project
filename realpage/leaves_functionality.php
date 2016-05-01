@@ -26,16 +26,11 @@ if(isset($_POST['submit'])){
             header("location: index.php");
         }
 
-        $write_data = <<<SQL
-          INSERT INTO leave_requests(request_date, leave_reason, employees_id) VALUES
-          ($date_request, $leave_reason, $employee_id)
-        SQL;
+        $write_data = "INSERT INTO leave_requests(request_date, leave_reason, employees_id)
+        VALUES ($date_request, $leave_reason, $employee_id)";
 
-        $fetch_info = <<<SQL
-            SELECT username, remaining_leaves
-            FROM employees
-            WHERE employees.username='$user_login'
-        SQL;
+        $fetch_info = "SELECT username, remaining_leaves
+        FROM employees WHERE employees.username='$user_login'";
 
         if(!$result = $db->query($fetch_info) || !$write = $db->query($write_data)){
             die('Error retrieving user information ['. $db->error.']');
