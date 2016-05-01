@@ -30,9 +30,9 @@ if(isset($_POST['submit'])){
         $write_data = "INSERT INTO leave_requests(request_date, leave_reason, employees_id)
         VALUES ($date_request, $leave_reason, $employee_id)";
 
-        $fetch_info = <<<SQL
-          SELECT username, remaining_leaves
-          FROM employees WHERE username='$user_login'
+        $fetch_info = <<<SQL 
+            SELECT username, remaining_leaves
+            FROM employees WHERE username='$user_login'
         SQL;
 
         if(!$result = $db->query($fetch_info) || !$write = $db->query($write_data)){
