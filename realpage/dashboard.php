@@ -65,12 +65,15 @@ include('session.php');
                         <div class="input-field">
                             <textarea id="leave_reason_text" name="leave_reason_text" class="materialize-textarea white-text"></textarea>
                             <label for="leave_reason_text">Reason for Leave</label>
-                        </div>                      
+                        </div>
+                        
+                        <button class="btn waves-effect waves-light" type="submit" name="submit" value="request_leave">Submit</button>          
                     </form>
                 </div>
                 
                 <div class="card-action center">
-                    <button class="activator btn waves-effect waves-light">Request Leave</button>
+                    <a class="activator clickable_text teal-text">Request Leave</a>
+                    <a class="clickable_text teal-text">Leave Summary</a>
                 </div>
             </div>
             
