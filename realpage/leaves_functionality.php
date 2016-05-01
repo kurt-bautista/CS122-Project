@@ -27,8 +27,10 @@ if(isset($_POST['submit'])){
             header("location: index.php");
         }
 
-        $write_data = "INSERT INTO leave_requests(request_date, leave_reason, employees_id)
-        VALUES ($date_request, $leave_reason, $employee_id)";
+        $write_data = <<<SQL
+        INSERT INTO leave_requests(request_date, leave_reason, employees_id)
+        VALUES ($date_request, $leave_reason, $employee_id)
+SQL;
 
         $fetch_info = <<<SQL
         SELECT username, remaining_leaves
