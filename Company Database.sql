@@ -54,3 +54,8 @@ INSERT INTO employees(username, password, employee_type, holiday_type) VALUES ('
 
 ALTER TABLE employee_contracts
 ADD COLUMN alloted_leaves INT NOT NULL;
+
+ALTER TABLE leave_types
+DROP COLUMN paid;
+
+INSERT INTO leave_types(name) VALUES ('Sick'), ('Vacation'), ('Special Privilege'), ('Maternity'), ('Paternity');
