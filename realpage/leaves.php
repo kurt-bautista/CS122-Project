@@ -56,8 +56,11 @@ include('leaves_functionality.php');
             <!--Column Guide-->
             
             <div class="row">
+                
+                <div class="col s4">
+                
                 <!--Remaining Leaves Card-->
-                <div class="card col s4 hoverable">
+                <div class="card col s12 hoverable">
                     <div class="card-content center">
                         <span class="card-title" style="font-size:26px">Remaining Leaves</span>
                         
@@ -91,6 +94,30 @@ include('leaves_functionality.php');
                 </div>
                 <!--Remaining Leaves Card-->
                 
+                <!--Leave Approval Card-->
+                <div class="card right col s12 hoverable">
+                    <div class="card-content center">
+                        <span class="card-title">Pending Approval</span>
+                        <!--Change to PHP code-->                        
+                        <h1 class="">2 Days</h1>
+                        <p class="apply_roboto teal-text" style="font-size:18px">April 20, 2017 - April 21, 2017</p>
+                    </div>
+                    
+                    <div class="card-reveal blue-grey darken-4 white-text">
+                        <span class="card-title">Approved Leave<i class="material-icons right">close</i></span>
+                        <!--Change to PHP code-->
+                        <h1 class=" center ">3 Days</h1>
+                        <p class="apply_roboto teal-text center" style="font-size:18px">August 19, 2016 - April 22, 2016</p>
+                    </div>
+                    
+                    <div class="card-action center">
+                        <a class="activator clickable_text teal-text">Approved Leaves</a>
+                    </div>
+                </div>
+                <!--Leave Approval Card-->
+                
+                </div>
+                
                 <!--Leaves Summary-->
                 <div class="card leave_summary_card col s7 offset-s1 hoverable">
                     
@@ -115,15 +142,26 @@ include('leaves_functionality.php');
                     
                     <div class="divider"></div>
                     <div class="row center">
-                        <div class="col s4">
-                            <p class="apply_roboto" style="font-size: 20px">Duaration</p>
-                        </div>
-                        <div class="col s4">
-                            <p class="apply_roboto" style="font-size: 20px">Date</p>
-                        </div>
-                        <div class="col s4">
-                            <p class="apply_roboto" style="font-size: 20px">Type</p>
-                        </div>
+                        
+                        <table class="highlight centered apply_roboto">
+                            <thead>
+                                <tr>
+                                    <th>Duration</th>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <!--Put PHP loop here-->
+                                <tr>
+                                    <td>1</td>
+                                    <td>April 20, 2016</td>
+                                    <td>Sick Leave</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
                     </div>
                     
                 </div>
@@ -156,7 +194,7 @@ include('leaves_functionality.php');
                var myCircle = Circles.create({
                     id:                  'leaves_circle',
                     radius:              70,
-                    value:               69, //Replace with php query
+                    value:               parseInt("<?php echo $remaining_leaves ?>"),
                     maxValue:            100, //Replace with php query
                     width:               10,
                     text:                function(value){return value;},
