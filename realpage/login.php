@@ -41,8 +41,6 @@ SQL;
         //There must be exactly one row
         if($result->num_rows == 1){
             $_SESSION['login_user'] = $username;
-            $row = $result->fetch_assoc();
-            $_SESSION['employee_id'] = $row['id'];
             header("location: dashboard.php");
         }
         else{

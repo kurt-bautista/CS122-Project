@@ -3,17 +3,17 @@ include('leaves_functionality.php');
 ?>
 
 <html>
-    
+
     <head>
         <title>Leaves</title>
-        
+
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-        
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
-    
+
     <body class="grey lighten-5">
 
          <!--Navbar [Copy this to all pages]-->
@@ -79,7 +79,8 @@ include('leaves_functionality.php');
                                 <textarea id="leave_reason_text" name="leave_reason_text" class="materialize-textarea white-text"></textarea>
                                 <label for="leave_reason_text">Reason for Leave</label>
                             </div>
-                            
+
+                           
                             <button class="btn waves-effect waves-light" type="submit" name="submit" value="request_leave">Submit</button>          
                         </form>
                     </div>
@@ -127,9 +128,9 @@ include('leaves_functionality.php');
                     
                 </div>
                 <!--Leave Summary-->
-                
+
             </div>
-            
+
         </div>
         
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -197,5 +198,5 @@ include('leaves_functionality.php');
         </script>
         
     </body>
-    
+
 </html>
