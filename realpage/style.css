@@ -41,12 +41,3 @@ header, body, footer{
     display: inline-block;
     margin: 1em;
 }
-
-.anchor{
-    position: relative;
-}
-
-.anchor_bottom{
-    position: absolute;
-    bottom: 0;
-}
