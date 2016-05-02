@@ -22,7 +22,7 @@ include('session.php');
                     <i class="material-icons">menu</i>
                 </a>
                 <ul id="slide-out" class="side-nav fixed">
-                    <li class="active white-text"><a href="dashboard.php">[Company Logo]</a></li>
+                    <li><a href="dashboard.php"><img class="responsive-img" src="img/company-logo-blue.png"></a></li>
                     <li><a href="timerecord.php">Time Record</a></li>
                     <li><a href="leaves.php">Leaves</a></li>
                     <li><a href="salaryreport.php">Salary Report</a></li>
