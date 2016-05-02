@@ -29,11 +29,11 @@ include('leaves_functionality.php');
                     <li><a href="salaryreport.php">Salary Report</a></li>
                     <li><a href="account.php">Account</a></li>
                     <li><a href="logout.php">Logout</a></li>
-                </ul>       
+                </ul>
             </div>
         </nav>
         <!--Navbar-->
-        
+
         <div id="main" class="center_container">
 
             <!--Column Guide-->
@@ -54,77 +54,77 @@ include('leaves_functionality.php');
             </div>
             -->
             <!--Column Guide-->
-            
+
             <div class="row">
-                
+
                 <div class="col s4">
-                
+
                 <!--Remaining Leaves Card-->
                 <div class="card col s12 hoverable">
                     <div class="card-content center">
                         <span class="card-title" style="font-size:26px">Remaining Leaves</span>
-                        
+
                         <div id="canvas">
                             <div class="circle" id="leaves_circle"></div>
                         </div>
-                        
-                        <p class="apply_roboto" style="font-size:18px">Total Leaves: 420</p>                   
+
+                        <p class="apply_roboto" style="font-size:18px">Total Leaves: 420</p>
                     </div>
-                    
+
                     <div class="card-reveal blue-grey darken-4 white-text">
                         <span class="card-title">Request Leave<i class="material-icons right">close</i></span>
                         <form action="" method="POST">
                             <div class="input-field">
                                 <input name="date_picker" id="date_picker" type="date" class="datepicker">
-                            </div>      
-                            
+                            </div>
+
                             <div class="input-field">
                                 <textarea id="leave_reason_text" name="leave_reason_text" class="materialize-textarea white-text"></textarea>
                                 <label for="leave_reason_text">Reason for Leave</label>
                             </div>
 
-                           
-                            <button class="btn waves-effect waves-light" type="submit" name="submit" value="request_leave">Submit</button>          
+
+                            <button class="btn waves-effect waves-light" type="submit" name="submit" value="request_leave">Submit</button>
                         </form>
                     </div>
-                    
+
                     <div class="card-action center">
-                        <a class="activator clickable_text teal-text">Request Leave</a>                        
+                        <a class="activator clickable_text teal-text">Request Leave</a>
                     </div>
                 </div>
                 <!--Remaining Leaves Card-->
-                
+
                 <!--Leave Approval Card-->
                 <div class="card right col s12 hoverable">
                     <div class="card-content center">
                         <span class="card-title">Pending Approval</span>
-                        <!--Change to PHP code-->                        
+                        <!--Change to PHP code-->
                         <h1 class="">2 Days</h1>
                         <p class="apply_roboto teal-text" style="font-size:18px">April 20, 2017 - April 21, 2017</p>
                     </div>
-                    
+
                     <div class="card-reveal blue-grey darken-4 white-text">
                         <span class="card-title">Approved Leave<i class="material-icons right">close</i></span>
                         <!--Change to PHP code-->
                         <h1 class=" center ">3 Days</h1>
                         <p class="apply_roboto teal-text center" style="font-size:18px">August 19, 2016 - April 22, 2016</p>
                     </div>
-                    
+
                     <div class="card-action center">
                         <a class="activator clickable_text teal-text">Approved Leaves</a>
                     </div>
                 </div>
                 <!--Leave Approval Card-->
-                
+
                 </div>
-                
+
                 <!--Leaves Summary-->
                 <div class="card leave_summary_card col s7 offset-s1 hoverable">
-                    
+
                     <div class="card-content center">
-                        <span class="card-title">Leaves Summary</span>                       
+                        <span class="card-title">Leaves Summary</span>
                     </div>
-                    
+
                     <div class="row center">
                         <div class="col s4" id="canvas">
                             <div class="circle" id="leaves_summary1"></div>
@@ -137,12 +137,12 @@ include('leaves_functionality.php');
                         <div class="col s4" id="canvas">
                             <div class="circle" id="leaves_summary3"></div>
                             <p class="apply_roboto" style="font-size: 18px">Sick Leave</p>
-                        </div>                                                
+                        </div>
                     </div>
-                    
+
                     <div class="divider"></div>
                     <div class="row center">
-                        
+
                         <table class="highlight centered apply_roboto">
                             <thead>
                                 <tr>
@@ -151,7 +151,7 @@ include('leaves_functionality.php');
                                     <th>Type</th>
                                 </tr>
                             </thead>
-                            
+
                             <tbody>
                                 <!--Put PHP loop here-->
                                 <tr>
@@ -161,23 +161,23 @@ include('leaves_functionality.php');
                                 </tr>
                             </tbody>
                         </table>
-                        
+
                     </div>
-                    
+
                 </div>
                 <!--Leave Summary-->
 
             </div>
 
         </div>
-        
+
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="https://code.jquery.com/ui/1.12.0-rc.2/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script type="text/javascript" src="js/circles.min.js"></script>
         <script type="text/javascript" src="js/picker.js"></script>
         <script type="text/javascript" src="js/picker.date.js"></script>
-        
+
         <script>
             /**
             $(document).ready(function(){
@@ -187,10 +187,10 @@ include('leaves_functionality.php');
                 });
             });
             */
-            
+
             $(document).ready(function(){
-               $(".button-collapse").sideNav(); 
-               
+               $(".button-collapse").sideNav();
+
                var myCircle = Circles.create({
                     id:                  'leaves_circle',
                     radius:              70,
@@ -207,17 +207,22 @@ include('leaves_functionality.php');
                     styleWrapper:        true,
                     styleText:           true
                });
-               
+
                var circles = [];
-               
+
+               //Array of leave values
+               var circle_values = [];
+               circle_values.push(<?php echo $leaves_taken; ?>);
+               circle_values.push(<?php echo $maternity_leaves; ?>);
+               circle_values.push(<?php echo $sick_leaves; ?>);
+
                for (var i = 1; i <= 3; i++){
                    var circle = document.getElementById('leaves_summary' + i);
-                   var circle_val = (i  * 10); //Replace with php query
-                   
+
                    circles.push(Circles.create({
                         id:                  circle.id,
                         radius:              45,
-                        value:               circle_val, //Replace with php query
+                        value:               circle_values[i-1],
                         maxValue:            100, //Replace with php query
                         width:               10,
                         text:                function(value){return value;},
@@ -228,13 +233,13 @@ include('leaves_functionality.php');
                         valueStrokeClass:    'circles-valueStroke',
                         maxValueStrokeClass: 'circles-maxValueStroke',
                         styleWrapper:        true,
-                        styleText:           true                     
+                        styleText:           true
                    }));
                }
-               
+
             });
         </script>
-        
+
     </body>
 
 </html>

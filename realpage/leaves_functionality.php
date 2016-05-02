@@ -18,8 +18,12 @@ if(!$user_login = $_SESSION['login_user']){
 }
 
 $fetch_info = <<<SQL
-SELECT username, remaining_leaves
-FROM employees WHERE username='$user_login'
+SELECT employees.username "username", employees.remaining_leaves "remaining_leaves",
+(SELECT COUNT(*) FROM leaves) "leaves_taken",
+(SELECT COUNT(*) FROM leaves WHERE leave_types_id=1) "maternity_leaves",
+(SELECT COUNT(*) FROM leaves WHERE leave_types_id=2) "sick_leaves"
+FROM employees, leaves
+WHERE employees.username='$user_login' AND leaves.employees_id = employees.id
 SQL;
 
 if(!$result = $db->query($fetch_info)){
@@ -29,6 +33,9 @@ if(!$result = $db->query($fetch_info)){
 $row = $result->fetch_assoc();
 $login_session = $row['username'];
 $remaining_leaves = $row['remaining_leaves'];
+$leaves_taken = $row['leaves_taken'];
+$maternity_leaves = $row['maternity_leaves'];
+$sick_leaves = $row['sick_leaves'];
 
 if(isset($_POST['submit'])){
     if(empty($_POST['date_picker'])){
