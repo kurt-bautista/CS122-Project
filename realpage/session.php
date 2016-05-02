@@ -1,5 +1,5 @@
 <?php
-
+//session_start();
 $server = 'localhost';
 $server_user = 'root';
 $server_pass = '';
@@ -17,7 +17,7 @@ if(!$user_login = $_SESSION['login_user']){
 }
 
 $fetch_info = <<<SQL
-    SELECT username, first_name, last_name, remaining_leaves FROM employees
+    SELECT id, username, first_name, last_name, remaining_leaves FROM employees
     WHERE username='$user_login'
 SQL;
 
@@ -28,6 +28,7 @@ if(!$result = $db->query($fetch_info)){
 $row = $result->fetch_assoc();
 $login_session = $row['username'];
 $first_name = $row['first_name'];
+$_SESSION['employee_id'] = $row['id'];
 if(isset($login_session)){
     $db->close();
     //header("location: index.php");
