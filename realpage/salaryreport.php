@@ -19,7 +19,7 @@
                     <i class="material-icons">menu</i>
                 </a>
                 <ul id="slide-out" class="side-nav fixed">
-                    <li><a href="dashboard.php">[Company Logo]</a></li>
+                    <li><a href="dashboard.php"><img class="responsive-img" src="img/company-logo-blue.png"></a></li>
                     <li><a href="timerecord.php">Time Record</a></li>
                     <li><a href="leaves.php">Leaves</a></li>
                     <li class="active"><a href="salaryreport.php">Salary Report</a></li>

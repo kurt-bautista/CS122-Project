@@ -17,7 +17,7 @@ if(!$user_login = $_SESSION['login_user']){
 }
 
 $fetch_info = <<<SQL
-    SELECT username, first_name, last_name, remaining_leaves FROM login
+    SELECT username, first_name, last_name, remaining_leaves FROM employees
     WHERE username='$user_login'
 SQL;
 
