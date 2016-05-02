@@ -37,7 +37,7 @@ ADD FOREIGN KEY(leave_types_id) REFERENCES leave_types(id);
 
 CREATE TABLE workdays(id INT NOT NULL PRIMARY KEY,
 	time_in DATETIME NOT NULL,
-	time_out DATETIME NOT NULL,
+	time_out DATETIME,
 	overtime_hours INT, --total hours?
 	employees_id INT NOT NULL,
 	leaves_id INT,
