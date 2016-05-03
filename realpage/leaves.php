@@ -27,6 +27,11 @@ include('leaves_functionality.php');
                     <li><a href="timerecord.php">Time Record</a></li>
                     <li class="active"><a href="leaves.php">Leaves</a></li>
                     <li><a href="salaryreport.php">Salary Report</a></li>
+                    
+                    <?php if($_SESSION['employee_type'] == 'Manager'){?>
+                    <li><a href="manager.php">Manager</a></li>
+                    <?php } ?>
+                    
                     <li><a href="account.php">Account</a></li>
                     <li><a href="logout.php">Logout</a></li>
                 </ul>       
@@ -35,25 +40,6 @@ include('leaves_functionality.php');
         <!--Navbar-->
         
         <div id="main" class="center_container">
-
-            <!--Column Guide-->
-            <!--
-            <div class="row">
-                <div class="col s1 teal">1</div>
-                <div class="col s1 teal accent-3">2</div>
-                <div class="col s1 teal">3</div>
-                <div class="col s1 teal accent-3">4</div>
-                <div class="col s1 teal">5</div>
-                <div class="col s1 teal accent-3">6</div>
-                <div class="col s1 teal">7</div>
-                <div class="col s1 teal accent-3">8</div>
-                <div class="col s1 teal">9</div>
-                <div class="col s1 teal accent-3">10</div>
-                <div class="col s1 teal">11</div>
-                <div class="col s1 teal accent-3">12</div>
-            </div>
-            -->
-            <!--Column Guide-->
             
             <div class="row">
                 
