@@ -59,3 +59,6 @@ ALTER TABLE leave_types
 DROP COLUMN paid;
 
 INSERT INTO leave_types(name) VALUES ('Sick'), ('Vacation'), ('Special Privilege'), ('Maternity'), ('Paternity');
+
+ALTER TABLE leaves
+ADD COLUMN date_used DATETIME;
