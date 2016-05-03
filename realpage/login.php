@@ -41,6 +41,11 @@ SQL;
         //There must be exactly one row
         if($result->num_rows == 1){
             $_SESSION['login_user'] = $username;
+            //Checks for emplyee type
+            $row = $result->fetch_assoc();
+            $employee_type = $row['employee_type'];
+            $_SESSION['employee_type'] = $employee_type;
+            
             header("location: dashboard.php");
         }
         else{

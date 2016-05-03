@@ -14,10 +14,6 @@ CREATE TABLE employees(
 	holiday_type VARCHAR(255) NOT NULL,
 	employee_contracts_id INT);
 
-INSERT INTO employees (username,password,first_name,last_name,remaining_leaves,employee_type,holiday_type,employee_contracts_id) VALUES (
-    'antonsuba', '420blazeit', 'Anton', 'Suba', 69,'Regular','Local',NULL
-);
-
 CREATE TABLE employee_contracts(
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	start_date DATE NOT NULL,
@@ -52,10 +48,6 @@ CREATE TABLE leave_requests(
   FOREIGN KEY(employees_id) REFERENCES employees(id)
 );
 
-INSERT INTO employees (username,password,first_name,last_name,remaining_leaves) VALUES (
-    'antonsuba', '420blazeit', 'Anton', 'Suba', 69
-);
-
 CREATE TABLE workdays(
   id INT NOT NULL PRIMARY KEY,
 	time_in DATETIME NOT NULL,
@@ -71,3 +63,7 @@ ADD FOREIGN KEY(workdays_id) REFERENCES workdays(id);
 
 ALTER TABLE workdays
 ADD COLUMN employees_hourly_rate DECIMAL NOT NULL;
+
+INSERT INTO employees (username,password,first_name,last_name,remaining_leaves,employee_type,holiday_type,employee_contracts_id) VALUES (
+    'antonsuba', '420blazeit', 'Anton', 'Suba', 69,'Manager','Local',NULL
+);

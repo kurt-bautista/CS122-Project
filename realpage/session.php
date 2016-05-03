@@ -31,6 +31,5 @@ $first_name = $row['first_name'];
 $_SESSION['employee_id'] = $row['id'];
 if(isset($login_session)){
     $db->close();
-    //header("location: index.php");
 }
 ?>

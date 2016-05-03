@@ -18,7 +18,7 @@ if(!$user_login = $_SESSION['login_user']){
 }
 
 $fetch_info = <<<SQL
-SELECT username, remaining_leaves
+SELECT username, remaining_leaves, employee_type
 FROM employees WHERE username='$user_login'
 SQL;
 
@@ -29,6 +29,7 @@ if(!$result = $db->query($fetch_info)){
 $row = $result->fetch_assoc();
 $login_session = $row['username'];
 $remaining_leaves = $row['remaining_leaves'];
+$employee_type = $_SESSION['employee_type'];
 
 if(isset($_POST['submit'])){
     if(empty($_POST['date_picker'])){

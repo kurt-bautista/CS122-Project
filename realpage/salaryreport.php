@@ -23,6 +23,11 @@
                     <li><a href="timerecord.php">Time Record</a></li>
                     <li><a href="leaves.php">Leaves</a></li>
                     <li class="active"><a href="salaryreport.php">Salary Report</a></li>
+                    
+                    <?php if($_SESSION['employee_type'] == 'Manager'){?>
+                    <li><a href="manager.php">Manager</a></li>
+                    <?php } ?>
+                    
                     <li><a href="account.php">Account</a></li>
                     <li><a href="logout.php">Logout</a></li>
                 </ul>       
