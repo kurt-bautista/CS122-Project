@@ -4,7 +4,7 @@ $error = '';
 $server = 'localhost';
 $server_user = 'root';
 $server_pass = '';
-$database_name = 'company';
+$database_name = 'realpagetest';
 
 $db = new mysqli($server, $server_user, $server_pass, $database_name);
 
