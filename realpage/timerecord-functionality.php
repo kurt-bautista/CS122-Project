@@ -29,8 +29,8 @@
 			$rate->bind_param('i', $_SESSION['employee_id']);
 			$rate->execute();
 			$rate->bind_result($hourly_rate);
-			$row = $rate->get_result();
-			$hourly_rate = $row->fetch_all(MYSQLI_ASSOC);
+			$result = $rate->get_result();
+			$hourly_rate = $result->fetch_assoc();
 			$workday = $db->prepare("INSERT INTO workdays(time_in, employees_id, employees_hourly_rate) VALUES (?, ?, ?)");
 			$workday->bind_param('sid', $timeNow, $_SESSION['employee_id'], $hourly_rate['Hourly Rate']);
 			$workday->execute();
