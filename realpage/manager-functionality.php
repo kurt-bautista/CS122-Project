@@ -17,10 +17,10 @@
 
 	if(isset($_POST['submit']))
 	{
-		$employee_type = 'regular';
-		$holiday_type = 'regular';
-		$s_date = '2000-4-20';
-		$e_date = '2010-4-20';
+		$employee_type = 'regular'; //pls fix
+		$holiday_type = 'regular'; //
+		$s_date = '2000-4-20'; //
+		$e_date = '2010-4-20'; //
 		$newEmp = $db->prepare("INSERT INTO employees(username, password, first_name, last_name, remaining_leaves, employee_type, holiday_type) VALUES (?, ?, ?, ?, ?, ?, ?)");
 		$newEmp->bind_param('ssssiss', $_POST['username'], $_POST['password'], $_POST['first_name'], $_POST['last_name'], $_POST['allotted_leaves'], $employee_type, $holiday_type);
 		$newEmp->execute();
