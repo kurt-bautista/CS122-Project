@@ -17,7 +17,6 @@
 		header("location: index.php");
 	}
 
-<<<<<<< 7d47eb902bc00f2091848255c0c9757b65687b90
 	$empId = $_SESSION['employee_id'];
 	$getContract = <<<SQL
 	SELECT *
@@ -65,7 +64,6 @@ SQL;
 		$result = $getWorkdays->get_result();
 		$table = $result->fetch_all(MYSQLI_ASSOC);
 	}
-
 	$months = array("January"=>1, "February"=>2, "March"=>3, "April"=>4, "May"=>5, "June"=>6, "July"=>7, "August"=>8, "September"=>9, "October"=>10, "November"=>11, "December"=>12);
 	$getWorkdays = $db->prepare("SELECT DATE(time_in) AS 'Date', TIME(time_in) AS 'Time In', TIME(time_out) AS 'Time Out', 
 	CASE WHEN HOUR(TIMEDIFF(time_out, time_in)) - 8 > 0 THEN HOUR(TIMEDIFF(time_out, time_in)) - 8 
