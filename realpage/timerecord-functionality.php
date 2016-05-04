@@ -17,6 +17,7 @@
 		header("location: index.php");
 	}
 
+<<<<<<< 7d47eb902bc00f2091848255c0c9757b65687b90
 	$empId = $_SESSION['employee_id'];
 	$getContract = <<<SQL
 	SELECT *
