@@ -15,29 +15,41 @@
 		header("location: index.php");
 	}
 
-	if(isset($_POST['submit'])){
+	$workday_id = 0;
+
+	if(isset($_POST['submit']))
+	{
 		$time = new DateTime();
 		$time->format('Y-m-d H:i:s');
 		$timeNow = $time->getTimestamp();
-		if($_POST['submit'] == 'Time In'){
+
+		if($_POST['submit'] == 'Time In')
+		{
 			$rate = $db->prepare("SELECT hourly_rate AS Hourly Rate FROM employee_contracts WHERE employees_id = ?");
 			$rate->bind_param('i', $_SESSION['employee_id']);
 			$rate->execute();
 			$rate->bind_result($hourly_rate);
 			$row = $rate->get_result();
-			$hourly_rate = $row->fetch_array(MYSQLI_ASSOC);
+			$hourly_rate = $row->fetch_all(MYSQLI_ASSOC);
 			$workday = $db->prepare("INSERT INTO workdays(time_in, employees_id, employees_hourly_rate) VALUES (?, ?, ?)");
 			$workday->bind_param('sid', $timeNow, $_SESSION['employee_id'], $hourly_rate['Hourly Rate']);
 			$workday->execute();
-			$_SESSION['workday_id'] = $workday->insert_id;
+			$workday_id = $workday->insert_id;
 			$rate->close();
 			$workday->close();
 		}
-		else{
+		else
+		{
 			$timeOut = $db->prepare("UPDATE workdays SET time_out = ? WHERE employees_id = ? AND id = ?");
-			$timeOut->bind_param('sii', $timeNow, $_SESSION['employee_id'], $_SESSION['workday_id']);
+			$timeOut->bind_param('sii', $timeNow, $_SESSION['employee_id'], $workday_id);
 			$timeOut->execute();
 			$timeOut->close();
 		}
+		$months = array("January"=>1, "February"=>2, "March"=>3, "April"=>4, "May"=>5, "June"=>6, "July"=>7, "August"=>8, "September"=>9, "October"=>10, "November"=>11, "December"=>12);
+		$getWorkdays = $db->prepare("SELECT DATE_FORMAT(time_in, '%Y-%m-%d') AS "Date", DATE_FORMAT(time_in, '%H:%i:%s') AS "Time In", DATE_FORMAT(time_out, '%H:%i:%s') AS "Time Out" FROM workdays WHERE YEAR(CURDATE()) = YEAR(time_in) AND MONTH(time_in) = ?");
+		$getWorkdays->bind_param('i', $months['January']);
+		$getWorkdays->execute();
+		$result = $getWorkdays->get_result();
+		$table = $result->fetch_all(MYSQLI_ASSOC);
 	}
 ?>
