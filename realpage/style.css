@@ -41,3 +41,13 @@ header, body, footer{
     display: inline-block;
     margin: 1em;
 }
+
+/*Time Record Page*/
+.time_in_out_card{
+    height: 150px;
+}
+
+/*Manager Page*/
+.team_status_card{
+    height: 675px;
+}

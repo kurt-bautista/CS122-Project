@@ -39,18 +39,16 @@ include('session.php');
         <!--Navbar-->
         
         <div id="main" class="container">
-            <h1 class="center"> Welcome <?php echo $first_name; ?> </h1>   
-        
-        <div class="row">
             
-            <!--Time In Time Out Card-->
-            <div class="card medium col s3 offset-s1 hoverable">
-                <div class="card-content center">
-                    <span class="card-title">Time Record</span>
-                </div>
+            <h1 class="center"> Welcome <?php echo $first_name; ?> </h1>
+               
+            <div class="row">
+                <p class="apply_roboto center" style="font-size:35px">Here are a few things to get you started</p>
             </div>
             
-        </div>
+            <div class="row">
+                
+            </div>
         </div>
             
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

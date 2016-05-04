@@ -40,30 +40,6 @@ include('leaves_functionality.php');
         <!--Navbar-->
 
         <div id="main" class="center_container">
-<<<<<<< HEAD
-            
-=======
-
-            <!--Column Guide-->
-            <!--
-            <div class="row">
-                <div class="col s1 teal">1</div>
-                <div class="col s1 teal accent-3">2</div>
-                <div class="col s1 teal">3</div>
-                <div class="col s1 teal accent-3">4</div>
-                <div class="col s1 teal">5</div>
-                <div class="col s1 teal accent-3">6</div>
-                <div class="col s1 teal">7</div>
-                <div class="col s1 teal accent-3">8</div>
-                <div class="col s1 teal">9</div>
-                <div class="col s1 teal accent-3">10</div>
-                <div class="col s1 teal">11</div>
-                <div class="col s1 teal accent-3">12</div>
-            </div>
-            -->
-            <!--Column Guide-->
-
->>>>>>> origin/leaves_functionality
             <div class="row">
 
                 <div class="col s4">
@@ -123,8 +99,13 @@ include('leaves_functionality.php');
                     <div class="card-reveal blue-grey darken-4 white-text">
                         <span class="card-title">Approved Leave<i class="material-icons right">close</i></span>
                         <!--Change to PHP code-->
-                        <h1 class=" center "><?php echo $approved_leave_duration ?> Day(s)</h1>
-                        <p class="apply_roboto teal-text center" style="font-size:18px"><?php echo $approved_leave_start_date." - ".$approved_leave_end_date; ?></p>
+                        <?php if($approved_leave_start_date): ?>
+                            <h1 class=" center "><?php echo $approved_leave_duration ?> Day(s)</h1>
+                            <p class="apply_roboto teal-text center" style="font-size:18px"><?php echo $approved_leave_start_date." - ".$approved_leave_end_date; ?></p>
+                        <?php else: ?>
+                            <h1 class=" center ">No upcoming leaves</h1>
+                            <p class="apply_roboto teal-text center" style="font-size:18px"></p>
+                        <?php endif; ?>
                     </div>
 
                     <div class="card-action center">
@@ -171,13 +152,17 @@ include('leaves_functionality.php');
 
                             <tbody>
                                 <!--Put PHP loop here-->
-                                <?php for($i = 0; $i < $leaves_count; $i++){ ?>
-                                  <tr>
-                                      <td><?php echo $all_leaves[$i][3]; ?> Day(s)</td>
-                                      <td><?php echo date('F d, Y', strtotime($all_leaves[$i][0])); ?></td>
-                                      <td><?php echo $all_leaves[$i][2]; ?></td>
-                                  </tr>
-                                <?php }; ?>
+                                <?php if($leaves_count > 0): ?>
+                                    <?php for($i = 0; $i < $leaves_count; $i++){ ?>
+                                    <tr>
+                                        <td><?php echo $all_leaves[$i][3]; ?> Day(s)</td>
+                                        <td><?php echo date('F d, Y', strtotime($all_leaves[$i][0])); ?></td>
+                                        <td><?php echo $all_leaves[$i][2]; ?></td>
+                                    </tr>
+                                    <?php }; ?>
+                                <?php else: ?>
+                                
+                                <?php endif; ?>
                             </tbody>
                         </table>
 

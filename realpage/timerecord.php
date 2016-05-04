@@ -40,27 +40,33 @@ include('timerecord_functionality.php');
         <!--Navbar-->
         
         <div id="main" class="center_container">
-
-            <!--Column Guide-->
-            <div class="row">
-                <div class="col s1 teal">1</div>
-                <div class="col s1 teal accent-3">2</div>
-                <div class="col s1 teal">3</div>
-                <div class="col s1 teal accent-3">4</div>
-                <div class="col s1 teal">5</div>
-                <div class="col s1 teal accent-3">6</div>
-                <div class="col s1 teal">7</div>
-                <div class="col s1 teal accent-3">8</div>
-                <div class="col s1 teal">9</div>
-                <div class="col s1 teal accent-3">10</div>
-                <div class="col s1 teal">11</div>
-                <div class="col s1 teal accent-3">12</div>
-            </div>
-            <!--Column Guide-->
             
+            <!--Time In - Time Out-->
             <div class="row">
+                <div class="card col s12 time_in_out_card hoverable">
+                    <div class="card-content">
+                        
+                    </div>
+                </div>
                 
+                <!--
+                <div class="card small col s7 offset-s1 hoverable">
+                    <div class="card-content">
+                        
+                    </div>
+                </div>-->
             </div>
+            <!--Time In - Time Out-->
+            
+            <!--Time Record Summary-->
+            <div class="row">
+                <div class="card col s12 center hoverable">
+                    <div class="card-content">
+                        <span class="card-title">Time In - Time Out Record</span>
+                    </div>
+                </div>
+            </div>
+            <!--Time Record Summary-->
             
         </div>
        
