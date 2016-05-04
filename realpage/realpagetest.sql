@@ -1,5 +1,4 @@
 DROP DATABASE IF EXISTS realpagetest;
-
 CREATE DATABASE realpagetest;
 USE realpagetest;
 
@@ -41,17 +40,6 @@ CREATE TABLE leave_types(
 ALTER TABLE leaves
 ADD FOREIGN KEY(leave_types_id) REFERENCES leave_types(id);
 
-/**
-CREATE TABLE leave_requests(
-  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  request_date DATE NOT NULL,
-  num_of_days INT NOT NULL,
-  leave_reason VARCHAR(255),
-  employees_id INT,
-  FOREIGN KEY(employees_id) REFERENCES employees(id)
-);
-*/
-
 CREATE TABLE workdays(
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	time_in DATETIME NOT NULL,
@@ -83,7 +71,4 @@ DROP COLUMN paid;
 INSERT INTO leave_types(name) VALUES ('Sick'), ('Vacation'), ('Special Privilege'), ('Maternity'), ('Paternity');
 
 ALTER TABLE leaves
-ADD COLUMN start_date DATE, ADD COLUMN end_date DATE, ADD COLUMN num_of_days INT, ADD COLUMN leave_reason VARCHAR(255);
-
-INSERT INTO leaves(status, employees_id, leave_types_id, workdays_id, start_date, end_date, num_of_days) VALUES
-('APPROVED', 1, 1, NULL, '2016-04-15','2016-04-20', 5), ('APPROVED', 1, 4, NULL, '2016-05-03','2016-05-06', 3);
+ADD COLUMN start_date DATE, ADD COLUMN end_date DATE, ADD COLUMN duration INT, ADD COLUMN leave_reason VARCHAR(255);
