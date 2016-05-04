@@ -13,7 +13,7 @@ CREATE TABLE employees(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 
 CREATE TABLE employee_contracts(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	start_date DATE NOT NULL,
-	duration DATE NOT NULL,
+	end_date DATE NOT NULL,
 	hourly_rate DOUBLE NOT NULL,
 	employees_id INT NOT NULL,
 	FOREIGN KEY(employees_id) REFERENCES employees(id));
@@ -37,7 +37,7 @@ ADD FOREIGN KEY(leave_types_id) REFERENCES leave_types(id);
 
 CREATE TABLE workdays(id INT NOT NULL PRIMARY KEY,
 	time_in DATETIME NOT NULL,
-	time_out DATETIME NOT NULL,
+	time_out DATETIME,
 	overtime_hours INT, --total hours?
 	employees_id INT NOT NULL,
 	leaves_id INT,
@@ -51,3 +51,14 @@ ALTER TABLE workdays
 ADD COLUMN employees_hourly_rate DECIMAL NOT NULL;
 
 INSERT INTO employees(username, password, employee_type, holiday_type) VALUES ('admin', 'password', 'manager', 'regular');
+
+ALTER TABLE employee_contracts
+ADD COLUMN alloted_leaves INT NOT NULL;
+
+ALTER TABLE leave_types
+DROP COLUMN paid;
+
+INSERT INTO leave_types(name) VALUES ('Sick'), ('Vacation'), ('Special Privilege'), ('Maternity'), ('Paternity');
+
+ALTER TABLE leaves
+ADD COLUMN date_used DATETIME;

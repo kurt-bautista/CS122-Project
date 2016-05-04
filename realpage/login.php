@@ -14,8 +14,8 @@ if(isset($_POST['submit'])){
         $server = 'localhost';
         $server_user = 'root';
         $server_pass = '';
-        $database_name = 'realpagetest';
-
+        $database_name = 'company';
+        
         $db = new mysqli($server, $server_user, $server_pass, $database_name);
 
         if($db->connect_errno > 0){
