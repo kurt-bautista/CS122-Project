@@ -1,7 +1,7 @@
 <html>
     
     <head>
-        <title>Time Record</title>
+        <title>Salary Report</title>
         
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
