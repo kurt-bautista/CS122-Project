@@ -13,7 +13,7 @@ CREATE TABLE employees(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 
 CREATE TABLE employee_contracts(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	start_date DATE NOT NULL,
-	duration DATE NOT NULL,
+	end_date DATE NOT NULL,
 	hourly_rate DOUBLE NOT NULL,
 	employees_id INT NOT NULL,
 	FOREIGN KEY(employees_id) REFERENCES employees(id));
