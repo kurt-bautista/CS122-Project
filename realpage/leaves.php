@@ -99,15 +99,23 @@ include('leaves_functionality.php');
                     <div class="card-content center">
                         <span class="card-title">Pending Approval</span>
                         <!--Change to PHP code-->
-                        <h1 class="">2 Days</h1>
-                        <p class="apply_roboto teal-text" style="font-size:18px">April 20, 2017 - April 21, 2017</p>
+                        <?php if ($number_of_days < 1): ?>
+                          <h1 class="">No current pending leaves</h1>
+                        <?php else: ?>
+                          <h1 class=""><?php echo $number_of_days ?> Day(s)</h1>
+                        <?php endif; ?>
+
+                        <?php if ($start_date): ?>
+                            <p class="apply_roboto teal-text" style="font-size:18px"><?php echo date('F d, Y', strtotime($start_date))." - ".date('F d, Y', strtotime($end_date)); ?></p>
+                        <?php endif; ?>
+
                     </div>
 
                     <div class="card-reveal blue-grey darken-4 white-text">
                         <span class="card-title">Approved Leave<i class="material-icons right">close</i></span>
                         <!--Change to PHP code-->
-                        <h1 class=" center ">3 Days</h1>
-                        <p class="apply_roboto teal-text center" style="font-size:18px">August 19, 2016 - April 22, 2016</p>
+                        <h1 class=" center "><?php echo $approved_leave_duration ?> Day(s)</h1>
+                        <p class="apply_roboto teal-text center" style="font-size:18px"><?php echo $approved_leave_start_date." - ".$approved_leave_end_date; ?></p>
                     </div>
 
                     <div class="card-action center">
@@ -154,11 +162,13 @@ include('leaves_functionality.php');
 
                             <tbody>
                                 <!--Put PHP loop here-->
-                                <tr>
-                                    <td>1</td>
-                                    <td>April 20, 2016</td>
-                                    <td>Sick Leave</td>
-                                </tr>
+                                <?php for($i = 0; $i < $leaves_count; $i++){ ?>
+                                  <tr>
+                                      <td><?php echo $all_leaves[$i][3]; ?> Day(s)</td>
+                                      <td><?php echo date('F d, Y', strtotime($all_leaves[$i][0])); ?></td>
+                                      <td><?php echo $all_leaves[$i][2]; ?></td>
+                                  </tr>
+                                <?php }; ?>
                             </tbody>
                         </table>
 

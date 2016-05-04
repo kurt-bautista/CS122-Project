@@ -15,7 +15,7 @@ CREATE TABLE employees(
 	employee_contracts_id INT);
 
 INSERT INTO employees (username,password,first_name,last_name,remaining_leaves,employee_type,holiday_type,employee_contracts_id) VALUES (
-    'antonsuba', '420blazeit', 'Anton', 'Suba', 69,'Regular','Local',NULL
+    'antonsuba', '420blazeit', 'Anton', 'Suba', 69, 'Regular','Local',NULL
 );
 
 CREATE TABLE employee_contracts(
@@ -45,13 +45,16 @@ CREATE TABLE leave_types(
 ALTER TABLE leaves
 ADD FOREIGN KEY(leave_types_id) REFERENCES leave_types(id);
 
+/**
 CREATE TABLE leave_requests(
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   request_date DATE NOT NULL,
+  num_of_days INT NOT NULL,
   leave_reason VARCHAR(255),
   employees_id INT,
   FOREIGN KEY(employees_id) REFERENCES employees(id)
 );
+*/
 
 CREATE TABLE workdays(
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -68,3 +71,16 @@ ADD FOREIGN KEY(workdays_id) REFERENCES workdays(id);
 
 ALTER TABLE workdays
 ADD COLUMN employees_hourly_rate DECIMAL NOT NULL;
+
+INSERT INTO employees(username, password, employee_type, holiday_type) VALUES ('admin', 'password', 'manager', 'regular');
+
+ALTER TABLE employee_contracts
+ADD COLUMN alloted_leaves INT NOT NULL;
+
+ALTER TABLE leave_types
+DROP COLUMN paid;
+
+INSERT INTO leave_types(name) VALUES ('Sick'), ('Vacation'), ('Special Privilege'), ('Maternity'), ('Paternity');
+
+ALTER TABLE leaves
+ADD COLUMN start_date DATE, ADD COLUMN end_date DATE, ADD COLUMN num_of_days INT, ADD COLUMN leave_reason VARCHAR(255);
