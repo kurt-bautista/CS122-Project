@@ -9,6 +9,7 @@
 	if($db->connect_errno > 0){
 		die('Unable to connect to database [' . $db->connect_error . ']');
 	}
+
 	ini_set('session.gc_maxlifetime', 86400);
 	session_set_cookie_params(86400);
 	session_start();
