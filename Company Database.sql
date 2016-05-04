@@ -25,7 +25,6 @@ CREATE TABLE leaves(id INT NOT NULL PRIMARY KEY,
 	status VARCHAR(255) NOT NULL,
 	employees_id INT NOT NULL,
 	leave_types_id INT NOT NULL,
-	workdays_id INT,
 	FOREIGN KEY(employees_id) REFERENCES employees(id));
 
 CREATE TABLE leave_types(id INT NOT NULL PRIMARY KEY,
@@ -43,9 +42,6 @@ CREATE TABLE workdays(id INT NOT NULL PRIMARY KEY,
 	leaves_id INT,
 	FOREIGN KEY(employees_id) REFERENCES employees(id),
 	FOREIGN KEY(leaves_id) REFERENCES leaves(id));
-
-ALTER TABLE leaves
-ADD FOREIGN KEY(workdays_id) REFERENCES workdays(id);
 
 ALTER TABLE workdays
 ADD COLUMN employees_hourly_rate DECIMAL NOT NULL;
