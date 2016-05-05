@@ -10,8 +10,10 @@ CREATE TABLE employees(
 	last_name VARCHAR(255),
 	remaining_leaves INT NOT NULL,
 	employee_type VARCHAR(255) NOT NULL,
+	manager_id INT,
 	holiday_type VARCHAR(255) NOT NULL,
-	employee_contracts_id INT);
+	employee_contracts_id INT,
+	FOREIGN KEY(manager_id) REFERENCES employees(id));
 
 CREATE TABLE employee_contracts(
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -52,7 +54,7 @@ CREATE TABLE workdays(
 ALTER TABLE workdays
 ADD COLUMN employees_hourly_rate DECIMAL NOT NULL;
 
-INSERT INTO employees(username, password, employee_type, holiday_type) VALUES ('admin', 'password', 'manager', 'regular');
+INSERT INTO employees(username, password, remaining_leaves, employee_type, holiday_type) VALUES ('admin', 'password', 0, 'manager', 'regular');
 
 ALTER TABLE employee_contracts
 ADD COLUMN alloted_leaves INT NOT NULL;
