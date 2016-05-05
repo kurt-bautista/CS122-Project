@@ -28,7 +28,7 @@ include('timerecord_functionality.php');
                     <li><a href="leaves.php">Leaves</a></li>
                     <li><a href="salaryreport.php">Salary Report</a></li>
                     
-                    <?php if($_SESSION['employee_type'] == 'Manager'){?>
+                    <?php if($_SESSION['employee_type'] == 'manager'){?>
                     <li><a href="manager.php">Manager</a></li>
                     <?php } ?>
                     
