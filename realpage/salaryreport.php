@@ -1,11 +1,7 @@
-<?php
-include('session.php');
-?>
-
 <html>
     
     <head>
-        <title>Dashboard</title>
+        <title>Salary Report</title>
         
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -15,7 +11,8 @@ include('session.php');
     </head>
     
     <body class="grey lighten-5">
-        <!--Navbar [Copy this to all pages]-->
+
+         <!--Navbar [Copy this to all pages]-->
         <nav class="blue-grey darken-4">
             <div class="nav-wrapper">
                 <a href="#" data-activates="slide-out" class="button-collapse">
@@ -25,7 +22,7 @@ include('session.php');
                     <li><a href="dashboard.php"><img class="responsive-img" src="img/company-logo-blue.png"></a></li>
                     <li><a href="timerecord.php">Time Record</a></li>
                     <li><a href="leaves.php">Leaves</a></li>
-                    <li><a href="salaryreport.php">Salary Report</a></li>
+                    <li class="active"><a href="salaryreport.php">Salary Report</a></li>
                     
                     <?php if($_SESSION['employee_type'] == 'Manager'){?>
                     <li><a href="manager.php">Manager</a></li>
@@ -38,20 +35,28 @@ include('session.php');
         </nav>
         <!--Navbar-->
         
-        <div id="main" class="container">
-            
-            <h1 class="center"> Welcome <?php echo $first_name; ?> </h1>
-               
+        <div id="main" class="center_container">
+
+            <!--Column Guide-->
             <div class="row">
-                <p class="apply_roboto center" style="font-size:35px">Here are a few things to get you started</p>
+                <div class="col s1 teal">1</div>
+                <div class="col s1 teal accent-3">2</div>
+                <div class="col s1 teal">3</div>
+                <div class="col s1 teal accent-3">4</div>
+                <div class="col s1 teal">5</div>
+                <div class="col s1 teal accent-3">6</div>
+                <div class="col s1 teal">7</div>
+                <div class="col s1 teal accent-3">8</div>
+                <div class="col s1 teal">9</div>
+                <div class="col s1 teal accent-3">10</div>
+                <div class="col s1 teal">11</div>
+                <div class="col s1 teal accent-3">12</div>
             </div>
+            <!--Column Guide-->
             
-            <div class="row">
-                
-            </div>
         </div>
-            
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+       
+       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
         
         <script>            
@@ -59,6 +64,7 @@ include('session.php');
                $(".button-collapse").sideNav(); 
             });
         </script>
+        
     </body>
     
 </html>
