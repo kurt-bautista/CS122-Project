@@ -1,11 +1,11 @@
 <?php
-include('session.php');
+include('timerecord_functionality.php');
 ?>
 
 <html>
     
     <head>
-        <title>Dashboard</title>
+        <title>Time Record</title>
         
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -15,7 +15,8 @@ include('session.php');
     </head>
     
     <body class="grey lighten-5">
-        <!--Navbar [Copy this to all pages]-->
+
+         <!--Navbar [Copy this to all pages]-->
         <nav class="blue-grey darken-4">
             <div class="nav-wrapper">
                 <a href="#" data-activates="slide-out" class="button-collapse">
@@ -23,7 +24,7 @@ include('session.php');
                 </a>
                 <ul id="slide-out" class="side-nav fixed">
                     <li><a href="dashboard.php"><img class="responsive-img" src="img/company-logo-blue.png"></a></li>
-                    <li><a href="timerecord.php">Time Record</a></li>
+                    <li class="active"><a href="timerecord.php">Time Record</a></li>
                     <li><a href="leaves.php">Leaves</a></li>
                     <li><a href="salaryreport.php">Salary Report</a></li>
                     
@@ -38,20 +39,38 @@ include('session.php');
         </nav>
         <!--Navbar-->
         
-        <div id="main" class="container">
+        <div id="main" class="center_container">
             
-            <h1 class="center"> Welcome <?php echo $first_name; ?> </h1>
-               
+            <!--Time In - Time Out-->
             <div class="row">
-                <p class="apply_roboto center" style="font-size:35px">Here are a few things to get you started</p>
-            </div>
-            
-            <div class="row">
+                <div class="card col s12 time_in_out_card hoverable">
+                    <div class="card-content">
+                        
+                    </div>
+                </div>
                 
+                <!--
+                <div class="card small col s7 offset-s1 hoverable">
+                    <div class="card-content">
+                        
+                    </div>
+                </div>-->
             </div>
-        </div>
+            <!--Time In - Time Out-->
             
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+            <!--Time Record Summary-->
+            <div class="row">
+                <div class="card col s12 center hoverable">
+                    <div class="card-content">
+                        <span class="card-title">Time In - Time Out Record</span>
+                    </div>
+                </div>
+            </div>
+            <!--Time Record Summary-->
+            
+        </div>
+       
+       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
         
         <script>            
@@ -59,6 +78,7 @@ include('session.php');
                $(".button-collapse").sideNav(); 
             });
         </script>
+        
     </body>
     
 </html>
