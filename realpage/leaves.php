@@ -28,7 +28,7 @@ include('leaves_functionality.php');
                     <li class="active"><a href="leaves.php">Leaves</a></li>
                     <li><a href="salaryreport.php">Salary Report</a></li>
                     
-                    <?php if($_SESSION['employee_type'] == 'Manager'){?>
+                    <?php if($_SESSION['employee_type'] == 'manager'){?>
                     <li><a href="manager.php">Manager</a></li>
                     <?php } ?>
                     
@@ -149,7 +149,6 @@ include('leaves_functionality.php');
                             </thead>
 
                             <tbody>
-                                <!--Put PHP loop here-->
                                 <?php if($leaves_count > 0): ?>
                                     <?php for($i = 0; $i < $leaves_count; $i++){ ?>
                                     <tr>
