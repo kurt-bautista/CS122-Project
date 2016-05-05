@@ -98,7 +98,6 @@ include('leaves_functionality.php');
 
                     <div class="card-reveal blue-grey darken-4 white-text">
                         <span class="card-title">Approved Leave<i class="material-icons right">close</i></span>
-                        <!--Change to PHP code-->
                         <?php if(isset($approved_leave_start_date)): ?>
                             <h1 class=" center "><?php echo $approved_leave_duration ?> Day(s)</h1>
                             <p class="apply_roboto teal-text center" style="font-size:18px"><?php echo $approved_leave_start_date." - ".$approved_leave_end_date; ?></p>
@@ -150,8 +149,7 @@ include('leaves_functionality.php');
                                 </tr>
                             </thead>
 
-                            <tbody>
-                                <!--Put PHP loop here-->
+                            <tbody>                              
                                 <?php if($leaves_count > 0): ?>
                                     <?php for($i = 0; $i < $leaves_count; $i++){ ?>
                                     <tr>
