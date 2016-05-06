@@ -25,7 +25,7 @@
 
 		if($_POST['submit'] == 'Time In')
 		{
-			$rate = $db->prepare("SELECT hourly_rate AS Hourly Rate FROM employee_contracts WHERE employees_id = ?");
+			$rate = $db->prepare("SELECT hourly_rate 'Hourly Rate' FROM employee_contracts WHERE employees_id = ?");
 			$rate->bind_param('i', $_SESSION['employee_id']);
 			$rate->execute();
 			$rate->bind_result($hourly_rate);
