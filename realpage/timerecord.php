@@ -1,5 +1,5 @@
 <?php
-include('timerecord_functionality.php');
+include('timerecord-functionality.php');
 ?>
 
 <html>
@@ -44,8 +44,12 @@ include('timerecord_functionality.php');
             <!--Time In - Time Out-->
             <div class="row">
                 <div class="card col s12 time_in_out_card hoverable">
-                    <div class="<card></card>-content">
-                        
+                    <div class="card-content">
+                        <form action="" method="POST">
+                            <button class="btn waves-effect waves-light" type="submit" name="submit" value="Time In">
+                                Time In
+                            </button>
+                        </form>
                     </div>
                 </div>
                 

@@ -46,7 +46,7 @@
 			$timeOut->close();
 		}
 		$months = array("January"=>1, "February"=>2, "March"=>3, "April"=>4, "May"=>5, "June"=>6, "July"=>7, "August"=>8, "September"=>9, "October"=>10, "November"=>11, "December"=>12);
-		$getWorkdays = $db->prepare("SELECT DATE(time_in) AS "Date", TIME(time_in) AS "Time In", TIME(time_out) AS "Time Out" FROM workdays WHERE YEAR(CURDATE()) = YEAR(time_in) AND MONTH(time_in) = ?");
+		$getWorkdays = $db->prepare("SELECT DATE(time_in) AS 'Date', TIME(time_in) AS 'Time In', TIME(time_out) AS 'Time Out' FROM workdays WHERE YEAR(CURDATE()) = YEAR(time_in) AND MONTH(time_in) = ?");
 		$getWorkdays->bind_param('i', $months['January']);
 		$getWorkdays->execute();
 		$result = $getWorkdays->get_result();
