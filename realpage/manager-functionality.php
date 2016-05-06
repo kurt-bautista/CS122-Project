@@ -21,8 +21,8 @@
 		$holiday_type = 'regular'; //
 		$s_date = '2000-4-20'; //
 		$e_date = '2010-4-20'; //
-		$newEmp = $db->prepare("INSERT INTO employees(username, password, first_name, last_name, remaining_leaves, employee_type, manager_id, holiday_type) VALUES (?, ?, ?, ?, ?, 'regular', ?, ?)");
-		$newEmp->bind_param('ssssiis', $_POST['username'], $_POST['password'], $_POST['first_name'], $_POST['last_name'], $_POST['allotted_leaves'], $_SESSION['employee_id'], $holiday_type);
+		$newEmp = $db->prepare("INSERT INTO employees(username, password, first_name, last_name, remaining_leaves, employee_type, manager_id, holiday_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+		$newEmp->bind_param('ssssisis', $_POST['username'], $_POST['password'], $_POST['first_name'], $_POST['last_name'], $_POST['allotted_leaves'], $employee_type, $_SESSION['employee_id'], $holiday_type);
 		$newEmp->execute();
 		$empId = $newEmp->insert_id;
 		$newEmp->close();
