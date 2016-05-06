@@ -31,7 +31,7 @@ include('leaves_functionality.php');
                     <?php if($_SESSION['employee_type'] == 'manager'){?>
                     <li><a href="manager.php">Manager</a></li>
                     <?php } ?>
-                    
+
                     <li><a href="account.php">Account</a></li>
                     <li><a href="logout.php">Logout</a></li>
                 </ul>
@@ -82,7 +82,8 @@ include('leaves_functionality.php');
                 <!--Leave Approval Card-->
                 <div class="card right col s12 hoverable">
                     <div class="card-content center">
-                        <span class="card-title">Pending Approval</span>                        
+                        <span class="card-title">Pending Approval</span>
+                        
                         <?php if ($number_of_days < 1): ?>
                           <h1 class="">No current pending leaves</h1>
                         <?php else: ?>
@@ -97,7 +98,8 @@ include('leaves_functionality.php');
 
                     <div class="card-reveal blue-grey darken-4 white-text">
                         <span class="card-title">Approved Leave<i class="material-icons right">close</i></span>
-                        <?php if($approved_leave_start_date): ?>
+                        
+                        <?php if(isset($approved_leave_start_date)): ?>
                             <h1 class=" center "><?php echo $approved_leave_duration ?> Day(s)</h1>
                             <p class="apply_roboto teal-text center" style="font-size:18px"><?php echo $approved_leave_start_date." - ".$approved_leave_end_date; ?></p>
                         <?php else: ?>
@@ -157,8 +159,6 @@ include('leaves_functionality.php');
                                         <td><?php echo $all_leaves[$i][2]; ?></td>
                                     </tr>
                                     <?php }; ?>
-                                <?php else: ?>
-                                
                                 <?php endif; ?>
                             </tbody>
                         </table>
