@@ -19,13 +19,15 @@
 
 	if(isset($_POST['submit']))
 	{
+		/*
 		$time = new DateTime();
 		$time->format('Y-m-d H:i:s');
 		$timeNow = $time->getTimestamp();
-
+		*/
+		$timeNow = date('Y-m-d H:i:s');		
 		if($_POST['submit'] == 'Time In')
 		{
-			$rate = $db->prepare("SELECT hourly_rate AS Hourly Rate FROM employee_contracts WHERE employees_id = ?");
+			$rate = $db->prepare("SELECT hourly_rate AS 'Hourly Rate' FROM employee_contracts WHERE employees_id = ?");
 			$rate->bind_param('i', $_SESSION['employee_id']);
 			$rate->execute();
 			$rate->bind_result($hourly_rate);
