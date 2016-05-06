@@ -19,11 +19,6 @@
 
 	if(isset($_POST['submit']))
 	{
-		/*
-		$time = new DateTime();
-		$time->format('Y-m-d H:i:s');
-		$timeNow = $time->getTimestamp();
-		*/
 		date_default_timezone_set('Asia/Manila');
 		$timeNow = date('Y-m-d H:i:s');		
 		if($_POST['submit'] == 'Time In')
