@@ -113,16 +113,19 @@ include('timerecord-functionality.php');
                             </thead>
                             
                             <tbody>
-                                <!--Put PHP Loop here-->
-                                <!--Change to PHP code-->
-                                <tr>
-                                    <td>1</td>
-                                    <td>4:20 AM</td>
-                                    <td>4:20 PM</td>
-                                    <td>69</td>
-                                    <td>0</td>
-                                    <td>420</td>
-                                </tr>
+                                <?php
+                                foreach($workdaysTable as $row)
+                                {
+                                echo "<tr>";
+                                    echo "<td>".$row['Date']."</td>";
+                                    echo "<td>".$row['Time In']."</td>";
+                                    echo "<td>".$row['Time Out']."</td>";
+                                    echo "<td>".$row['Overtime']."</td>";
+                                    echo "<td>".$row['Undertime']."</td>";
+                                    echo "<td>".$row['Total Hours']."</td>";
+                                echo "</tr>";
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
