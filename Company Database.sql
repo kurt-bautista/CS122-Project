@@ -20,6 +20,7 @@ CREATE TABLE employee_contracts(
 	start_date DATE NOT NULL,
 	duration DATE NOT NULL,
 	hourly_rate DOUBLE NOT NULL,
+	expected_time_in TIME NOT NULL,
 	employees_id INT NOT NULL,
 	FOREIGN KEY(employees_id) REFERENCES employees(id));
 
