@@ -33,10 +33,6 @@ header, body, footer{
 }
 
 /*Leaves Page*/
-.leave_request_card{
-    height:400px
-}
-
 .leave_summary_card{
     height: 675px
 }
