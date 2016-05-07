@@ -60,6 +60,8 @@ INSERT INTO employees(username, password, remaining_leaves, employee_type, holid
 ALTER TABLE employee_contracts
 ADD COLUMN alloted_leaves INT NOT NULL;
 
+INSERT INTO employee_contracts(start_date, duration, hourly_rate, employees_id, alloted_leaves) VALUES ('1970-01-01', '2037-12-31', 0.0, 1, 0);
+
 ALTER TABLE leave_types
 DROP COLUMN paid;
 
