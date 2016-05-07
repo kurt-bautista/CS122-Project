@@ -9,6 +9,8 @@
 	if($db->connect_errno > 0){
 		die('Unable to connect to database [' . $db->connect_error . ']');
 	}
+	
+	$timeInClicked = FALSE;
 
 	session_start();
 	if(!$user_login = $_SESSION['login_user']){

@@ -46,7 +46,14 @@ include('timerecord-functionality.php');
                 <div class="card col s12 time_in_out_card hoverable">
                     <div class="card-content">
                         <form action="" method="POST">
-                            <button class="btn waves-effect waves-light" type="submit" name="submit" value="Time In">
+                            <button class="btn waves-effect waves-light" type="submit" name="submit" value="
+                            <?php 
+                            if(!$timeInClicked){
+                                echo ('Time In');
+                            }else {
+                                echo ('TIme Out');
+                            } ?>
+                            ">
                                 Time In
                             </button>
                         </form>
