@@ -64,8 +64,14 @@ include('leaves_functionality.php');
                             <i class="material-icons right modal-action modal-close waves-effect waves-green">close</i>
                         </span>
                         <form action="" method="POST">
-                            <div class="input-field col s12">
-                                <input name="date_picker" id="date_picker" type="date" class="datepicker">
+                            <div class="input-field col s6">
+                                <input name="start_date" id="start_date" type="date" class="datepicker">
+                                <label for="start_date">Start Date</label>
+                            </div>
+                            
+                            <div class="input-field col s6">
+                                <input name="end_date" id="end_date" type="date" class="datepicker">
+                                <label for="end_date">End Date</label>
                             </div>
 
                             <div class="input-field col s12">
@@ -219,13 +225,12 @@ include('leaves_functionality.php');
         <script type="text/javascript" src="https://code.jquery.com/ui/1.12.0-rc.2/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script type="text/javascript" src="js/circles.min.js"></script>
-        <script type="text/javascript" src="js/picker.js"></script>
-        <script type="text/javascript" src="js/picker.date.js"></script>
+        
 
         <script>
             /**
             $(document).ready(function(){
-                $('#date_picker').pickdate({
+                $('#date_picker').picakdate({
                     selectMonths: true,
                     selectYears: 15
                 });
@@ -233,6 +238,11 @@ include('leaves_functionality.php');
             */
 
             $(document).ready(function(){
+                $('.datepicker').pickadate({
+                    selectMonths: true,
+                    selectYears: 15
+                });
+                
                $(".button-collapse").sideNav();
                
                $('select').material_select();
