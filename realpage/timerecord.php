@@ -59,7 +59,7 @@ include('timerecord-functionality.php');
                         <div class="row">
                             <?php if($_SESSION['time-status'] == "Time In"){?>
                                 <div class="col s12">
-                                    <p class="teal-text apply_roboto" style="font-size:28px">Expected Time In: 4:20 AM </p>
+                                    <p class="teal-text apply_roboto" style="font-size:28px">Expected Time In: <?php echo $expected_time_in; ?> </p>
                                 </div>
                                 <div class="col s1">
                                     <i class="material-icons red-text text-lighten-1" style="font-size:34px">info_outline</i>
@@ -72,7 +72,9 @@ include('timerecord-functionality.php');
                             <?php }
                             else{?>
                                 <div class="col s12">
-                                    <p class="teal-text apply_roboto" style="font-size:28px">Expected Time In: 4:20 PM </p>
+                                    <p class="teal-text apply_roboto" style="font-size:28px">Expected Time Out: <?php
+                                    $time_out = date('h:i:s A', time()+28800); 
+                                    echo $time_out; ?> </p>
                                 </div>
                                 <div class="col s1">
                                     <i class="material-icons green-text text-lighten-1" style="font-size:34px">done</i>
