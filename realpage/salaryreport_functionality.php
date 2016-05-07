@@ -47,6 +47,10 @@ $employee_type = $_SESSION['employee_type'];
 $employee_rate = $row['hourly_rate'];
 
 $all_workdays = array();
+$employee_id = $_SESSION['employee_id'];
+$employee_rate = $row['hourly_rate'];
+
+$all_workdays = array();
 
 while($row2 = $workdays_result->fetch_assoc()){
   /* sample way to get datetime difference
@@ -56,7 +60,6 @@ while($row2 = $workdays_result->fetch_assoc()){
   $interval = $datetime2->diff($datetime1);
   echo $interval->format('%h hours %i minutes %S seconds');
   */
-
   $date = date('F d, Y', strtotime($row2['time_in']));
   $time_in = date('h:i A', strtotime($row2['time_in']));
   $time_out = date('h:i A', strtotime($row2['time_out']));
@@ -65,7 +68,6 @@ while($row2 = $workdays_result->fetch_assoc()){
 }
 
 $workdays_count = count($all_workdays);
-
 if(isset($login_session)){
     $db->close();
     //header("location: index.php");
