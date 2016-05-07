@@ -56,25 +56,69 @@ include('leaves_functionality.php');
                         <p class="apply_roboto" style="font-size:18px">Total Leaves: 420</p>
                     </div>
 
-                    <div class="card-reveal blue-grey darken-4 white-text">
-                        <span class="card-title">Request Leave<i class="material-icons right">close</i></span>
+                    <!--<div class="card-reveal blue-grey darken-4 white-text">-->
+                    <div id="leave-request-modal" class="modal modal-fixed-footer">
+                        <div class="modal-content">
+                            
+                        <span class="apply_roboto" style="font-size:24px">Request Leave
+                            <i class="material-icons right modal-action modal-close waves-effect waves-green">close</i>
+                        </span>
                         <form action="" method="POST">
-                            <div class="input-field">
+                            <div class="input-field col s12">
                                 <input name="date_picker" id="date_picker" type="date" class="datepicker">
                             </div>
 
-                            <div class="input-field">
-                                <textarea id="leave_reason_text" name="leave_reason_text" class="materialize-textarea white-text"></textarea>
+                            <div class="input-field col s12">
+                                <textarea id="leave_reason_text" name="leave_reason_text" class="materialize-textarea"></textarea>
                                 <label for="leave_reason_text">Reason for Leave</label>
                             </div>
-
-
+                            
+                            <!--
+                            <div class="input-field col s12">
+                                <select name="leave-type">
+                                    <option value="" disabled selected>Choose Leave Type</option>
+                                    <option value="sick">Sick</option>
+                                    <option value="vacation">Vacation</option>
+                                    <option value="special-privilege">Special Privilege</option>
+                                    <option value="maternity">Maternity</option>
+                                    <option value="paternity">Paternity</option>
+                                </select>
+                                <label>Leave Type</label>
+                            </div> -->
+                            
+                            <div class="row">
+                            <p class="col s2">
+                                <input class="with-gap" name="leave-type" type="radio" id="sick" checked>
+                                <label for="sick">Sick</label>
+                            </p>
+                            <p class="col s2" >
+                                <input class="with-gap" name="leave-type" type="radio" id="vacation">
+                                <label for="vacation">Vacation</label>
+                            </p>
+                            <p class="col s3" >
+                                <input class="with-gap" name="leave-type" type="radio" id="special-privilege">
+                                <label for="special-privilege">Special Privilege</label>
+                            </p>
+                            <p class="col s2" >
+                                <input class="with-gap" name="leave-type" type="radio" id="maternity">
+                                <label for="maternity">Maternity</label>
+                            </p>
+                            <p class="col s2" >
+                                <input class="with-gap" name="leave-type" type="radio" id="paternity">
+                                <label for="paternity">Paternity</label>
+                            </p>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="modal-footer">
                             <button class="btn waves-effect waves-light" type="submit" name="submit" value="request_leave">Submit</button>
-                        </form>
+                        </form>                        
+                        </div>
                     </div>
 
                     <div class="card-action center">
-                        <a class="activator clickable_text teal-text">Request Leave</a>
+                        <a class="modal-trigger clickable_text teal-text" href="#leave-request-modal">Request Leave</a>
                     </div>
                 </div>
                 <!--Remaining Leaves Card-->
@@ -190,6 +234,10 @@ include('leaves_functionality.php');
 
             $(document).ready(function(){
                $(".button-collapse").sideNav();
+               
+               $('select').material_select();
+               
+               $('.modal-trigger').leanModal();
 
                var myCircle = Circles.create({
                     id:                  'leaves_circle',
