@@ -42,31 +42,52 @@ include('timerecord-functionality.php');
         <div id="main" class="center_container">
             
             <!--Time In - Time Out-->
-            <div class="row">
-                <div class="card col s12 time_in_out_card hoverable">
-                    <div class="card-content">
-                        <form action="" method="POST">
-                            <button class="btn waves-effect waves-light" type="submit" name="submit" value="
-                            <?php 
-                            if(!$timeInClicked){
-                                echo ('Time In');
-                            }else {
-                                echo ('TIme Out');
-                            } ?>
-                            ">
-                                Time In
-                            </button>
-                        </form>
-                    </div>
-                </div>
+            
                 
-                <!--
-                <div class="card small col s7 offset-s1 hoverable">
-                    <div class="card-content">
-                        
+            <div class="card col s12 hoverable">
+                
+                <div class="row">
+                    <div class="col s2 offset-s1" id="canvas">
+                        <form action="" method="POST">
+                            <button id="time-in-out-btn" class="btn-large waves-effect waves-light" type="submit" 
+                            name="submit" value="<?php echo($_SESSION['time-status']);?>">
+                                <?php echo($_SESSION['time-status']);?>
+                        </button>
+                    </form>
                     </div>
-                </div>-->
-            </div>
+                    <div class="col s9" id="canvas">
+                        <div class="row">
+                            <?php if($_SESSION['time-status'] == "Time In"){?>
+                                <div class="col s12">
+                                    <p class="teal-text apply_roboto" style="font-size:28px">Expected Time In: 4:20 AM </p>
+                                </div>
+                                <div class="col s1">
+                                    <i class="material-icons red-text text-lighten-1" style="font-size:34px">info_outline</i>
+                                </div>
+                                <div class="col s11">
+                                    <p class="apply_roboto" style="font-size: 18px"> 
+                                        You have not signed in yet. Click the Time In Button to get started.
+                                    </p>
+                                </div>
+                            <?php }
+                            else{?>
+                                <div class="col s12">
+                                    <p class="teal-text apply_roboto" style="font-size:28px">Expected Time In: 4:20 PM </p>
+                                </div>
+                                <div class="col s1">
+                                    <i class="material-icons green-text text-lighten-1" style="font-size:34px">done</i>
+                                </div>
+                                <div class="col s11">
+                                    <p class="apply_roboto" style="font-size: 18px"> 
+                                        Click the Time Out Button to sign out.
+                                    </p>
+                                </div>
+                            <?php }?>
+                        </div>
+                    </div>
+                </div>                   
+                
+            </div>                        
             <!--Time In - Time Out-->
             
             <!--Time Record Summary-->
@@ -112,9 +133,10 @@ include('timerecord-functionality.php');
        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
         
-        <script>            
+        <script>       
+                    
             $(document).ready(function(){
-               $(".button-collapse").sideNav(); 
+               $(".button-collapse").sideNav();                                                         
             });
         </script>
         

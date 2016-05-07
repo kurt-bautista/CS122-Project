@@ -9,8 +9,6 @@
 	if($db->connect_errno > 0){
 		die('Unable to connect to database [' . $db->connect_error . ']');
 	}
-	
-	$timeInClicked = FALSE;
 
 	session_start();
 	if(!$user_login = $_SESSION['login_user']){
@@ -37,6 +35,8 @@
 			$workday_id = $workday->insert_id;
 			$rate->close();
 			$workday->close();
+			
+			$_SESSION['time-status'] = "Time Out";
 		}
 		else
 		{
@@ -45,6 +45,8 @@
 			$timeOut->bind_param('siii', $timeNow, $hours, $_SESSION['employee_id'], $workday_id);
 			$timeOut->execute();
 			$timeOut->close();
+			
+			$_SESSION['time-status'] = "Time In";
 		}
 		$months = array("January"=>1, "February"=>2, "March"=>3, "April"=>4, "May"=>5, "June"=>6, "July"=>7, "August"=>8, "September"=>9, "October"=>10, "November"=>11, "December"=>12);
 		$getWorkdays = $db->prepare("SELECT DATE(time_in) AS 'Date', TIME(time_in) AS 'Time In', TIME(time_out) AS 'Time Out' FROM workdays WHERE YEAR(CURDATE()) = YEAR(time_in) AND MONTH(time_in) = ?");
