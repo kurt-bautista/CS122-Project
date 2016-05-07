@@ -15,7 +15,6 @@
 		header("location: index.php");
 	}
 
-	$workday_id = 0;
 	$empId = $_SESSION['employee_id'];
 	$getContract = <<<SQL
 	SELECT *
@@ -41,7 +40,7 @@ SQL;
 			$workday = $db->prepare("INSERT INTO workdays(time_in, employees_id, employees_hourly_rate) VALUES (?, ?, ?)");
 			$workday->bind_param('sid', $timeNow, $empId, $hourly_rate);
 			$workday->execute();
-			$workday_id = $workday->insert_id;
+			$_SESSION['workday_id'] = $workday->insert_id;
 			$workday->close();
 			
 			$_SESSION['time-status'] = "Time Out";
@@ -49,8 +48,8 @@ SQL;
 		else
 		{
 			$hours = 0;
-			$timeOut = $db->prepare("UPDATE workdays SET time_out = ?, overtime_hours = ? WHERE employees_id = ? AND id = ?");
-			$timeOut->bind_param('siii', $timeNow, $hours, $empId, $workday_id);
+			$timeOut = $db->prepare("UPDATE workdays SET time_out = ?, overtime_hours = ? WHERE id = ?");
+			$timeOut->bind_param('sii', $timeNow, $hours, $_SESSION['workday_id']);
 			$timeOut->execute();
 			$timeOut->close();
 			
