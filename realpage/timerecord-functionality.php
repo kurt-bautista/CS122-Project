@@ -21,11 +21,7 @@
 
 	if(isset($_POST['submit']))
 	{
-		/*
-		$time = new DateTime();
-		$time->format('Y-m-d H:i:s');
-		$timeNow = $time->getTimestamp();
-		*/
+		date_default_timezone_set('Asia/Manila');
 		$timeNow = date('Y-m-d H:i:s');		
 		if($_POST['submit'] == 'Time In')
 		{
@@ -44,8 +40,9 @@
 		}
 		else
 		{
-			$timeOut = $db->prepare("UPDATE workdays SET time_out = ? WHERE employees_id = ? AND id = ?");
-			$timeOut->bind_param('sii', $timeNow, $_SESSION['employee_id'], $workday_id);
+			$hours = 0;
+			$timeOut = $db->prepare("UPDATE workdays SET time_out = ?, overtime_hours = ? WHERE employees_id = ? AND id = ?");
+			$timeOut->bind_param('siii', $timeNow, $hours, $_SESSION['employee_id'], $workday_id);
 			$timeOut->execute();
 			$timeOut->close();
 		}
