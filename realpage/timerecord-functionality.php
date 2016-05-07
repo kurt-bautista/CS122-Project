@@ -16,24 +16,32 @@
 	}
 
 	$workday_id = 0;
+	$empId = $_SESSION['employee_id'];
+	$getContract = <<<SQL
+	SELECT *
+	FROM employee_contracts
+	WHERE employees_id = '$empId'
+SQL;
 
+	if(!$result = $db->query($getContract))
+	{
+		die('There was an error running the query [' . $db->error . ']');
+	}
+	
+	$contract = $result->fetch_assoc();
+	$expected_time_in = $contract['expected_time_in'];
+	
 	if(isset($_POST['submit']))
 	{
 		date_default_timezone_set('Asia/Manila');
 		$timeNow = date('Y-m-d H:i:s');		
 		if($_POST['submit'] == 'Time In')
 		{
-			$rate = $db->prepare("SELECT hourly_rate AS 'Hourly Rate' FROM employee_contracts WHERE employees_id = ?");
-			$rate->bind_param('i', $_SESSION['employee_id']);
-			$rate->execute();
-			$rate->bind_result($hourly_rate);
-			$result = $rate->get_result();
-			$hourly_rate = $result->fetch_assoc();
+			$hourly_rate = $contract['hourly_rate'];
 			$workday = $db->prepare("INSERT INTO workdays(time_in, employees_id, employees_hourly_rate) VALUES (?, ?, ?)");
-			$workday->bind_param('sid', $timeNow, $_SESSION['employee_id'], $hourly_rate['Hourly Rate']);
+			$workday->bind_param('sid', $timeNow, $empId, $hourly_rate);
 			$workday->execute();
 			$workday_id = $workday->insert_id;
-			$rate->close();
 			$workday->close();
 			
 			$_SESSION['time-status'] = "Time Out";
@@ -42,7 +50,7 @@
 		{
 			$hours = 0;
 			$timeOut = $db->prepare("UPDATE workdays SET time_out = ?, overtime_hours = ? WHERE employees_id = ? AND id = ?");
-			$timeOut->bind_param('siii', $timeNow, $hours, $_SESSION['employee_id'], $workday_id);
+			$timeOut->bind_param('siii', $timeNow, $hours, $empId, $workday_id);
 			$timeOut->execute();
 			$timeOut->close();
 			
