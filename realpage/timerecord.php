@@ -46,14 +46,8 @@ include('timerecord-functionality.php');
                 <div class="card col s12 time_in_out_card hoverable">
                     <div class="card-content">
                         <form action="" method="POST">
-                            <button class="btn waves-effect waves-light" type="submit" name="submit" value="
-                            <?php 
-                            if(!$timeInClicked){
-                                echo ('Time In');
-                            }else {
-                                echo ('TIme Out');
-                            } ?>
-                            ">
+                            <button id="time-in-out-btn" class="btn waves-effect waves-light" onclick="changeBtn()" type="submit" 
+                            name="submit" value="">
                                 Time In
                             </button>
                         </form>
@@ -114,8 +108,22 @@ include('timerecord-functionality.php');
         
         <script>            
             $(document).ready(function(){
-               $(".button-collapse").sideNav(); 
+               $(".button-collapse").sideNav();  
             });
+            
+            function changeBtn(){
+                   var btn = document.getElementById("time-in-out-btn");
+                   if(btn.value == "Time In"){
+                       btn.value = "Time Out";
+                       btn.innerHTML = "Time Out";
+                       alert('TIme In Succes');
+                   }
+                   else{
+                       btn.value = "Time In";
+                       btn.innerHTML = "Time In";
+                       alert('TIme Out Succes');
+                   }
+               }
         </script>
         
     </body>
