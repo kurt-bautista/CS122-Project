@@ -32,4 +32,10 @@ $_SESSION['employee_id'] = $row['id'];
 if(isset($login_session)){
     $db->close();
 }
+
+if(empty($_SESSION['time-status'])){
+    $_SESSION['time-status'] = "Time In";
+    
+    //Query database if timed in, in case of session time out
+}
 ?>
