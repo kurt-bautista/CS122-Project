@@ -52,7 +52,8 @@ $employee_rate = $row['hourly_rate'];
 
 $all_workdays = array();
 
-while($row2 = $workdays_result->fetch_assoc()){
+//while($row2 = $workdays_result->fetch_assoc()){
+  $row2 = $workdays_result->fetch_assoc();
   /* sample way to get datetime difference
   $datetime1 = new DateTime('2009-05-18 15:45:57');
   $datetime2 = new DateTime('2009-05-18 13:40:50');
@@ -63,9 +64,16 @@ while($row2 = $workdays_result->fetch_assoc()){
   $date = date('F d, Y', strtotime($row2['time_in']));
   $time_in = date('h:i A', strtotime($row2['time_in']));
   $time_out = date('h:i A', strtotime($row2['time_out']));
+  $overtime_hours = $row2['overtime_hours'];
+  if($overtime_hours > 0){
+    $comment = "Overtime by ".$overtime_hours." hours.";
+  } else{
+    $comment = "";
+  }
+  echo $comment;
 
   array_push($all_workdays, array($date, $time_in, $time_out));
-}
+//}
 
 $workdays_count = count($all_workdays);
 if(isset($login_session)){
