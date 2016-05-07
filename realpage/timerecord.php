@@ -42,25 +42,52 @@ include('timerecord-functionality.php');
         <div id="main" class="center_container">
             
             <!--Time In - Time Out-->
-            <div class="row">
-                <div class="card col s12 time_in_out_card hoverable">
-                    <div class="card-content">
+            
+                
+            <div class="card col s12 hoverable">
+                
+                <div class="row">
+                    <div class="col s2 offset-s1" id="canvas">
                         <form action="" method="POST">
-                            <button id="time-in-out-btn" class="btn waves-effect waves-light" onclick="changeBtn()" type="submit" 
+                            <button id="time-in-out-btn" class="btn-large waves-effect waves-light" type="submit" 
                             name="submit" value="<?php echo($_SESSION['time-status']);?>">
                                 <?php echo($_SESSION['time-status']);?>
-                            </button>
-                        </form>
+                        </button>
+                    </form>
                     </div>
-                </div>
+                    <div class="col s9" id="canvas">
+                        <div class="row">
+                            <?php if($_SESSION['time-status'] == "Time In"){?>
+                                <div class="col s12">
+                                    <p class="teal-text apply_roboto" style="font-size:28px">Expected Time In: 4:20 AM </p>
+                                </div>
+                                <div class="col s1">
+                                    <i class="material-icons red-text text-lighten-1" style="font-size:34px">info_outline</i>
+                                </div>
+                                <div class="col s11">
+                                    <p class="apply_roboto" style="font-size: 18px"> 
+                                        You have not signed in yet. Click the Time In Button to get started.
+                                    </p>
+                                </div>
+                            <?php }
+                            else{?>
+                                <div class="col s12">
+                                    <p class="teal-text apply_roboto" style="font-size:28px">Expected Time In: 4:20 PM </p>
+                                </div>
+                                <div class="col s1">
+                                    <i class="material-icons green-text text-lighten-1" style="font-size:34px">done</i>
+                                </div>
+                                <div class="col s11">
+                                    <p class="apply_roboto" style="font-size: 18px"> 
+                                        Click the Time Out Button to sign out.
+                                    </p>
+                                </div>
+                            <?php }?>
+                        </div>
+                    </div>
+                </div>                   
                 
-                <!--
-                <div class="card small col s7 offset-s1 hoverable">
-                    <div class="card-content">
-                        
-                    </div>
-                </div>-->
-            </div>
+            </div>                        
             <!--Time In - Time Out-->
             
             <!--Time Record Summary-->
@@ -111,18 +138,6 @@ include('timerecord-functionality.php');
             $(document).ready(function(){
                $(".button-collapse").sideNav();                                                         
             });
-            
-            function changeBtn(){
-                   var btn = document.getElementById("time-in-out-btn");
-                   if(btn.value == "Time In"){                      
-                       btn.innerHTML = "Time Out";
-                       alert('TIme In Succes');
-                   }
-                   else{                     
-                       btn.innerHTML = "Time In";
-                       alert('TIme Out Succes');
-                   }
-               }
         </script>
         
     </body>
