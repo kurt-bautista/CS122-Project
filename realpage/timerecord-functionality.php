@@ -10,7 +10,7 @@
 		die('Unable to connect to database [' . $db->connect_error . ']');
 	}
 	
-	$timeInClicked = FALSE;
+	$btnValue = "Time In";
 
 	session_start();
 	if(!$user_login = $_SESSION['login_user']){
@@ -37,6 +37,8 @@
 			$workday_id = $workday->insert_id;
 			$rate->close();
 			$workday->close();
+			
+			$btnValue = "Time Out";
 		}
 		else
 		{
