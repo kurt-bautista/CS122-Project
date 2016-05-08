@@ -40,32 +40,68 @@ include('salaryreport_functionality.php');
         <!--Navbar-->
 
         <div id="main" class="center_container">
-
-            <!--Column Guide-->
+            
             <div class="row">
-                <div class="col s1 teal">1</div>
-                <div class="col s1 teal accent-3">2</div>
-                <div class="col s1 teal">3</div>
-                <div class="col s1 teal accent-3">4</div>
-                <div class="col s1 teal">5</div>
-                <div class="col s1 teal accent-3">6</div>
-                <div class="col s1 teal">7</div>
-                <div class="col s1 teal accent-3">8</div>
-                <div class="col s1 teal">9</div>
-                <div class="col s1 teal accent-3">10</div>
-                <div class="col s1 teal">11</div>
-                <div class="col s1 teal accent-3">12</div>
+                <div class="card col s4 center hoverable">
+                    <div class="card-content">
+                        <span class="card-title">Expected Salary</span>                       
+                        <h1 id="expected-salary" class="teal-text apply_roboto"></h1>
+                        
+                        <div class="divider"></div>
+                        
+                        <div class="apply_roboto" style="font-size: 18px">
+                            <p class="">Base Salary: <span id="base-salary"></span></p>
+                            <p class="apply_roboto">Overtime Pay: <span id="overtime-pay"></span></p>
+                            <p class="apply_roboto">Undertime Deductions: <span id="undertime-deductions"></span></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card col 7 offset-s1 center hoverable">
+                    <div class="card-content">
+                        
+                    </div>
+                </div>
             </div>
-            <!--Column Guide-->
 
         </div>
 
-       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
+        <!--<script type="text/javascript" src="js/circles.min.js"></script>-->
+        <script type="text/javascript" src="js/countUp.js"></script>
 
         <script>
             $(document).ready(function(){
                $(".button-collapse").sideNav();
+               
+               /*
+               var myCircle = Circles.create({
+                    id:                  'salary_circle',
+                    radius:              70, //Change to PHP code
+                    value:               69000,
+                    maxValue:            69000,
+                    width:               10,
+                    text:                function(value){return value;},
+                    colors:              ['#b2dfdb', '#009688'],
+                    duration:            900,
+                    wrpClass:            'circles-wrp',
+                    textClass:           'circles-text',
+                    valueStrokeClass:    'circles-valueStroke',
+                    maxValueStrokeClass: 'circles-maxValueStroke',
+                    styleWrapper:        true,
+                    styleText:           true
+               });*/
+               
+               var salaryAnimation = new CountUp(document.getElementById("expected-salary").id, 0, 69000);
+               salaryAnimation.start();
+               var baseAnimation = new CountUp(document.getElementById("base-salary").id, 0, 42000);
+               baseAnimation.start();
+               var overtimeAnimation = new CountUp(document.getElementById("overtime-pay").id, 0, 42000);
+               overtimeAnimation.start();
+               var undertimeAnimation = new CountUp(document.getElementById("undertime-deductions").id, 0, 69000);
+               undertimeAnimation.start();
+
             });
         </script>
 
