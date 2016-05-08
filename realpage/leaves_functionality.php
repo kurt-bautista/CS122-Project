@@ -109,7 +109,6 @@ $num_of_requests = $row3['num_of_requests'];
 $start_date = $row3['start_date'];
 $end_date = $row3['end_date'];
 $number_of_days = $row3['duration'];
-$sample = 100;
 
 if($num_of_requests < 1){
   $has_pending_leave = false;
