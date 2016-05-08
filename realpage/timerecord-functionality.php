@@ -38,8 +38,8 @@ SQL;
 		if($_POST['submit'] == 'Time In')
 		{
 			$hourly_rate = $contract['hourly_rate'];
-			$workday = $db->prepare("INSERT INTO workdays(time_in, employees_id, employees_hourly_rate) VALUES (?, ?, ?)");
-			$workday->bind_param('sid', $timeNow, $empId, $hourly_rate);
+			$workday = $db->prepare("INSERT INTO workdays(time_in, time_out, employees_id, employees_hourly_rate) VALUES (?, ?, ?, ?)");
+			$workday->bind_param('ssid', $timeNow, $timeNow, $empId, $hourly_rate);
 			$workday->execute();
 			$_SESSION['workday_id'] = $workday->insert_id;
 			$workday->close();
