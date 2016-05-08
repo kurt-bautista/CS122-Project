@@ -47,16 +47,17 @@ include('timerecord-functionality.php');
             <div class="card col s12 hoverable">
                 
                 <div class="row">
-                    <div class="col s2 offset-s1" id="canvas">                       
+                    <div class="col s3" id="canvas">                       
                         <form action="" method="POST" id="time-in-form" name="time-form">
                             <input type="hidden" name="btnsubmit" value="<?php echo($_SESSION['time-status']);?>">
                         </form>
-                        <button id="time-in-out-btn" class="btn-large waves-effect waves-light" onclick="timeSafety()" 
+                        <button id="time-in-out-btn" class="btn-large waves-effect waves-light time_btn" onclick="timeSafety()" 
                             name="btnsubmit" value="<?php echo($_SESSION['time-status']);?>">
+                            <i class="material-icons right">query_builder</i>
                                 <?php echo($_SESSION['time-status']);?>
                         </button>
                     </div>
-                    <div class="col s9" id="canvas">
+                    <div class="col s8" id="canvas">
                         <div class="row">
                             <?php if($_SESSION['time-status'] == "Time In"){?>
                                 <div class="col s12">
@@ -82,7 +83,7 @@ include('timerecord-functionality.php');
                                 </div>
                                 <div class="col s11">
                                     <p class="apply_roboto" style="font-size: 18px"> 
-                                        Click the Time Out Button to sign out.
+                                        You are now signed in. Click the Time Out Button to sign out.
                                     </p>
                                 </div>
                             <?php }?>
