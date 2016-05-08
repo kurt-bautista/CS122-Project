@@ -49,7 +49,7 @@ include('salaryreport_functionality.php');
                         
                         <div class="divider"></div>
                         
-                        <div class="apply_roboto" style="font-size: 18px">
+                        <div class="apply_roboto" style="font-size: 20px">
                             <p class="">Base Salary: <span id="base-salary"></span></p>
                             <p class="apply_roboto">Overtime Pay: <span id="overtime-pay"></span></p>
                             <p class="apply_roboto">Undertime Deductions: <span id="undertime-deductions"></span></p>
@@ -67,31 +67,12 @@ include('salaryreport_functionality.php');
         </div>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="js/materialize.min.js"></script>
-        <!--<script type="text/javascript" src="js/circles.min.js"></script>-->
+        <script type="text/javascript" src="js/materialize.min.js"></script>       
         <script type="text/javascript" src="js/countUp.js"></script>
 
         <script>
             $(document).ready(function(){
-               $(".button-collapse").sideNav();
-               
-               /*
-               var myCircle = Circles.create({
-                    id:                  'salary_circle',
-                    radius:              70, //Change to PHP code
-                    value:               69000,
-                    maxValue:            69000,
-                    width:               10,
-                    text:                function(value){return value;},
-                    colors:              ['#b2dfdb', '#009688'],
-                    duration:            900,
-                    wrpClass:            'circles-wrp',
-                    textClass:           'circles-text',
-                    valueStrokeClass:    'circles-valueStroke',
-                    maxValueStrokeClass: 'circles-maxValueStroke',
-                    styleWrapper:        true,
-                    styleText:           true
-               });*/
+               $(".button-collapse").sideNav(); 
                
                var salaryAnimation = new CountUp(document.getElementById("expected-salary").id, 0, 69000);
                salaryAnimation.start();
