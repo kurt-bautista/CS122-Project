@@ -52,6 +52,11 @@ header, body, footer{
     height: 400px;
 }
 
+.salary_padding{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 /*Manager Page*/
 .team_status_card{
     height: 650px;
