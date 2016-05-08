@@ -99,6 +99,16 @@ include('timerecord-functionality.php');
                 <div class="card col s12 center hoverable">
                     <div class="card-content">
                         <span class="card-title">Time In - Time Out Record</span>
+                        <p class="apply_roboto" style="font-size:20px">
+                        <a class="dropdown-button teal-text" href="#" data-activates="month-dropdown">April</a>
+                        </p>
+                        
+                        <!--Drowpdown Structure-->
+                        <ul class="dropdown-content" id="month-dropdown">
+                            <li><a href="#!">January</a></li>
+                            <li><a href="#!">February</a></li>
+                        </ul>
+                        <!--Drowpdown Structure-->
                         
                         <div class="divider"></div>
                         
@@ -157,7 +167,7 @@ include('timerecord-functionality.php');
         <script>       
                     
             $(document).ready(function(){
-               $(".button-collapse").sideNav();                                         
+               $(".button-collapse").sideNav();                                                      
             });
             
             function appendTime(x){
