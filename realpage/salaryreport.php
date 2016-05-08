@@ -50,17 +50,17 @@ include('salaryreport_functionality.php');
                         <div class="divider"></div>
                         
                         <div class="apply_roboto" style="font-size: 26px">
-                            <p>
+                            <p class="salary_padding" style="padding-top: 15px">
                                 <span class="tooltipped" data-position="left" data-delay="40" data-tooltip="Base Salary">
                                 <i class="material-icons">trending_flat</i><span id="base-salary" class="green-text text-lighten-1"></span>
                                 </span>
                             </p>
-                            <p>
+                            <p class="salary_padding">
                                 <span class="tooltipped" data-position="left" data-delay="40" data-tooltip="Overtime Pay">
                                 <i class="material-icons">trending_up</i><span id="overtime-pay" class="green-text text-lighten-1"></span>
                                 </span>
                             </p>
-                            <p>
+                            <p class="salary_padding">
                                 <span class="tooltipped" data-position="left" data-delay="40" data-tooltip="Undertime Deductions">
                                 <i class="material-icons">trending_down</i><span id="undertime-deductions" class="red-text text-lighten-1"></span>
                                 </span>
