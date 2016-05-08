@@ -31,11 +31,11 @@ SQL;
 	$contract = $result->fetch_assoc();
 	$expected_time_in = $contract['expected_time_in'];
 	
-	if(isset($_POST['submit']))
+	if(isset($_POST['btnsubmit']))
 	{
 		date_default_timezone_set('Asia/Manila');
 		$timeNow = date('Y-m-d H:i:s');		
-		if($_POST['submit'] == 'Time In')
+		if($_POST['btnsubmit'] == 'Time In')
 		{
 			$hourly_rate = $contract['hourly_rate'];
 			$workday = $db->prepare("INSERT INTO workdays(time_in, employees_id, employees_hourly_rate) VALUES (?, ?, ?)");

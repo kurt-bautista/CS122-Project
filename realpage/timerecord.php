@@ -47,13 +47,14 @@ include('timerecord-functionality.php');
             <div class="card col s12 hoverable">
                 
                 <div class="row">
-                    <div class="col s2 offset-s1" id="canvas">
-                        <form action="" method="POST">
-                            <button id="time-in-out-btn" class="btn-large waves-effect waves-light" type="submit" 
-                            name="submit" value="<?php echo($_SESSION['time-status']);?>">
+                    <div class="col s2 offset-s1" id="canvas">                       
+                        <form action="" method="POST" id="time-in-form" name="time-form">
+                            <input type="hidden" name="btnsubmit" value="<?php echo($_SESSION['time-status']);?>">
+                        </form>
+                        <button id="time-in-out-btn" class="btn-large waves-effect waves-light" onclick="timeSafety()" 
+                            name="btnsubmit" value="<?php echo($_SESSION['time-status']);?>">
                                 <?php echo($_SESSION['time-status']);?>
                         </button>
-                    </form>
                     </div>
                     <div class="col s9" id="canvas">
                         <div class="row">
@@ -133,16 +134,71 @@ include('timerecord-functionality.php');
             </div>
             <!--Time Record Summary-->
             
+            <!--Warning Modal-->
+            <div class="modal" id="warning-modal">
+                <div class="modal-content center">
+                    <p class="apply_roboto teal-text" style="font-size:36px">Are you sure you want to time out?</p>
+                    <p class="apply_roboto" style="font-size:24px">This may cause undertime deductions towards your salary</p>
+                    <div class="divider"></div>
+                    <p>
+                    <button class="btn-large waves-effect waves-light" onclick="modalTimeOut()">Time Out</button>
+                    </p>
+                </div>               
+            </div>
+            <!--Warning Modal-->
+            
         </div>
        
        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
         
         <script>       
                     
             $(document).ready(function(){
-               $(".button-collapse").sideNav();                                                         
+               $(".button-collapse").sideNav();                                         
             });
+            
+            function appendTime(x){
+                   return (x < 10) ? "0" + x : x;
+               }
+               
+            function getCurrentTime(){
+                var currentTime = new Date();
+                
+                var year = currentTime.getFullYear();
+                var month = appendTime(currentTime.getMonth() + 1);
+                var day = appendTime(currentTime.getDate());
+                
+                var hours = appendTime(currentTime.getHours());
+                var minutes = appendTime(currentTime.getMinutes());
+                var seconds = appendTime(currentTime.getSeconds());
+                
+                var timeNow = year + "/" + month + "/" + day + " " + hours + ":" + minutes + ":" + seconds;               
+                return timeNow;  
+            } 
+            
+            function timeSafety(){
+                var timeStatus = "<?php echo($_SESSION['time-status']);?>";
+                var expectedTimeOut = "<?php $time_out = date('Y/m/d h:i:s', time()+28800); 
+                                            echo $time_out; ?>";                              
+                
+                if(timeStatus == "Time In"){                  
+                    document.forms['time-in-form'].submit();
+                }
+                else{
+                    if(getCurrentTime() < expectedTimeOut){                       
+                        $('#warning-modal').openModal();
+                    }
+                    else{                       
+                        document.forms['time-in-form'].submit();
+                    }
+                }
+            }
+            
+            function modalTimeOut(){
+                 document.forms['time-in-form'].submit();
+            }
         </script>
         
     </body>
