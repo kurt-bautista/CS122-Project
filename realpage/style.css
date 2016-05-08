@@ -47,6 +47,11 @@ header, body, footer{
     height: 150px;
 }
 
+/*Salary Report Page*/
+.salary_card{
+    height: 400px;
+}
+
 /*Manager Page*/
 .team_status_card{
     height: 650px;
