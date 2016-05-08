@@ -42,17 +42,29 @@ include('salaryreport_functionality.php');
         <div id="main" class="center_container">
             
             <div class="row">
-                <div class="card col s4 center hoverable">
+                <div class="card col s4 center hoverable salary_card">
                     <div class="card-content">
                         <span class="card-title">Expected Salary</span>                       
                         <h1 id="expected-salary" class="teal-text apply_roboto"></h1>
                         
                         <div class="divider"></div>
                         
-                        <div class="apply_roboto" style="font-size: 20px">
-                            <p class="">Base Salary: <span id="base-salary"></span></p>
-                            <p class="apply_roboto">Overtime Pay: <span id="overtime-pay"></span></p>
-                            <p class="apply_roboto">Undertime Deductions: <span id="undertime-deductions"></span></p>
+                        <div class="apply_roboto" style="font-size: 26px">
+                            <p>
+                                <span class="tooltipped" data-position="left" data-delay="40" data-tooltip="Base Salary">
+                                <i class="material-icons">trending_flat</i><span id="base-salary" class="green-text text-lighten-1"></span>
+                                </span>
+                            </p>
+                            <p>
+                                <span class="tooltipped" data-position="left" data-delay="40" data-tooltip="Overtime Pay">
+                                <i class="material-icons">trending_up</i><span id="overtime-pay" class="green-text text-lighten-1"></span>
+                                </span>
+                            </p>
+                            <p>
+                                <span class="tooltipped" data-position="left" data-delay="40" data-tooltip="Undertime Deductions">
+                                <i class="material-icons">trending_down</i><span id="undertime-deductions" class="red-text text-lighten-1"></span>
+                                </span>
+                            </p>
                         </div>
                     </div>
                 </div>
