@@ -21,8 +21,10 @@
 	SELECT CONCAT(COALESCE(e.first_name, ''), ' ', COALESCE(e.last_name, '')) AS "Team Member", w.time_in AS "Time In"
 	FROM employees e LEFT JOIN workdays w
 	ON w.employees_id = e.id AND DATE(w.time_in) = CURDATE()
-	WHERE e.manager_id = ?
+	WHERE e.manager_id = ? //Error here
 SQL;
+
+//Bind params shit or whatever
 
 	if(!$result = $db->query($getTeamMembers))
 	{
