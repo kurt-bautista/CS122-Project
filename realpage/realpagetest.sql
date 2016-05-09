@@ -65,13 +65,9 @@ INSERT INTO employees(username, password, remaining_leaves, employee_type, holid
 ALTER TABLE employee_contracts
 ADD COLUMN alloted_leaves INT NOT NULL;
 
-<<<<<<< HEAD
 INSERT INTO employee_contracts(start_date, duration, hourly_rate, alloted_leaves, employees_id) VALUES
   ('2000-04-20', '2010-04-20', 420.0, 69, 2),
   ('2000-04-20', '2010-04-20', 420.0, 55, 1);
-=======
-INSERT INTO employee_contracts(start_date, duration, hourly_rate, alloted_leaves, employees_id) VALUES ('2000-04-20', '2010-04-20', 420.0, 69, 2), ('2000-04-20', '2010-04-20', 420.0, 55, 1);
->>>>>>> origin/Manager-Functionality
 
 ALTER TABLE leave_types
 DROP COLUMN paid;
