@@ -100,18 +100,27 @@ include('timerecord-functionality.php');
                 <div class="card col s12 center hoverable">
                     <div class="card-content">
                         <span class="card-title">Time In - Time Out Record</span>                                                                                     
-    
-                            <ul class="tabs">                               
-                                <?php
+                        
+                            <ul class="tabs"> 
+                                <div class="row tab_div" style="max-width: 95%">                              
+                                <?php                              
                                 foreach ($months as $key => $value) {
                                     echo("<div class='col s1' style=''>");
-                                    printf("<li class='tab'><a href='#%s'>%s</a></li>", $key, $key);
+                                    
+                                    $active_month = date('m');
+                                    if($active_month == $value){
+                                        printf("<li class='tab'><a class='active' href='#%s'>%s</a></li>", $key, $key);
+                                    }
+                                    else{
+                                        printf("<li class='tab'><a href='#%s'>%s</a></li>", $key, $key);
+                                    }                                   
                                     echo("</div>");
                                 }
-                                ?>                               
+                                ?>  
+                                </div>                             
                             </ul>
                         
-                        <div class="divider"></div>
+                       
                         
                         <?php foreach ($months as $key => $value) {?>
                             <div class="col s12" id="<?php echo($key);?>">

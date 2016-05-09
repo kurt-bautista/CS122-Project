@@ -58,6 +58,15 @@ header, body, footer{
     max-width: 100%;
 }
 
+.tabs .indicator {
+    background-color: #009688;
+}
+
+.tab_div{
+    position: absolute;
+    right:40px;
+}
+
 /*Manager Page*/
 .team_status_card{
     height: 650px;
