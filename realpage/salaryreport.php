@@ -86,13 +86,13 @@ include('salaryreport_functionality.php');
             $(document).ready(function(){
                $(".button-collapse").sideNav(); 
                
-               var salaryAnimation = new CountUp(document.getElementById("expected-salary").id, 0, 69000);
+               var salaryAnimation = new CountUp(document.getElementById("expected-salary").id, 0, <?php echo($expected_salary);?>);
                salaryAnimation.start();
-               var baseAnimation = new CountUp(document.getElementById("base-salary").id, 0, 42000);
+               var baseAnimation = new CountUp(document.getElementById("base-salary").id, 0, <?php echo($hourly_rate * 8);?>);
                baseAnimation.start();
-               var overtimeAnimation = new CountUp(document.getElementById("overtime-pay").id, 0, 42000);
+               var overtimeAnimation = new CountUp(document.getElementById("overtime-pay").id, 0, <?php echo($total_overtime_pay);?>);
                overtimeAnimation.start();
-               var undertimeAnimation = new CountUp(document.getElementById("undertime-deductions").id, 0, 69000);
+               var undertimeAnimation = new CountUp(document.getElementById("undertime-deductions").id, 0, <?php echo($total_undertime_deduction);?>);
                undertimeAnimation.start();
 
             });
