@@ -31,19 +31,19 @@ $Lname = $row['last_name'];
 $login = $row['username'];
 $type = $row['employee_type'];
 
-if(isset($_POST['Change Password'])){
+if(isset($_POST['submit'])){
 $row = $result -> fetch_assoc();
 $password = $row['password'];
 $id = $row ['id'];
 
-	if(empty($_POST['current password']) || empty($_POST['new_password']) || empty($_POST['repeat_new_password'])){ 
+	if(empty($_POST['current_pass']) || empty($_POST['new_pass']) || empty($_POST['confirm_new_pass'])){ 
 		$error =  'Please fill in blank spaces';
 	}
-	else if ($_POST['current password'] != $password){
-		$error = 'Wrong Password'; 
+	else if ($_POST['current_pass'] != $password){
+		$error = 'Wrong Password'; 	
 	}
 	
-	else if   ($_POST['new_password'] != $_POST['repeat_new_password']) { 
+	else if   ($_POST['new_pass'] != $_POST['confirm_new_pass']) { 
 		$error = 'New passwords do not match';
 	}
 	else{ 
