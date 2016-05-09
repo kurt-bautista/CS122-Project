@@ -39,6 +39,12 @@ SQL;
 SQL;
 		
 		$db->query($acceptLeave);
+		$newWorkday = $db->prepare("INSERT INTO workdays()")
+		for($i = 0; $i < $duration; $i++)
+		{
+			$newWorkday->bind_param();
+			$newWorkday->execute();
+		}
 		
 	}
 	else
