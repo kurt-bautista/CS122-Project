@@ -26,9 +26,14 @@ FROM employees, employee_contracts WHERE employees.username = '$user_login'
 AND employee_contracts.employees_id = $employee_id
 SQL;
 
-$fetch_workdays = <<<SQL
-SELECT time_in, time_out, overtime_hours
-FROM workdays WHERE employees_id = $employee_id
+$fetch_workdays_info = <<<SQL
+SELECT time_in, time_out,
+CASE WHEN HOUR(TIMEDIFF(time_out, time_in)) - 8 > 0 THEN HOUR(TIMEDIFF(time_out, time_in)) - 8
+ELSE 0 END "overtime_hours",
+CASE WHEN HOUR(TIMEDIFF(time_out, time_in)) > 8 THEN 0
+ELSE 8 - HOUR(TIMEDIFF(time_out, time_in)) END "undertime_hours",
+HOUR(TIMEDIFF(time_out, time_in)) "num_of_hours"
+FROM workdays WHERE YEAR(CURDATE()) = YEAR(time_in) AND MONTH(time_in) = MONTH(NOW()) AND employees_id = $employee_id
 SQL;
 
 //fetch user info
@@ -36,46 +41,49 @@ if(!$result = $db->query($fetch_info)){
     die('Error retrieving user information ['. $db->error.']');
 }
 
-//fetch workdays info
-if(!$workdays_result = $db->query($fetch_workdays)){
-    die('Error retrieving user information ['. $db->error.']');
-}
-
 $row = $result->fetch_assoc();
 $login_session = $row['username'];
 $employee_type = $_SESSION['employee_type'];
-$employee_rate = $row['hourly_rate'];
+$hourly_rate = $row['hourly_rate'];
 
 $all_workdays = array();
-$employee_id = $_SESSION['employee_id'];
-$employee_rate = $row['hourly_rate'];
+$overtime_hours = 0;
+$undertime_hours = 0;
+$expected_salary = 0;
 
-$all_workdays = array();
-
-//while($row2 = $workdays_result->fetch_assoc()){
-  $row2 = $workdays_result->fetch_assoc();
-  /* sample way to get datetime difference
-  $datetime1 = new DateTime('2009-05-18 15:45:57');
-  $datetime2 = new DateTime('2009-05-18 13:40:50');
-
-  $interval = $datetime2->diff($datetime1);
-  echo $interval->format('%h hours %i minutes %S seconds');
-  */
+while($row2 = $workdays_result->fetch_assoc()){
   $date = date('F d, Y', strtotime($row2['time_in']));
+  /*
   $time_in = date('h:i A', strtotime($row2['time_in']));
   $time_out = date('h:i A', strtotime($row2['time_out']));
+  */
   $overtime_hours = $row2['overtime_hours'];
+  $undertime_hours = $row2['undertime_hours'];
+  $work_hours = $row2['num_of_hours'];
+  $comment = "";
+  $overtime_pay = ($hourly_rate*0.25) * $overtime_hours;
+  $undertime_deduction = ($hourly_rate*0.20);
+
   if($overtime_hours > 0){
-    $comment = "Overtime by ".$overtime_hours." hours.";
+    $comment = "overtime";
+    $day_pay = (8*$hourly_rate) + $overtime_pay;
+    $expected_salary = $expected_salary + $day_pay;
+
+    array_push($all_workdays, array($date, $comment, $overtime_pay));
+  } elseif ($undertime_hours > 0) {
+    $comment = "undertime";
+    $day_pay = $work_hours * ($hourly_rate*0.80);
+    $expected_salary = $expected_salary + $day_pay;
+
+    array_push($all_workdays, array($date, $comment, $undertime_deduction));
   } else{
-    $comment = "";
+    $day_pay = $work_hours*$hourly_rate;
+    $expected_salary = $expected_salary + $day_pay;
   }
-  echo $comment;
+}
 
-  array_push($all_workdays, array($date, $time_in, $time_out));
-//}
+$workdays_count = COUNT($all_workdays);
 
-$workdays_count = count($all_workdays);
 if(isset($login_session)){
     $db->close();
     //header("location: index.php");
