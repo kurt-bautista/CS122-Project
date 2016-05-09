@@ -98,17 +98,7 @@ include('timerecord-functionality.php');
             <div class="row">
                 <div class="card col s12 center hoverable">
                     <div class="card-content">
-                        <span class="card-title">Time In - Time Out Record</span>
-                        <p class="apply_roboto" style="font-size:20px">
-                        <a class="dropdown-button teal-text" href="#" data-activates="month-dropdown">April</a>
-                        </p>
-                        
-                        <!--Drowpdown Structure-->
-                        <ul class="dropdown-content" id="month-dropdown">
-                            <li><a href="#!">January</a></li>
-                            <li><a href="#!">February</a></li>
-                        </ul>
-                        <!--Drowpdown Structure-->
+                        <span class="card-title">Time In - Time Out Record</span>                                                                                     
                         
                         <div class="divider"></div>
                         
@@ -167,7 +157,18 @@ include('timerecord-functionality.php');
         <script>       
                     
             $(document).ready(function(){
-               $(".button-collapse").sideNav();                                                      
+               $(".button-collapse").sideNav();
+               
+               $('.dropdown-button').dropdown({
+                    inDuration: 300,
+                    outDuration: 225,
+                    constrain_width: false, // Does not change width of dropdown to that of the activator
+                    hover: true, // Activate on hover
+                    gutter: 0, // Spacing from edge
+                    belowOrigin: false, // Displays dropdown below the button
+                    alignment: 'left' // Displays dropdown with edge aligned to the left of button
+                    }
+                );                                                      
             });
             
             function appendTime(x){
@@ -185,8 +186,7 @@ include('timerecord-functionality.php');
                 var minutes = appendTime(currentTime.getMinutes());
                 var seconds = appendTime(currentTime.getSeconds());
                 
-                var timeNow = year + "/" + month + "/" + day + " " + hours + ":" + minutes + ":" + seconds;
-                alert(timeNow);               
+                var timeNow = year + "/" + month + "/" + day + " " + hours + ":" + minutes + ":" + seconds;               
                 return timeNow;  
             } 
             
