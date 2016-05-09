@@ -41,6 +41,11 @@ if(!$result = $db->query($fetch_info)){
     die('Error retrieving user information ['. $db->error.']');
 }
 
+//fetch user info
+if(!$workdays_result = $db->query($fetch_workdays_info)){
+    die('Error retrieving user information ['. $db->error.']');
+}
+
 $row = $result->fetch_assoc();
 $login_session = $row['username'];
 $employee_type = $_SESSION['employee_type'];
