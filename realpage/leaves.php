@@ -26,8 +26,12 @@ include('leaves_functionality.php');
                     <li><a href="dashboard.php"><img class="responsive-img" src="img/company-logo-blue.png"></a></li>
                     <li><a href="timerecord.php">Time Record</a></li>
                     <li class="active"><a href="leaves.php">Leaves</a></li>
+<<<<<<< HEAD
                     <li><a href="salaryreport.php">Salary Report</a></li>
 
+=======
+                    <li><a href="salaryreport.php">Salary Report</a></li>        
+>>>>>>> origin/Manager-Functionality
                     <?php if($_SESSION['employee_type'] == 'manager'){?>
                     <li><a href="manager.php">Manager</a></li>
                     <?php } ?>
@@ -83,7 +87,7 @@ include('leaves_functionality.php');
                 <div class="card right col s12 hoverable">
                     <div class="card-content center">
                         <span class="card-title">Pending Approval</span>
-                        <!--Change to PHP code-->
+
                         <?php if ($number_of_days < 1): ?>
                           <h1 class="">No current pending leaves</h1>
                         <?php else: ?>
@@ -98,6 +102,10 @@ include('leaves_functionality.php');
 
                     <div class="card-reveal blue-grey darken-4 white-text">
                         <span class="card-title">Approved Leave<i class="material-icons right">close</i></span>
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/Manager-Functionality
                         <?php if(isset($approved_leave_start_date)): ?>
                             <h1 class=" center "><?php echo $approved_leave_duration ?> Day(s)</h1>
                             <p class="apply_roboto teal-text center" style="font-size:18px"><?php echo $approved_leave_start_date." - ".$approved_leave_end_date; ?></p>
@@ -149,7 +157,11 @@ include('leaves_functionality.php');
                                 </tr>
                             </thead>
 
+<<<<<<< HEAD
                             <tbody>                              
+=======
+                            <tbody>
+>>>>>>> origin/Manager-Functionality
                                 <?php if($leaves_count > 0): ?>
                                     <?php for($i = 0; $i < $leaves_count; $i++){ ?>
                                     <tr>

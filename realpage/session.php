@@ -10,7 +10,8 @@ $db = new mysqli($server, $server_user, $server_pass, $database_name);
 if($db->connect_errno > 0){
     die('Unable to connect to database ['. $db->connect_error.']');
 }
-
+ini_set('session.gc_maxlifetime', 86400);
+session_set_cookie_params(86400);
 session_start();
 if(!$user_login = $_SESSION['login_user']){
     header("location: index.php");
@@ -31,5 +32,11 @@ $first_name = $row['first_name'];
 $_SESSION['employee_id'] = $row['id'];
 if(isset($login_session)){
     $db->close();
+}
+
+if(empty($_SESSION['time-status'])){
+    $_SESSION['time-status'] = "Time In";
+    
+    //Query database if timed in, in case of session time out
 }
 ?>

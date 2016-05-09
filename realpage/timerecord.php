@@ -1,5 +1,5 @@
 <?php
-include('timerecord_functionality.php');
+include('timerecord-functionality.php');
 ?>
 
 <html>
@@ -42,20 +42,56 @@ include('timerecord_functionality.php');
         <div id="main" class="center_container">
             
             <!--Time In - Time Out-->
-            <div class="row">
-                <div class="card col s12 time_in_out_card hoverable">
-                    <div class="card-content">
-                        
-                    </div>
-                </div>
+            
                 
-                <!--
-                <div class="card small col s7 offset-s1 hoverable">
-                    <div class="card-content">
-                        
+            <div class="card col s12 hoverable">
+                
+                <div class="row">
+                    <div class="col s3" id="canvas">                       
+                        <form action="" method="POST" id="time-in-form" name="time-form">
+                            <input type="hidden" name="btnsubmit" value="<?php echo($_SESSION['time-status']);?>">
+                        </form>
+                        <button id="time-in-out-btn" class="btn-large waves-effect waves-light time_btn" onclick="timeSafety()" 
+                            name="btnsubmit" value="<?php echo($_SESSION['time-status']);?>">
+                            <i class="material-icons right">query_builder</i>
+                                <?php echo($_SESSION['time-status']);?>
+                        </button>
                     </div>
-                </div>-->
-            </div>
+                    <div class="col s8" id="canvas">
+                        <div class="row">
+                            <?php if($_SESSION['time-status'] == "Time In"){?>
+                                <div class="col s12">
+                                    <p class="teal-text apply_roboto" style="font-size:28px">Expected Time In: <?php echo $expected_time_in; ?> </p>
+                                </div>
+                                <div class="col s1">
+                                    <i class="material-icons red-text text-lighten-1" style="font-size:34px">info_outline</i>
+                                </div>
+                                <div class="col s11">
+                                    <p class="apply_roboto" style="font-size: 18px"> 
+                                        You have not signed in yet. Click the Time In Button to get started.
+                                    </p>
+                                </div>
+                            <?php }
+                            else{?>
+                                <div class="col s12">
+                                    <p class="teal-text apply_roboto" style="font-size:28px">Expected Time Out: <?php
+                                    $time_out = date('h:i:s A', time()+28800); 
+                                    echo $time_out; ?> </p>
+                                </div>
+                                <div class="col s1">
+                                    <i class="material-icons green-text text-lighten-1" style="font-size:34px">done</i>
+                                </div>
+                                <div class="col s11">
+                                    <p class="apply_roboto" style="font-size: 18px"> 
+                                        You are now signed in. Click the Time Out Button to sign out.
+                                    </p>
+                                </div>
+                            <?php }?>
+                        </div>
+                    </div>
+                </div>                   
+                
+            </div>                        
             <!--Time In - Time Out-->
             
             <!--Time Record Summary-->
@@ -63,20 +99,107 @@ include('timerecord_functionality.php');
                 <div class="card col s12 center hoverable">
                     <div class="card-content">
                         <span class="card-title">Time In - Time Out Record</span>
+                        
+                        <div class="divider"></div>
+                        
+                        <table class="highlight centered apply_roboto">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time In</th>
+                                    <th>Time Out</th>
+                                    <th>Overtime</th>
+                                    <th>Undertime</th>
+                                    <th>Total Hours</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <?php
+                                foreach($workdaysTable as $row)
+                                {
+                                echo "<tr>";
+                                    echo "<td>".$row['Date']."</td>";
+                                    echo "<td>".$row['Time In']."</td>";
+                                    echo "<td>".$row['Time Out']."</td>";
+                                    echo "<td>".$row['Overtime']."</td>";
+                                    echo "<td>".$row['Undertime']."</td>";
+                                    echo "<td>".$row['Total Hours']."</td>";
+                                echo "</tr>";
+                                }
+                                ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
             <!--Time Record Summary-->
             
+            <!--Warning Modal-->
+            <div class="modal" id="warning-modal">
+                <div class="modal-content center">
+                    <p class="apply_roboto teal-text" style="font-size:36px">Are you sure you want to time out?</p>
+                    <p class="apply_roboto" style="font-size:24px">This may cause undertime deductions towards your salary</p>
+                    <div class="divider"></div>
+                    <p>
+                    <button class="btn-large waves-effect waves-light" onclick="modalTimeOut()">Time Out</button>
+                    </p>
+                </div>               
+            </div>
+            <!--Warning Modal-->
+            
         </div>
        
        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
         
-        <script>            
+        <script>       
+                    
             $(document).ready(function(){
-               $(".button-collapse").sideNav(); 
+               $(".button-collapse").sideNav();                                         
             });
+            
+            function appendTime(x){
+                   return (x < 10) ? "0" + x : x;
+               }
+               
+            function getCurrentTime(){
+                var currentTime = new Date();
+                
+                var year = currentTime.getFullYear();
+                var month = appendTime(currentTime.getMonth() + 1);
+                var day = appendTime(currentTime.getDate());
+                
+                var hours = appendTime(currentTime.getHours());
+                var minutes = appendTime(currentTime.getMinutes());
+                var seconds = appendTime(currentTime.getSeconds());
+                
+                var timeNow = year + "/" + month + "/" + day + " " + hours + ":" + minutes + ":" + seconds;               
+                return timeNow;  
+            } 
+            
+            function timeSafety(){
+                var timeStatus = "<?php echo($_SESSION['time-status']);?>";
+                var expectedTimeOut = "<?php $time_out = date('Y/m/d h:i:s', time()+28800); 
+                                            echo $time_out; ?>";                              
+                
+                if(timeStatus == "Time In"){                  
+                    document.forms['time-in-form'].submit();
+                }
+                else{
+                    if(getCurrentTime() < expectedTimeOut){                       
+                        $('#warning-modal').openModal();
+                    }
+                    else{                       
+                        document.forms['time-in-form'].submit();
+                    }
+                }
+            }
+            
+            function modalTimeOut(){
+                 document.forms['time-in-form'].submit();
+            }
         </script>
         
     </body>
