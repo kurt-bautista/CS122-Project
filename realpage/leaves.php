@@ -52,13 +52,13 @@ include('leaves_functionality.php');
                             <div class="circle" id="leaves_circle"></div>
                         </div>
 
-                        <p class="apply_roboto" style="font-size:18px">Total Leaves: 420</p>
+                        <p class="apply_roboto" style="font-size:18px">Total Leaves: <?php echo $alloted_leaves; ?></p>
                     </div>
 
                     <!--<div class="card-reveal blue-grey darken-4 white-text">-->
                     <div id="leave-request-modal" class="modal modal-fixed-footer">
                         <div class="modal-content">
-                            
+
                         <span class="apply_roboto" style="font-size:24px">Request Leave
                             <i class="material-icons right modal-action modal-close waves-effect waves-green">close</i>
                         </span>
@@ -67,7 +67,7 @@ include('leaves_functionality.php');
                                 <input name="start_date" id="start_date" type="date" class="datepicker">
                                 <label for="start_date">Start Date</label>
                             </div>
-                            
+
                             <div class="input-field col s6">
                                 <input name="end_date" id="end_date" type="date" class="datepicker">
                                 <label for="end_date">End Date</label>
@@ -77,7 +77,7 @@ include('leaves_functionality.php');
                                 <textarea id="leave_reason_text" name="leave_reason_text" class="materialize-textarea"></textarea>
                                 <label for="leave_reason_text">Reason for Leave</label>
                             </div>
-                            
+
                             <!--
                             <div class="input-field col s12">
                                 <select name="leave-type">
@@ -90,35 +90,35 @@ include('leaves_functionality.php');
                                 </select>
                                 <label>Leave Type</label>
                             </div> -->
-                            
+
                             <div class="row">
                             <p class="col s2">
-                                <input class="with-gap" name="leave-type" type="radio" id="sick" checked>
+                                <input class="with-gap" name="leave-type" type="radio" id="sick" checked value="sick">
                                 <label for="sick">Sick</label>
                             </p>
                             <p class="col s2" >
-                                <input class="with-gap" name="leave-type" type="radio" id="vacation">
+                                <input class="with-gap" name="leave-type" type="radio" id="vacation" value="vacation">
                                 <label for="vacation">Vacation</label>
                             </p>
                             <p class="col s3" >
-                                <input class="with-gap" name="leave-type" type="radio" id="special-privilege">
+                                <input class="with-gap" name="leave-type" type="radio" id="special-privilege" value="special-privilege">
                                 <label for="special-privilege">Special Privilege</label>
                             </p>
                             <p class="col s2" >
-                                <input class="with-gap" name="leave-type" type="radio" id="maternity">
+                                <input class="with-gap" name="leave-type" type="radio" id="maternity" value="maternity">
                                 <label for="maternity">Maternity</label>
                             </p>
                             <p class="col s2" >
-                                <input class="with-gap" name="leave-type" type="radio" id="paternity">
+                                <input class="with-gap" name="leave-type" type="radio" id="paternity" value="paterntity">
                                 <label for="paternity">Paternity</label>
                             </p>
                             </div>
-                            
+
                         </div>
-                        
+
                         <div class="modal-footer">
                             <button class="btn waves-effect waves-light" type="submit" name="submit" value="request_leave">Submit</button>
-                        </form>                        
+                        </form>
                         </div>
                     </div>
 
@@ -201,8 +201,8 @@ include('leaves_functionality.php');
                                 <?php if($leaves_count > 0): ?>
                                     <?php for($i = 0; $i < $leaves_count; $i++){ ?>
                                     <tr>
-                                        <td><?php echo $all_leaves[$i][3]; ?> Day(s)</td>
-                                        <td><?php echo date('F d, Y', strtotime($all_leaves[$i][0])); ?></td>
+                                        <td><?php echo $all_leaves[$i][0]; ?> Day(s)</td>
+                                        <td><?php echo $all_leaves[$i][1]; ?></td>
                                         <td><?php echo $all_leaves[$i][2]; ?></td>
                                     </tr>
                                     <?php }; ?>
@@ -223,7 +223,7 @@ include('leaves_functionality.php');
         <script type="text/javascript" src="https://code.jquery.com/ui/1.12.0-rc.2/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script type="text/javascript" src="js/circles.min.js"></script>
-        
+
 
         <script>
             /**
@@ -240,18 +240,18 @@ include('leaves_functionality.php');
                     selectMonths: true,
                     selectYears: 15
                 });
-                
+
                $(".button-collapse").sideNav();
-               
+
                $('select').material_select();
-               
+
                $('.modal-trigger').leanModal();
 
                var myCircle = Circles.create({
                     id:                  'leaves_circle',
                     radius:              70,
                     value:               parseInt("<?php echo $remaining_leaves ?>"),
-                    maxValue:            100, //Replace with php query
+                    maxValue:            parseInt("<?php echo $alloted_leaves ?>"),
                     width:               10,
                     text:                function(value){return value;},
                     colors:              ['#b2dfdb', '#009688'],
@@ -269,8 +269,11 @@ include('leaves_functionality.php');
                //Array of leave values
                var circle_values = [];
                circle_values.push(<?php echo $leaves_taken; ?>);
-               circle_values.push(<?php echo $maternity_leaves; ?>);
                circle_values.push(<?php echo $sick_leaves; ?>);
+               circle_values.push(<?php echo $vacation_leaves; ?>);
+               circle_values.push(<?php echo $special_privilege_leaves; ?>);
+               circle_values.push(<?php echo $maternity_leaves; ?>);
+               circle_values.push(<?php echo $paternity_leaves; ?>);
 
                for (var i = 1; i <= 3; i++){
                    var circle = document.getElementById('leaves_summary' + i);
@@ -279,7 +282,7 @@ include('leaves_functionality.php');
                         id:                  circle.id,
                         radius:              45,
                         value:               circle_values[i-1],
-                        maxValue:            100, //Replace with php query
+                        maxValue:            parseInt("<?php echo $alloted_leaves ?>"),
                         width:               10,
                         text:                function(value){return value;},
                         colors:              ['#b2dfdb', '#009688'],
