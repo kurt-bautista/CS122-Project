@@ -44,7 +44,12 @@ header, body, footer{
 
 /*Time Record Page*/
 .time_in_out_card{
-    height: 150px;
+    height: 100px;
+}
+
+.time_btn{
+    margin-left: 40px;
+    margin-top: 45px;
 }
 
 /*Salary Report Page*/

@@ -11,7 +11,8 @@ $db = new mysqli($server, $server_user, $server_pass, $database_name);
 if($db->connect_errno > 0){
     die('Unable to connect to database ['. $db->connect_error.']');
 }
-
+ini_set('session.gc_maxlifetime', 86400);
+session_set_cookie_params(86400);
 session_start();
 if(!$user_login = $_SESSION['login_user']){
     header("location: index.php");

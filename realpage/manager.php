@@ -1,5 +1,5 @@
 <?php
-include('manager_functionality.php');
+include('manager-functionality.php');
 ?>
 
 <html>
