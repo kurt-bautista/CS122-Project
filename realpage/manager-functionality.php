@@ -16,7 +16,43 @@
 	if(!$user_login = $_SESSION['login_user']){
 		header("location: index.php");
 	}
-
+	
+	$fetch_leave_requests = <<<SQL
+	SELECT l.id, l.start_date, l.end_date, l.duration, CONCAT(COALESCE(e.first_name, ''), ' ', COALESCE(e.last_name, '')) AS 'employee'
+	FROM leaves l, employees e WHERE l.status = 'PENDING' AND l.employees_id = e.id
+SQL;
+	
+	if(!$result = $db->query($getContract))
+	{
+		die('There was an error running the query [' . $db->error . ']');
+	}
+	
+	$pendingLeaves = $result->fetch_all(MYSQLI_ASSOC);
+	/* ACCEPT/REJECT LEAVES
+	if($accepted)
+	{
+		$leaveId = 0; //fix
+		$acceptLeave = <<<SQL
+		UPDATE leaves
+		SET status = 'ACCEPTED'
+		WHERE id = $leaveId;
+SQL;
+		
+		$db->query($acceptLeave);
+		
+	}
+	else
+	{
+		$leaveId = 0; //fix
+		$rejectLeave = <<<SQL
+		UPDATE leaves
+		SET status = 'REJECTED'
+		WHERE id = $leaveId;
+SQL;
+		
+		$db->query($rejectLeave);
+	}
+	*/
 	if(isset($_POST['submit']))
 	{
 		$employee_type = 'regular'; //pls fix
