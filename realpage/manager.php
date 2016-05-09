@@ -1,5 +1,5 @@
 <?php
-include('manager-functionality.php');
+include('dummy_manager.php');
 ?>
 
 <html>
@@ -52,7 +52,9 @@ include('manager-functionality.php');
                         <div id="canvas">
                             <div class="circle" id="team_circle"></div>
                         </div>
-                        <p class="apply_roboto" style="font-size:16px">Total Team Members: 420</p> 
+                        <p class="apply_roboto" style="font-size:18px">Total Members: 420</p> 
+                        
+                        <div class="divider" style="margin-top:20px; margin-bottom:20px;"></div>
                                               
                         <!--Team Attendance-->
                         <!--PHP for loop-->
@@ -61,32 +63,46 @@ include('manager-functionality.php');
                             Anton Suba <!--Replace with PHP-->
                         </div>
                     </div>
+                    
+                    <div class="card-action">
+                        <a class="clickable_text teal-text"><i class="material-icons" style="margin-right:5px">supervisor_account</i>
+                        Add Employee</a>
+                    </div>
                 </div>
                 <!--Team Status-->
                 
                 <!--Leave Approval-->
                 <div class="col s7 offset-s1">
+                    <form action="" method="POST">
                     <ul class="collapsible popout" data-collapsible="accordion">
                         <li>
                             <div class="collapsible-header apply_roboto" style="font-size: 30px">
                                 Pending Leave Requests
                             </div>
                         </li>
+                        
+                        <!--PHP Loop here-->
                         <li>
                             <div class="collapsible-header apply_roboto">                               
-                                <span>Anton Suba</span>                                                           
+                                <span>Anton Suba</span>
+                                <input class="right" type="checkbox" id="1" style="margin-top:10px"/> <!--Replace ID with leave request id -->
+                                <label class="right" for="1" style="margin-top:10px">Approve</label>                                                           
                             </div>
-                            <div class="collapsible-body apply_roboto">
-                                <div class="chip">
-                                    <span> 3 Days</span>
-                                </div>
-                                <div class="chip">
-                                    <span> April 20, 2016 - April 22, 2016</span>
+                            <div class="collapsible-body apply_roboto">                               
+                                <div class="chip" style="margin-top:15px; margin-left:25px;">
+                                    <span> April 20, 2016 - April 22, 2016</span> <!--Replace with PHP query-->
                                 </div>    
-                                <p>Reason: I need to blaze it</p>
+                                <p style="font-size:18px">Reason: I need to blaze it</p> <!--Replace with PHP query-->
                             </div>
                         </li>
+                        <!--PHP Loop here-->                        
                     </ul>
+                    <p class="center">
+                    <button class="btn waves-effect waves-light" type="submit" name="submit" value="approve_leaves">
+                        Approve Leaves
+                    </button>
+                    </p>
+                    </form>
                 </div>
                 <!--Leave Approval-->
                 
