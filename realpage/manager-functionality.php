@@ -15,7 +15,7 @@
 	if(!$user_login = $_SESSION['login_user']){
 		header("location: index.php");
 	}
-
+	
 	if(isset($_POST['submit']))
 	{
 		$employee_type = 'regular'; //pls fix
