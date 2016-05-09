@@ -185,13 +185,14 @@ include('timerecord-functionality.php');
                 var minutes = appendTime(currentTime.getMinutes());
                 var seconds = appendTime(currentTime.getSeconds());
                 
-                var timeNow = year + "/" + month + "/" + day + " " + hours + ":" + minutes + ":" + seconds;               
+                var timeNow = year + "/" + month + "/" + day + " " + hours + ":" + minutes + ":" + seconds;
+                alert(timeNow);               
                 return timeNow;  
             } 
             
             function timeSafety(){
                 var timeStatus = "<?php echo($_SESSION['time-status']);?>";
-                var expectedTimeOut = "<?php $time_out = date('Y/m/d h:i:s', time()+28800); 
+                var expectedTimeOut = "<?php $time_out = date('Y/m/d H:i:s', time()+28800); 
                                             echo $time_out; ?>";                              
                 
                 if(timeStatus == "Time In"){                  
