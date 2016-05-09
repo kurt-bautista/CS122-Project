@@ -100,10 +100,8 @@ include('timerecord-functionality.php');
                 <div class="card col s12 center hoverable">
                     <div class="card-content">
                         <span class="card-title">Time In - Time Out Record</span>                                                                                     
-                        
-                        <div class="col s12">
-                            
-                            <ul class="tabs row">                               
+    
+                            <ul class="tabs">                               
                                 <?php
                                 foreach ($months as $key => $value) {
                                     echo("<div class='col s1' style=''>");
