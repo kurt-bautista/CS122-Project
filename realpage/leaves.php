@@ -55,7 +55,7 @@ include('leaves_functionality.php');
                         <p class="apply_roboto" style="font-size:18px">Total Leaves: <?php echo $alloted_leaves; ?></p>
                     </div>
 
-                    <!--<div class="card-reveal blue-grey darken-4 white-text">-->
+                    <!--Leave Request Modal-->
                     <div id="leave-request-modal" class="modal modal-fixed-footer">
                         <div class="modal-content">
 
@@ -77,19 +77,6 @@ include('leaves_functionality.php');
                                 <textarea id="leave_reason_text" name="leave_reason_text" class="materialize-textarea"></textarea>
                                 <label for="leave_reason_text">Reason for Leave</label>
                             </div>
-
-                            <!--
-                            <div class="input-field col s12">
-                                <select name="leave-type">
-                                    <option value="" disabled selected>Choose Leave Type</option>
-                                    <option value="sick">Sick</option>
-                                    <option value="vacation">Vacation</option>
-                                    <option value="special-privilege">Special Privilege</option>
-                                    <option value="maternity">Maternity</option>
-                                    <option value="paternity">Paternity</option>
-                                </select>
-                                <label>Leave Type</label>
-                            </div> -->
 
                             <div class="row">
                             <p class="col s2">
@@ -121,6 +108,7 @@ include('leaves_functionality.php');
                         </form>
                         </div>
                     </div>
+                    <!--Leaves Request Modal-->
 
                     <div class="card-action center">
                         <a class="modal-trigger clickable_text teal-text" href="#leave-request-modal">Request Leave</a>
