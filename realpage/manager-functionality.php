@@ -17,6 +17,21 @@
 		header("location: index.php");
 	}
 	
+	$getTeamMembers = <<<SQL
+	SELECT CONCAT(COALESCE(e.first_name, ''), ' ', COALESCE(e.last_name, '')) AS "Team Member", w.time_in AS "Time In"
+	FROM employees e LEFT JOIN workdays w
+	ON w.employees_id = e.id AND DATE(w.time_in) = CURDATE()
+	WHERE e.manager_id = ?
+SQL;
+
+	if(!$result = $db->query($getTeamMembers))
+	{
+		die('There was an error running the query [' . $db->error . ']');
+	}
+	
+	$teamMembers = $result->fetch_all(MYSQLI_ASSOC);
+	$timedIn = $result->num_rows;
+	
 	$fetch_leave_requests = <<<SQL
 	SELECT l.id, l.start_date, l.end_date, l.duration, CONCAT(COALESCE(e.first_name, ''), ' ', COALESCE(e.last_name, '')) AS 'employee'
 	FROM leaves l, employees e WHERE l.status = 'PENDING' AND l.employees_id = e.id
