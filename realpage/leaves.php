@@ -82,7 +82,7 @@ include('leaves_functionality.php');
                 <div class="card right col s12 hoverable">
                     <div class="card-content center">
                         <span class="card-title">Pending Approval</span>
-                        
+
                         <?php if ($number_of_days < 1): ?>
                           <h1 class="">No current pending leaves</h1>
                         <?php else: ?>
