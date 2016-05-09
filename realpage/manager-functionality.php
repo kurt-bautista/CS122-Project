@@ -23,13 +23,14 @@
 		$holiday_type = 'regular'; //
 		$s_date = '2000-4-20'; //
 		$e_date = '2010-4-20'; //
+		$a_leaves = 5; //
 		$newEmp = $db->prepare("INSERT INTO employees(username, password, first_name, last_name, remaining_leaves, employee_type, manager_id, holiday_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 		$newEmp->bind_param('ssssisis', $_POST['username'], $_POST['password'], $_POST['first_name'], $_POST['last_name'], $_POST['allotted_leaves'], $employee_type, $_SESSION['employee_id'], $holiday_type);
 		$newEmp->execute();
 		$empId = $newEmp->insert_id;
 		$newEmp->close();
-		$newContract = $db->prepare("INSERT INTO employee_contracts(start_date, end_date, hourly_rate, employees_id) VALUES (?, ?, ?, ?)");
-		$newContract->bind_param('ssdi', $s_date, $e_date, $h_rate, $empId);
+		$newContract = $db->prepare("INSERT INTO employee_contracts(start_date, duration, hourly_rate, employees_id, alloted_leaves) VALUES (?, ?, ?, ?, ?)");
+		$newContract->bind_param('ssdii', $s_date, $e_date, $h_rate, $empId, $a_leaves);
 		$newContract->execute();
 	}
 ?>
