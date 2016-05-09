@@ -58,6 +58,7 @@ SQL;
 		}
 	}
 	$months = array("Jan"=>1, "Feb"=>2, "Mar"=>3, "Apr"=>4, "May"=>5, "June"=>6, "July"=>7, "Aug"=>8, "Sept"=>9, "Oct"=>10, "Nov"=>11, "Dec"=>12);
+	$curMonth = date('m');
 	$getWorkdays = $db->prepare("SELECT DATE(time_in) AS 'Date', TIME(time_in) AS 'Time In', TIME(time_out) AS 'Time Out', 
 	CASE WHEN HOUR(TIMEDIFF(time_out, time_in)) - 8 > 0 THEN HOUR(TIMEDIFF(time_out, time_in)) - 8 
 	ELSE 0 END AS 'Overtime', 
@@ -65,8 +66,8 @@ SQL;
 	ELSE 8 - HOUR(TIMEDIFF(time_out, time_in)) END AS 'Undertime', 
 	HOUR(TIMEDIFF(time_out, time_in)) AS 'Total Hours'
 	FROM workdays WHERE YEAR(CURDATE()) = YEAR(time_in) AND MONTH(time_in) = ? AND employees_id = ? AND time_in != time_out ORDER BY time_in DESC");
-	$getWorkdays->bind_param('ii', $months['May'], $empId);
+	$getWorkdays->bind_param('ii', $curMonth, $empId);
 	$getWorkdays->execute();
 	$result = $getWorkdays->get_result();
-	$workdaysTable = $result->fetch_all(MYSQLI_BOTH);
+	$workdaysMonth = $result->fetch_all(MYSQLI_BOTH);
 ?>
