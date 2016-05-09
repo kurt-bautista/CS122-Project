@@ -78,11 +78,17 @@ include('account_functionality.php');
                             <div class="input-field col s12">    
                                 <i class="material-icons prefix">vpn_key</i>
                                 <input id="new_pass" name="new_pass" type="password" class="validate">
-                                <label for="new_pass">New Password</label> 
+                                <label for="new_pass">New Password</label>                           
+                            </div>
+                            <div class="input-field col s12">    
+                                <i class="material-icons prefix">vpn_key</i>
+                                <input id="confirm_new_pass" name="confirm_new_pass" type="password" class="validate">
+                                <label for="confirm_new_pass">Confirm New Password</label> 
                                 
                                 <div class="divider" style="margin-top:20px; margin-bottom:20px;"></div>                           
                             </div>
                             <div class="center">
+                                <span class="apply_roboto red-text"><?php echo($error);?></span>
                                 <button class="btn waves-effect waves-light" type="submit" name="submit" value="account_change">
                                     Save Changes
                                 </button>
