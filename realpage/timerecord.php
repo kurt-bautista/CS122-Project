@@ -76,7 +76,7 @@ include('timerecord-functionality.php');
                             else{?>
                                 <div class="col s12">
                                     <p class="teal-text apply_roboto" style="font-size:28px">Expected Time Out: <?php
-                                    $time_out = date('h:i:s A', time()+28800); 
+                                    $time_out = date('H:i:s', time()+28800); 
                                     echo $time_out; ?> </p>
                                 </div>
                                 <div class="col s1">
@@ -160,7 +160,10 @@ include('timerecord-functionality.php');
             <div class="modal" id="warning-modal">
                 <div class="modal-content center">
                     <p class="apply_roboto teal-text" style="font-size:36px">Are you sure you want to time out?</p>
-                    <p class="apply_roboto" style="font-size:24px">This may cause undertime deductions towards your salary</p>
+                    <p class="apply_roboto" style="font-size:24px">This may cause undertime deductions towards your salary
+                    </p>
+                    <p class="apply_roboto" style="font-size:24px">Warning: You will not be able to time in again within the day
+                    </p>
                     <div class="divider"></div>
                     <p>
                     <button class="btn-large waves-effect waves-light" onclick="modalTimeOut()">Time Out</button>
@@ -168,6 +171,16 @@ include('timerecord-functionality.php');
                 </div>               
             </div>
             <!--Warning Modal-->
+            
+            <!--Time In Modal-->
+            <div class="modal" id="time-in-modal">
+                <div class="modal-content center">
+                    <p class="apply_roboto teal-text" style="font-size:36px">You have already timed in today.</p>
+                    <p class="apply_roboto" style="font-size:24px">Please wait until the next day to time in again
+                    </p>
+                </div>               
+            </div>
+            <!--Time In Modal-->
             
         </div>
        
@@ -211,10 +224,19 @@ include('timerecord-functionality.php');
             function timeSafety(){
                 var timeStatus = "<?php echo($_SESSION['time-status']);?>";
                 var expectedTimeOut = "<?php $time_out = date('Y/m/d H:i:s', time()+28800); 
-                                            echo $time_out; ?>";                              
+                                            echo $time_out; ?>";
+                             
+                var a = "<?php echo date('Y-m-d'); ?>" == "<?php if(!$workdaysMonth){ echo '0000-00-00'; } else{ echo $workdaysMonth[0][0]; }?>";
                 
-                if(timeStatus == "Time In"){                  
-                    document.forms['time-in-form'].submit();
+                if(timeStatus == "Time In"){
+                    if(a)
+                    {
+                        $('#time-in-modal').openModal();
+                    }
+                    else
+                    {                  
+                        document.forms['time-in-form'].submit();
+                    }
                 }
                 else{
                     if(getCurrentTime() < expectedTimeOut){                       
