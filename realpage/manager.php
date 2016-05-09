@@ -65,11 +65,75 @@ include('dummy_manager.php');
                     </div>
                     
                     <div class="card-action">
-                        <a class="clickable_text teal-text"><i class="material-icons" style="margin-right:5px">supervisor_account</i>
-                        Add Employee</a>
+                        <a class="modal-trigger clickable_text teal-text" href="#add-emp-modal">
+                            <i class="material-icons" style="margin-right:5px">supervisor_account</i>Add Employee
+                        </a>
                     </div>
                 </div>
                 <!--Team Status-->
+                
+                <!--Add Employee Modal-->
+                <div class="modal modal-fixed-footer" id="add-emp-modal">
+                    <form action="" method="POST">
+                    <div class="modal-content">
+                        <div class="apply_roboto col s12" style="font-size:24px">Add Employee</div>
+                        <div class="input-field col s6">
+                            <input id="first-name" name="first-name" type="text" class="validate">
+                            <label for="first-name">First Name</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="last-name" name="last-name" type="text" class="validate">
+                            <label for="last-name">Last Name</label>
+                        </div>
+                        
+                        <div class="input-field col s12">
+                            <input id="username" name="username" type="text" class="validate">
+                            <label for="username">Username</label>
+                        </div>
+                        
+                        <div class="input-field col s12">
+                            <input id="password" name="password" type="password" class="validate">
+                            <label for="password">Password</label>
+                        </div>
+                        
+                        <div class="input-field col s3">
+                            <input id="alloted-leaves" name="alloted-leaves" type="number" class="validate">
+                            <label for="alloted-leaves">Alloted Leaves</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input id="hourly-rate" name="hourly-rate" type="number" class="validate">
+                            <label for="hourly-rate">Hourly Rate</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input id="start-date" name="start-date" type="date" class="datepicker">
+                            <label for="start-date">Start Date</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input id="end-date" name="end-date" type="date" class="datepicker">
+                            <label for="end-date">End Date</label>
+                        </div>
+                        
+                        <div class="input-field col s12 center">
+                            <span style="margin-right:10px">
+                                <input name="employee-type" id="regular" class="with-gap" type="radio"/>
+                                <label for="regular">Regular</label>
+                            </span>
+                            <span style="margin-left:10px">
+                                <input name="employee-type" id="manager" class="with-gap" type="radio"/>
+                                <label for="manager">Manager</label>
+                            </span>
+                        </div>                        
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button class="btn waves-effect waves-light" type="submit" name="add_employee" value="add_employee">
+                            Submit
+                        </button>
+                    </div>
+                    
+                    </form>
+                </div>
+                <!--Add Employee Modal-->
                 
                 <!--Leave Approval-->
                 <div class="col s7 offset-s1">
@@ -98,7 +162,7 @@ include('dummy_manager.php');
                         <!--PHP Loop here-->                        
                     </ul>
                     <p class="center">
-                    <button class="btn waves-effect waves-light" type="submit" name="submit" value="approve_leaves">
+                    <button class="btn waves-effect waves-light" type="submit" name="approve_leaves" value="approve_leaves">
                         Approve Leaves
                     </button>
                     </p>
@@ -118,6 +182,13 @@ include('dummy_manager.php');
         <script>            
             $(document).ready(function(){
                $(".button-collapse").sideNav(); 
+               
+               $('.modal-trigger').leanModal();
+               
+               $('.datepicker').pickadate({
+                    selectMonths: true,
+                    selectYears: 15
+                });
                
                var myCircle = Circles.create({
                     id:                  'team_circle',
