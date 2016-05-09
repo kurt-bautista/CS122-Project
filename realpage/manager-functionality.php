@@ -28,7 +28,7 @@ SQL;
 	}
 	
 	$pendingLeaves = $result->fetch_all(MYSQLI_ASSOC);
-	/* ACCEPT/REJECT LEAVES
+	
 	if($accepted)
 	{
 		$leaveId = 0; //fix
@@ -76,7 +76,7 @@ SQL;
 		
 		$db->query($rejectLeave);
 	}
-	*/
+	
 	if(isset($_POST['submit']))
 	{
 		$employee_type = 'regular'; //pls fix
