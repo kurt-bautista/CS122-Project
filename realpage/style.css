@@ -52,6 +52,12 @@ header, body, footer{
     margin-top: 45px;
 }
 
+#tab-bar{
+    overflow: auto;
+    max-height: 100%;
+    max-width: 100%;
+}
+
 /*Manager Page*/
 .team_status_card{
     height: 650px;
