@@ -20,7 +20,7 @@ if(!$user_login = $_SESSION['login_user']){
 
 $fetch_info = <<<SQL
 SELECT employees.username "username", employees.remaining_leaves "remaining_leaves",
-employees.employee_type "employee_type", employee_contracts.alloted_leaves = "alloted_leaves"
+employees.employee_type "employee_type", employee_contracts.alloted_leaves "alloted_leaves"
 FROM employees, employee_contracts WHERE username='$user_login' AND employee_contracts.employees_id=employees.id
 SQL;
 
