@@ -4,7 +4,7 @@ $error = '';
 $server = 'localhost';
 $server_user = 'root';
 $server_pass = '';
-$database_name = 'company';
+$database_name = 'realpagetest';
 
 $db = new mysqli($server, $server_user, $server_pass, $database_name);
 
@@ -55,6 +55,8 @@ $all_workdays = array();
 $overtime_hours = 0;
 $undertime_hours = 0;
 $expected_salary = 0;
+$total_overtime_pay = 0;
+$total_undertime_deduction = 0;
 
 while($row2 = $workdays_result->fetch_assoc()){
   $date = date('F d, Y', strtotime($row2['time_in']));
@@ -67,18 +69,20 @@ while($row2 = $workdays_result->fetch_assoc()){
   $work_hours = $row2['num_of_hours'];
   $comment = "";
   $overtime_pay = ($hourly_rate*0.25) * $overtime_hours;
-  $undertime_deduction = ($hourly_rate*0.20);
+  $undertime_deduction = ($hourly_rate*0.80) * $undertime_hours;
 
   if($overtime_hours > 0){
     $comment = "overtime";
     $day_pay = (8*$hourly_rate) + $overtime_pay;
     $expected_salary = $expected_salary + $day_pay;
+    $total_overtime_pay = $total_overtime_pay + $overtime_pay;
 
     array_push($all_workdays, array($date, $comment, $overtime_pay));
   } elseif ($undertime_hours > 0) {
     $comment = "undertime";
-    $day_pay = $work_hours * ($hourly_rate*0.80);
+    $day_pay = (8*$hourly_rate) - $undertime_deduction;
     $expected_salary = $expected_salary + $day_pay;
+    $total_undertime_deduction = $total_undertime_deduction + $undertime_deduction;
 
     array_push($all_workdays, array($date, $comment, $undertime_deduction));
   } else{
