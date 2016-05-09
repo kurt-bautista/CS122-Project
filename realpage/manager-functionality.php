@@ -37,12 +37,30 @@ SQL;
 		SET status = 'ACCEPTED'
 		WHERE id = $leaveId;
 SQL;
-		
+
+		$getContract = <<<SQL
+		SELECT *
+		FROM employee_contracts
+		WHERE employees_id = '$empId'
+SQL;
+
+		if(!$result = $db->query($getContract))
+		{
+			die('There was an error running the query [' . $db->error . ']');
+		}
+	
+		$contract = $result->fetch_assoc();
+		$expected_time_in = $contract['expected_time_in'];
+		$hourly_rate = $contract['hourly_rate'];
+		$time_out = date('Y-m-d H:i:s', strtotime($expected_time_in)+28800);
 		$db->query($acceptLeave);
-		$newWorkday = $db->prepare("INSERT INTO workdays()")
+		$newWorkday = $db->prepare("INSERT INTO workdays(time_in, time_out, overtime_hours, employees_id, leaves_id, employees_hourly_rate)
+		VALUES (?, ?, 0, ?, ?, ?)");
 		for($i = 0; $i < $duration; $i++)
 		{
-			$newWorkday->bind_param();
+			$ti = date('Y-m-d H:i:s', strtotime($expected_time_in)+strtotime($start_date)+($i*86400));
+			$to = date('Y-m-d H:i:s', (strtotime($expected_time_in)+strtotime($start_date)+($i*86400))+28800);
+			$newWorkday->bind_param('ssiid', $ti, $to, $empId, $leaveId, $hourly_rate);
 			$newWorkday->execute();
 		}
 		
