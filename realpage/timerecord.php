@@ -149,7 +149,10 @@ include('timerecord-functionality.php');
             <div class="modal" id="warning-modal">
                 <div class="modal-content center">
                     <p class="apply_roboto teal-text" style="font-size:36px">Are you sure you want to time out?</p>
-                    <p class="apply_roboto" style="font-size:24px">This may cause undertime deductions towards your salary</p>
+                    <p class="apply_roboto" style="font-size:24px">This may cause undertime deductions towards your salary
+                    </p>
+                    <p class="apply_roboto" style="font-size:24px">Warning: You will not be able to time in again within the day
+                    </p>
                     <div class="divider"></div>
                     <p>
                     <button class="btn-large waves-effect waves-light" onclick="modalTimeOut()">Time Out</button>
