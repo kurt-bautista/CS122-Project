@@ -88,7 +88,7 @@ include('salaryreport_functionality.php');
                
                var salaryAnimation = new CountUp(document.getElementById("expected-salary").id, 0, <?php echo($expected_salary);?>);
                salaryAnimation.start();
-               var baseAnimation = new CountUp(document.getElementById("base-salary").id, 0, <?php echo($hourly_rate * 8);?>);
+               var baseAnimation = new CountUp(document.getElementById("base-salary").id, 0, <?php echo($hourly_rate * 8 * 30);?>);
                baseAnimation.start();
                var overtimeAnimation = new CountUp(document.getElementById("overtime-pay").id, 0, <?php echo($total_overtime_pay);?>);
                overtimeAnimation.start();
