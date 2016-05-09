@@ -10,6 +10,7 @@ include('timerecord-functionality.php');
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/jquery.mCustomScrollbar.css"/>
         
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
@@ -100,36 +101,58 @@ include('timerecord-functionality.php');
                     <div class="card-content">
                         <span class="card-title">Time In - Time Out Record</span>                                                                                     
                         
+                        <div class="col s12">
+                            
+                            <ul class="tabs row">                               
+                                <?php
+                                foreach ($months as $key => $value) {
+                                    echo("<div class='col s1' style=''>");
+                                    printf("<li class='tab'><a href='#%s'>%s</a></li>", $key, $key);
+                                    echo("</div>");
+                                }
+                                ?>                               
+                            </ul>
+                        
                         <div class="divider"></div>
                         
-                        <table class="highlight centered apply_roboto">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Time In</th>
-                                    <th>Time Out</th>
-                                    <th>Overtime</th>
-                                    <th>Undertime</th>
-                                    <th>Total Hours</th>
-                                </tr>
-                            </thead>
-                            
-                            <tbody>
-                                <?php
-                                foreach($workdaysTable as $row)
-                                {
-                                echo "<tr>";
-                                    echo "<td>".$row['Date']."</td>";
-                                    echo "<td>".$row['Time In']."</td>";
-                                    echo "<td>".$row['Time Out']."</td>";
-                                    echo "<td>".$row['Overtime']."</td>";
-                                    echo "<td>".$row['Undertime']."</td>";
-                                    echo "<td>".$row['Total Hours']."</td>";
-                                echo "</tr>";
-                                }
-                                ?>
-                            </tbody>
-                        </table>
+                        <?php foreach ($months as $key => $value) {?>
+                            <div class="col s12" id="<?php echo($key);?>">
+                            <table class="highlight centered apply_roboto">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Time In</th>
+                                        <th>Time Out</th>
+                                        <th>Overtime</th>
+                                        <th>Undertime</th>
+                                        <th>Total Hours</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                    <?php
+                                    $getWorkdays->bind_param('ii', $months[$key], $empId);
+                                    $getWorkdays->execute();
+                                    $result = $getWorkdays->get_result();
+                                    $workdaysTable = $result->fetch_all(MYSQLI_ASSOC);
+                                    
+                                    foreach($workdaysTable as $row)
+                                    {
+                                    echo "<tr>";
+                                        echo "<td>".$row['Date']."</td>";
+                                        echo "<td>".$row['Time In']."</td>";
+                                        echo "<td>".$row['Time Out']."</td>";
+                                        echo "<td>".$row['Overtime']."</td>";
+                                        echo "<td>".$row['Undertime']."</td>";
+                                        echo "<td>".$row['Total Hours']."</td>";
+                                    echo "</tr>";
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                            </div>
+                        <?php }?>
+                        
                     </div>
                 </div>
             </div>
@@ -153,22 +176,19 @@ include('timerecord-functionality.php');
        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="js/jquery.mCustomScrollbar.concat.min.js"></script>
         
         <script>       
                     
             $(document).ready(function(){
                $(".button-collapse").sideNav();
                
-               $('.dropdown-button').dropdown({
-                    inDuration: 300,
-                    outDuration: 225,
-                    constrain_width: false, // Does not change width of dropdown to that of the activator
-                    hover: true, // Activate on hover
-                    gutter: 0, // Spacing from edge
-                    belowOrigin: false, // Displays dropdown below the button
-                    alignment: 'left' // Displays dropdown with edge aligned to the left of button
-                    }
-                );                                                      
+               $('ul.tabs').tabs();
+               
+               $("#tab-bar").mCustomScrollbar({
+                   axis: "x",
+                   theme: "minmal-dark"
+               });                                                     
             });
             
             function appendTime(x){
