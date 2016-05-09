@@ -68,5 +68,5 @@ SQL;
 	$getWorkdays->bind_param('ii', $months['May'], $empId);
 	$getWorkdays->execute();
 	$result = $getWorkdays->get_result();
-	$workdaysTable = $result->fetch_all(MYSQLI_ASSOC);
+	$workdaysTable = $result->fetch_all(MYSQLI_BOTH);
 ?>
