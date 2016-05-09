@@ -55,7 +55,7 @@ CREATE TABLE workdays(
 ALTER TABLE workdays
 ADD COLUMN employees_hourly_rate DECIMAL NOT NULL;
 
-INSERT INTO employees(username, password, remaining_leaves, employee_type, holiday_type) VALUES ('admin', 'password', 0, 'manager', 'regular');
+INSERT INTO employees(username, password, remaining_leaves, employee_type, holiday_type) VALUES ('admin', 'password', 40, 'manager', 'regular');
 
 ALTER TABLE employee_contracts
 ADD COLUMN alloted_leaves INT NOT NULL;
