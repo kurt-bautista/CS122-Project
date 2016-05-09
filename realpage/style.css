@@ -47,6 +47,11 @@ header, body, footer{
     height: 100px;
 }
 
+.time_btn{
+    margin-left: 40px;
+    margin-top: 45px;
+}
+
 /*Manager Page*/
 .team_status_card{
     height: 650px;
