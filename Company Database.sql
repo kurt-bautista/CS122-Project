@@ -20,6 +20,7 @@ CREATE TABLE employee_contracts(
 	start_date DATE NOT NULL,
 	duration DATE NOT NULL,
 	hourly_rate DOUBLE NOT NULL,
+	expected_time_in TIME NOT NULL,
 	employees_id INT NOT NULL,
 	FOREIGN KEY(employees_id) REFERENCES employees(id));
 
@@ -58,6 +59,9 @@ INSERT INTO employees(username, password, remaining_leaves, employee_type, holid
 
 ALTER TABLE employee_contracts
 ADD COLUMN alloted_leaves INT NOT NULL;
+
+INSERT INTO employee_contracts(start_date, duration, hourly_rate, expected_time_in, employees_id, alloted_leaves) 
+VALUES ('1970-01-01', '2037-12-31', 0.0, '09:00:00', 1, 0);
 
 ALTER TABLE leave_types
 DROP COLUMN paid;

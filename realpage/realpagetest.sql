@@ -60,10 +60,12 @@ INSERT INTO employees (username,password,first_name,last_name,remaining_leaves,e
     'antonsuba', '420blazeit', 'Anton', 'Suba', 69,'Manager','Local',NULL
 );
 
-INSERT INTO employees(username, password, employee_type, holiday_type) VALUES ('admin', 'password', 'manager', 'regular');
+INSERT INTO employees(username, password, remaining_leaves, employee_type, holiday_type) VALUES ('admin', 'password', 40, 'manager', 'regular');
 
 ALTER TABLE employee_contracts
 ADD COLUMN alloted_leaves INT NOT NULL;
+
+INSERT INTO employee_contracts(start_date, duration, hourly_rate, alloted_leaves, employees_id) VALUES ('2000-04-20', '2010-04-20', 420.0, 69, 2), ('2000-04-20', '2010-04-20', 420.0, 55, 1);
 
 ALTER TABLE leave_types
 DROP COLUMN paid;
