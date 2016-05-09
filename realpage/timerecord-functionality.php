@@ -64,7 +64,7 @@ SQL;
 	CASE WHEN HOUR(TIMEDIFF(time_out, time_in)) > 8 THEN 0 
 	ELSE 8 - HOUR(TIMEDIFF(time_out, time_in)) END AS 'Undertime', 
 	HOUR(TIMEDIFF(time_out, time_in)) AS 'Total Hours'
-	FROM workdays WHERE YEAR(CURDATE()) = YEAR(time_in) AND MONTH(time_in) = ? AND employees_id = ?");
+	FROM workdays WHERE YEAR(CURDATE()) = YEAR(time_in) AND MONTH(time_in) = ? AND employees_id = ? AND time_in != time_out ORDER BY time_in DESC");
 	$getWorkdays->bind_param('ii', $months['May'], $empId);
 	$getWorkdays->execute();
 	$result = $getWorkdays->get_result();
