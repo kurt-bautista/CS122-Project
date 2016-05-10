@@ -43,6 +43,8 @@ include('salaryreport_functionality.php');
         <div id="main" class="center_container">
             
             <div class="row">
+                
+                <!--Salary Card-->
                 <div class="card col s4 center hoverable salary_card">
                     <div class="card-content">
                         <span class="card-title">Expected Salary</span>                       
@@ -69,20 +71,28 @@ include('salaryreport_functionality.php');
                         </div>
                     </div>
                 </div>
+                <!--Salary Card-->
                 
-                <div class="card col 7 offset-s1 center hoverable">
+                <!--Graph-->
+                <div class="card col s7 offset-s1 center hoverable">
                     <div class="card-content">
-                        
+                        <span class="card-title">Salary Record</span>
+                        <div class="ct-chart ct-perfect-fourth"></div>
                     </div>
                 </div>
+                <!--Graph-->
+                
+                
             </div>
+            <div class="ct-chart"></div>
 
         </div>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>       
         <script type="text/javascript" src="js/countUp.js"></script>
-        <script type="text/javascript" src="js/chartist.min"></script>
+        <script type="text/javascript" src="js/chartist.min.js"></script>
+        <script type="text/javascript" src="js/chartist-plugin-threshold.min.js"></script>
 
         <script>
             $(document).ready(function(){
@@ -96,7 +106,23 @@ include('salaryreport_functionality.php');
                overtimeAnimation.start();
                var undertimeAnimation = new CountUp(document.getElementById("undertime-deductions").id, 0, <?php echo($total_undertime_deduction);?>);
                undertimeAnimation.start();
-
+               
+               new Chartist.Line('.ct-chart', {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    series: [
+                        [5, -4, 3, 7, 20, 10, 3, 4, 8, -10, 6, -8]
+                    ]
+                    }, {
+                    showArea: true,
+                    axisY: {
+                        onlyInteger: true
+                    },
+                    plugins: [
+                        Chartist.plugins.ctThreshold({
+                        threshold: 4
+                        })
+                    ]
+                });
             });
         </script>
 
