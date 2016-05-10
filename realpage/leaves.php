@@ -104,6 +104,7 @@ include('leaves_functionality.php');
                         </div>
 
                         <div class="modal-footer">
+
                             <button class="btn waves-effect waves-light" type="submit" name="submit" value="request_leave">Submit</button>
                         </form>
                         </div>
@@ -111,6 +112,9 @@ include('leaves_functionality.php');
                     <!--Leaves Request Modal-->
 
                     <div class="card-action center">
+                      <?php if ($error != ""): ?>
+                        <p class="apply_roboto red-text"><?php echo($error);?></p>
+                      <?php endif; ?>
                         <a class="modal-trigger clickable_text teal-text" href="#leave-request-modal">Request Leave</a>
                     </div>
                 </div>
@@ -283,8 +287,8 @@ include('leaves_functionality.php');
                         styleText:           true
                    }));
                }
-
             });
+            
         </script>
 
     </body>

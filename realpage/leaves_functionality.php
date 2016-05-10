@@ -118,45 +118,54 @@ if($num_of_requests < 1){
 }
 
 if(isset($_POST['submit'])){
+  if($alloted_leaves > 0){
     if(empty($_POST['start_date']) || empty($_POST['end_date']) || empty($_POST['leave_reason_text'])){
         $error = 'Please fill in the request form';
+        //echo("<script>console.log('PHP: "."$close_modal"."');</script>");
     }
     else{
         if(!$has_pending_leave){
+          $close_modal = true;
           $start_date_request = date("Y-m-d", strtotime($_POST['start_date']));
           $end_date_request = date("Y-m-d", strtotime($_POST['end_date']));
-          $leave_reason = $_POST['leave_reason_text'];
-          $start_day = date('z', strtotime($start_date_request)) + 1;
-          $end_day = date('z', strtotime($end_date_request)) + 1;
-          $duration = $end_day - $start_day + 1;
-          switch ($_POST['leave-type']) {
-            case 'sick':
-              $leave_type_id = 1;
-              break;
-            case 'vacation':
-              $leave_type_id = 2;
-              break;
-            case 'special-privilege':
-              $leave_type_id = 3;
-              break;
-            case 'maternity':
-              $leave_type_id = 4;
-              break;
-            case 'paternity':
-              $leave_type_id = 5;
-              break;
-            default:
-              //nothing
-              break;
-          }
 
-          $write_data = <<<SQL
-          INSERT INTO leaves (status, employees_id, leave_types_id, start_date, end_date, duration, leave_reason) VALUES
-          ('PENDING', '$employee_id', '$leave_type_id', '$start_date_request', '$end_date_request', '$duration', '$leave_reason')
+          if($start_date_request < $end_date_request){
+            $error = '';
+            $leave_reason = $_POST['leave_reason_text'];
+            $start_day = date('z', strtotime($start_date_request)) + 1;
+            $end_day = date('z', strtotime($end_date_request)) + 1;
+            $duration = $end_day - $start_day + 1;
+            switch ($_POST['leave-type']) {
+              case 'sick':
+                $leave_type_id = 1;
+                break;
+              case 'vacation':
+                $leave_type_id = 2;
+                break;
+              case 'special-privilege':
+                $leave_type_id = 3;
+                break;
+              case 'maternity':
+                $leave_type_id = 4;
+                break;
+              case 'paternity':
+                $leave_type_id = 5;
+                break;
+              default:
+                //nothing
+                break;
+            }
+
+            $write_data = <<<SQL
+            INSERT INTO leaves (status, employees_id, leave_types_id, start_date, end_date, duration, leave_reason) VALUES
+            ('PENDING', '$employee_id', '$leave_type_id', '$start_date_request', '$end_date_request', '$duration', '$leave_reason')
 SQL;
 
-          if(!$write = $db->query($write_data)){
-              die('Error retrieving user information ['. $db->error.']');
+            if(!$write = $db->query($write_data)){
+                die('Error retrieving user information ['. $db->error.']');
+            }
+          } else{
+            $error = "Ending date cannot come before starting date of the leave";
           }
 
           if(isset($login_session)){
@@ -164,8 +173,11 @@ SQL;
               //header("location: index.php");
           }
         } else{
-          //has pending leave
+          $error = "There is currently a pending leave";
         }
     }
+  } else{
+    $error = "You have exceeded the limit of allotted leaves";
+  }
 }
 ?>
