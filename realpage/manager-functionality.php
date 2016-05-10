@@ -68,7 +68,7 @@ SQL;
 		$leave = $result->fetch_assoc();
 		$empId = $leave['employees_id'];
 		$start_date = $leave['start_date'];
-		$end_date = $leave['end_date'];
+		$end_date = '2018-04-22';//$leave['end_date'];
 		
 		$getContract = <<<SQL
 		SELECT *
@@ -91,8 +91,9 @@ SQL;
 		VALUES (?, ?, 0, ?, ?, ?)");
 		for($i = strtotime($start_date); $i <= strtotime($end_date); $i+=86400)
 		{
-			$ti = date('Y-m-d H:i:s', strtotime($expected_time_in)+$i);
-			$to = date('Y-m-d H:i:s', strtotime($expected_time_in)+$i+28800);
+			//echo date('y-m-d', $i);
+			$ti = date('Y-m-d', $i) . ' ' . $expected_time_in;
+			$to = date('Y-m-d H:i:s', strtotime('+8 hours', strtotime($ti)));
 			$newWorkday->bind_param('ssiid', $ti, $to, $empId, $leaveId, $hourly_rate);
 			$newWorkday->execute();
 		}
