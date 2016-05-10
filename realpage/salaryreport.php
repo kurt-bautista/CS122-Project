@@ -74,17 +74,14 @@ include('salaryreport_functionality.php');
                 <!--Salary Card-->
                 
                 <!--Graph-->
-                <div class="card col s7 offset-s1 center hoverable">
+                <div class="card col s12 center hoverable">
                     <div class="card-content">
                         <span class="card-title">Salary Record</span>
                         <div class="ct-chart ct-perfect-fourth"></div>
                     </div>
                 </div>
-                <!--Graph-->
-                
-                
+                <!--Graph-->             
             </div>
-            <div class="ct-chart"></div>
 
         </div>
 
@@ -107,8 +104,18 @@ include('salaryreport_functionality.php');
                var undertimeAnimation = new CountUp(document.getElementById("undertime-deductions").id, 0, <?php echo($total_undertime_deduction);?>);
                undertimeAnimation.start();
                
+               
+               var graphLabel = [];
+               <?php 
+               $counter = 0;
+               for($i = 1; $i <= 31; $i++){?>                 
+                  graphLabel.push(<?php echo($i);?>);
+                  
+                  
+               <?php }?>                           
+               
                new Chartist.Line('.ct-chart', {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    labels: graphLabel,
                     series: [
                         [5, -4, 3, 7, 20, 10, 3, 4, 8, -10, 6, -8]
                     ]
