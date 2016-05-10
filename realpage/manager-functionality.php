@@ -9,46 +9,43 @@
 	if($db->connect_errno > 0){
 		die('Unable to connect to database [' . $db->connect_error . ']');
 	}
-	
+
 	ini_set('session.gc_maxlifetime', 86400);
 	session_set_cookie_params(86400);
 	session_start();
 	if(!$user_login = $_SESSION['login_user']){
 		header("location: index.php");
 	}
-	
+	$myId = $_SESSION['employee_id'];
 	$getTeamMembers = <<<SQL
 	SELECT CONCAT(COALESCE(e.first_name, ''), ' ', COALESCE(e.last_name, '')) AS "Team Member", w.time_in AS "Time In"
 	FROM employees e LEFT JOIN workdays w
 	ON w.employees_id = e.id AND DATE(w.time_in) = CURDATE()
-	WHERE e.manager_id = ? //Error here
+	WHERE e.manager_id = '$myId'
 SQL;
-
-//Bind params shit or whatever
 
 	if(!$result = $db->query($getTeamMembers))
 	{
 		die('There was an error running the query [' . $db->error . ']');
 	}
-	
+
 	$teamMembers = $result->fetch_all(MYSQLI_ASSOC);
 	$timedIn = $result->num_rows;
-	
+
 	$fetch_leave_requests = <<<SQL
 	SELECT l.id, l.start_date, l.end_date, l.duration, CONCAT(COALESCE(e.first_name, ''), ' ', COALESCE(e.last_name, '')) AS 'employee'
 	FROM leaves l, employees e WHERE l.status = 'PENDING' AND l.employees_id = e.id
 SQL;
-	
-	if(!$result = $db->query($getContract))
+
+	if(!$result = $db->query($fetch_leave_requests))
 	{
 		die('There was an error running the query [' . $db->error . ']');
 	}
-	
+
 	$pendingLeaves = $result->fetch_all(MYSQLI_ASSOC);
-	
-	if($accepted)
+	/*
+	foreach($acceptedLeaveIDs as $leaveId)
 	{
-		$leaveId = 0; //fix
 		$acceptLeave = <<<SQL
 		UPDATE leaves
 		SET status = 'ACCEPTED'
@@ -65,7 +62,7 @@ SQL;
 		{
 			die('There was an error running the query [' . $db->error . ']');
 		}
-	
+
 		$contract = $result->fetch_assoc();
 		$expected_time_in = $contract['expected_time_in'];
 		$hourly_rate = $contract['hourly_rate'];
@@ -80,34 +77,33 @@ SQL;
 			$newWorkday->bind_param('ssiid', $ti, $to, $empId, $leaveId, $hourly_rate);
 			$newWorkday->execute();
 		}
-		
+
 	}
-	else
+	foreach($rejectedLeavesIDs as $leaveId)
 	{
-		$leaveId = 0; //fix
 		$rejectLeave = <<<SQL
 		UPDATE leaves
 		SET status = 'REJECTED'
 		WHERE id = $leaveId;
 SQL;
-		
+
 		$db->query($rejectLeave);
-	}
-	
-	if(isset($_POST['submit']))
+	}*/
+
+	if(isset($_POST['add_employee']))
 	{
-		$employee_type = 'regular'; //pls fix
+		//echo "tangina";
 		$holiday_type = 'regular'; //
-		$s_date = '2000-4-20'; //
-		$e_date = '2010-4-20'; //
-		$a_leaves = 5; //
+		//foreach($_POST as $key => $val){ echo $key . " = " . $val . "---"; }
 		$newEmp = $db->prepare("INSERT INTO employees(username, password, first_name, last_name, remaining_leaves, employee_type, manager_id, holiday_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-		$newEmp->bind_param('ssssisis', $_POST['username'], $_POST['password'], $_POST['first_name'], $_POST['last_name'], $_POST['allotted_leaves'], $employee_type, $_SESSION['employee_id'], $holiday_type);
+		$newEmp->bind_param('ssssisis', $_POST['username'], $_POST['password'], $_POST['first-name'], $_POST['last-name'], $_POST['allotted-leaves'], $_POST['employee-type'], $myId, $holiday_type);
 		$newEmp->execute();
+		//echo $newEmp->affected_rows;
 		$empId = $newEmp->insert_id;
+		echo $empId;
 		$newEmp->close();
 		$newContract = $db->prepare("INSERT INTO employee_contracts(start_date, duration, hourly_rate, employees_id, alloted_leaves) VALUES (?, ?, ?, ?, ?)");
-		$newContract->bind_param('ssdii', $s_date, $e_date, $h_rate, $empId, $a_leaves);
+		$newContract->bind_param('ssdii', date('Y-m-d', strtotime($_POST['start-date'])), date('Y-m-d', strtotime($_POST['end-date'])), $_POST['hourly-rate'], $empId, $_POST['allotted-leaves']);
 		$newContract->execute();
 	}
 ?>
