@@ -98,8 +98,10 @@ SQL;
 		$newEmp->execute();
 		$empId = $newEmp->insert_id;
 		$newEmp->close();
+		$sd = date('Y-m-d', strtotime($_POST['start-date']));
+		$ed = date('Y-m-d', strtotime($_POST['end-date']));
 		$newContract = $db->prepare("INSERT INTO employee_contracts(start_date, duration, hourly_rate, employees_id, alloted_leaves) VALUES (?, ?, ?, ?, ?)");
-		$newContract->bind_param('ssdii', date('Y-m-d', strtotime($_POST['start-date'])), date('Y-m-d', strtotime($_POST['end-date'])), $_POST['hourly-rate'], $empId, $_POST['allotted-leaves']);
+		$newContract->bind_param('ssdii', $sd, $ed, $_POST['hourly-rate'], $empId, $_POST['allotted-leaves']);
 		$newContract->execute();
 	}
 ?>
