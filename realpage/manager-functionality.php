@@ -94,12 +94,12 @@ SQL;
 	{
 		$holiday_type = 'regular'; //
 		$newEmp = $db->prepare("INSERT INTO employees(username, password, first_name, last_name, remaining_leaves, employee_type, manager_id, holiday_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-		$newEmp->bind_param('ssssisis', $_POST['username'], $_POST['password'], $_POST['first-name'], $_POST['last-name'], $_POST['alloted-leaves'], $_SESSION['employee-type'], $myId, $holiday_type);
+		$newEmp->bind_param('ssssisis', $_POST['username'], $_POST['password'], $_POST['first-name'], $_POST['last-name'], $_POST['allotted-leaves'], $_SESSION['employee-type'], $myId, $holiday_type);
 		$newEmp->execute();
 		$empId = $newEmp->insert_id;
 		$newEmp->close();
-		$newContract = $db->prepare("INSERT INTO employee_contracts(start_date, duration, hourly_rate, employees_id, alloted_leaves) VALUES (?, ?, ?, ?, ?)");
-		$newContract->bind_param('ssdii', $_SESSION['start-date'], $_SESSION['end-date'], $_SESSION['hourly-rate'], $empId, $_SESSION['alloted-leaves']);
+		$newContract = $db->prepare("INSERT INTO employee_contracts(start_date, duration, hourly_rate, employees_id, allotted_leaves) VALUES (?, ?, ?, ?, ?)");
+		$newContract->bind_param('ssdii', $_SESSION['start-date'], $_SESSION['end-date'], $_SESSION['hourly-rate'], $empId, $_SESSION['allotted-leaves']);
 		$newContract->execute();
 	}
 ?>
