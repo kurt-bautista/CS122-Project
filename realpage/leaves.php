@@ -52,7 +52,7 @@ include('leaves_functionality.php');
                             <div class="circle" id="leaves_circle"></div>
                         </div>
 
-                        <p class="apply_roboto" style="font-size:18px">Total Leaves: <?php echo $alloted_leaves; ?></p>
+                        <p class="apply_roboto" style="font-size:18px">Total Leaves: <?php echo $allotted_leaves; ?></p>
                     </div>
 
                     <!--Leave Request Modal-->
@@ -239,7 +239,7 @@ include('leaves_functionality.php');
                     id:                  'leaves_circle',
                     radius:              70,
                     value:               parseInt("<?php echo $remaining_leaves ?>"),
-                    maxValue:            parseInt("<?php echo $alloted_leaves ?>"),
+                    maxValue:            parseInt("<?php echo $allotted_leaves ?>"),
                     width:               10,
                     text:                function(value){return value;},
                     colors:              ['#b2dfdb', '#009688'],
@@ -270,7 +270,7 @@ include('leaves_functionality.php');
                         id:                  circle.id,
                         radius:              45,
                         value:               circle_values[i-1],
-                        maxValue:            parseInt("<?php echo $alloted_leaves ?>"),
+                        maxValue:            parseInt("<?php echo $allotted_leaves ?>"),
                         width:               10,
                         text:                function(value){return value;},
                         colors:              ['#b2dfdb', '#009688'],

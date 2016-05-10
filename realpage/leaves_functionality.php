@@ -20,7 +20,7 @@ if(!$user_login = $_SESSION['login_user']){
 
 $fetch_info = <<<SQL
 SELECT employees.username "username", employees.remaining_leaves "remaining_leaves",
-employees.employee_type "employee_type", employee_contracts.alloted_leaves "alloted_leaves"
+employees.employee_type "employee_type", employee_contracts.allotted_leaves "allotted_leaves"
 FROM employees, employee_contracts WHERE username='$user_login' AND employee_contracts.employees_id=employees.id
 SQL;
 
@@ -62,7 +62,7 @@ if(!$leave_requests_result = $db->query($fetch_leave_requests)){
 $row = $result->fetch_assoc();
 $login_session = $row['username'];
 $remaining_leaves = $row['remaining_leaves'];
-$alloted_leaves = $row['alloted_leaves'];
+$allotted_leaves = $row['allotted_leaves'];
 $employee_type = $_SESSION['employee_type'];
 
 $all_leaves = array();
