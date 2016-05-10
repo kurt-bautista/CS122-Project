@@ -34,7 +34,7 @@ SQL;
 
 	$fetch_leave_requests = <<<SQL
 	SELECT l.id, l.start_date, l.end_date, l.duration, CONCAT(COALESCE(e.first_name, ''), ' ', COALESCE(e.last_name, '')) AS 'employee', l.leave_reason
-	FROM leaves l, employees e WHERE l.status = 'PENDING' AND l.employees_id = e.id
+	FROM leaves l, employees e WHERE l.status = 'PENDING' AND l.employees_id = e.id AND e.manager_id = '$myId'
 SQL;
 
 	if(!$result = $db->query($fetch_leave_requests))
@@ -45,9 +45,9 @@ SQL;
 	$numPendingLeaves = $result->num_rows;
 	$pendingLeaves = $result->fetch_all(MYSQLI_ASSOC);
 	
-	if(isset($_POST['approve']))
+	if(isset($_POST['approve_leave']))
 	{
-		$leaveId = $_POST['approve'];
+		$leaveId = $_POST['approve_leave'];
 		$acceptLeave = <<<SQL
 		UPDATE leaves
 		SET status = 'ACCEPTED'
@@ -55,15 +55,9 @@ SQL;
 SQL;
 		
 		$getEmpId = <<<SQL
-		SELECT employees_id
+		SELECT employees_id, start_date, end_date
 		FROM leaves
 		WHERE id = '$leaveId'
-SQL;
-		
-		$getContract = <<<SQL
-		SELECT *
-		FROM employee_contracts
-		WHERE employees_id = '$empId'
 SQL;
 
 		if(!$result = $db->query($getEmpId))
@@ -73,6 +67,14 @@ SQL;
 		
 		$leave = $result->fetch_assoc();
 		$empId = $leave['employees_id'];
+		$start_date = $leave['start_date'];
+		$end_date = $leave['end_date'];
+		
+		$getContract = <<<SQL
+		SELECT *
+		FROM employee_contracts
+		WHERE employees_id = '$empId'
+SQL;
 
 		if(!$result = $db->query($getContract))
 		{
@@ -83,22 +85,23 @@ SQL;
 		$expected_time_in = $contract['expected_time_in'];
 		$hourly_rate = $contract['hourly_rate'];
 		
-		$time_out = date('Y-m-d H:i:s', strtotime($expected_time_in)+28800);
+		//$time_out = date('Y-m-d H:i:s', strtotime($expected_time_in)+28800);
 		$db->query($acceptLeave);
 		$newWorkday = $db->prepare("INSERT INTO workdays(time_in, time_out, overtime_hours, employees_id, leaves_id, employees_hourly_rate)
 		VALUES (?, ?, 0, ?, ?, ?)");
-		for($i = 0; $i < $duration; $i++)
+		for($i = strtotime($start_date); $i <= strtotime($end_date); $i+=86400)
 		{
-			$ti = date('Y-m-d H:i:s', strtotime($expected_time_in)+strtotime($start_date)+($i*86400));
-			$to = date('Y-m-d H:i:s', (strtotime($expected_time_in)+strtotime($start_date)+($i*86400))+28800);
+			//echo date('y-m-d', $i);
+			$ti = date('Y-m-d', $i) . ' ' . $expected_time_in;
+			$to = date('Y-m-d H:i:s', strtotime('+8 hours', strtotime($ti)));
 			$newWorkday->bind_param('ssiid', $ti, $to, $empId, $leaveId, $hourly_rate);
 			$newWorkday->execute();
 		}
 
 	}
-	if(isset($_POST['reject']))
+	if(isset($_POST['reject_leave']))
 	{
-		$leaveId = $_POST['reject'];
+		$leaveId = $_POST['reject_leave'];
 		$rejectLeave = <<<SQL
 		UPDATE leaves
 		SET status = 'REJECTED'

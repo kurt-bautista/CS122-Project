@@ -47,10 +47,14 @@ SQL;
             if(password_verify($password, $userRow['password'])){
                 $_SESSION['login_user'] = $username;
                 
+<<<<<<< HEAD
                 //Checks for employee type               
+=======
+                //Checks for employee type
+                //$row = $result->fetch_assoc();
+>>>>>>> fdd4493247acefe27390532c55c350bf82d5fe3f
                 $employee_type = $userRow['employee_type'];
                 $_SESSION['employee_type'] = $employee_type;
-                
                 header("location: dashboard.php");
             }
             else{
