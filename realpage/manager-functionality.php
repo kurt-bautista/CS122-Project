@@ -68,7 +68,7 @@ SQL;
 		$leave = $result->fetch_assoc();
 		$empId = $leave['employees_id'];
 		$start_date = $leave['start_date'];
-		$end_date = '2018-04-22';//$leave['end_date'];
+		$end_date = $leave['end_date'];
 		
 		$getContract = <<<SQL
 		SELECT *
