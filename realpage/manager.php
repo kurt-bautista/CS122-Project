@@ -115,11 +115,11 @@ include('manager-functionality.php');
                         
                         <div class="input-field col s12 center">
                             <span style="margin-right:10px">
-                                <input name="employee-type" id="regular" class="with-gap" type="radio"/>
+                                <input name="employee-type" id="regular" class="with-gap" type="radio" value="regular"/>
                                 <label for="regular">Regular</label>
                             </span>
                             <span style="margin-left:10px">
-                                <input name="employee-type" id="manager" class="with-gap" type="radio"/>
+                                <input name="employee-type" id="manager" class="with-gap" type="radio" value="manager"/>
                                 <label for="manager">Manager</label>
                             </span>
                         </div>                        
