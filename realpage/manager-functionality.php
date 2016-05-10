@@ -92,15 +92,11 @@ SQL;
 
 	if(isset($_POST['add_employee']))
 	{
-		//echo "tangina";
 		$holiday_type = 'regular'; //
-		//foreach($_POST as $key => $val){ echo $key . " = " . $val . "---"; }
 		$newEmp = $db->prepare("INSERT INTO employees(username, password, first_name, last_name, remaining_leaves, employee_type, manager_id, holiday_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 		$newEmp->bind_param('ssssisis', $_POST['username'], $_POST['password'], $_POST['first-name'], $_POST['last-name'], $_POST['allotted-leaves'], $_POST['employee-type'], $myId, $holiday_type);
 		$newEmp->execute();
-		//echo $newEmp->affected_rows;
 		$empId = $newEmp->insert_id;
-		echo $empId;
 		$newEmp->close();
 		$newContract = $db->prepare("INSERT INTO employee_contracts(start_date, duration, hourly_rate, employees_id, alloted_leaves) VALUES (?, ?, ?, ?, ?)");
 		$newContract->bind_param('ssdii', date('Y-m-d', strtotime($_POST['start-date'])), date('Y-m-d', strtotime($_POST['end-date'])), $_POST['hourly-rate'], $empId, $_POST['allotted-leaves']);
