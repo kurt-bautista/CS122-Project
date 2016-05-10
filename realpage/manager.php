@@ -145,42 +145,30 @@ include('manager-functionality.php');
                             </div>
                         </li>
                         
-                        <!--PHP Loop here-->
+                        <?php foreach ($pendingLeaves as $leaveRow) {                                                          
+                        ?>
                         <li>
                             <div class="collapsible-header apply_roboto">                               
-                                <span>Anton Suba</span>
-                                <!--<input class="right" type="checkbox" id="1" style="margin-top:10px"/>
-                                <label class="right" for="1" style="margin-top:10px">Approve</label>    -->
-                                
-                                <!--
-                                <i class="material-icons red-text text-lighten-1 right tooltipped"
-                                data-position="bottom" data-delay="40" data-tooltip="Reject">not_interested</i>
-                                <i class="material-icons green-text text-lighten-2 right tooltipped" type="submit"
-                                data-position="bottom" data-delay="40" data-tooltip="Approve">done</i>-->                                                                                     
+                                <span><?php echo($leaveRow['employee']);?></span>                                                                                                                 
                             </div>
                             <div class="collapsible-body apply_roboto">                               
                                 <div class="chip" style="margin-top:15px; margin-left:25px;">
-                                    <span> April 20, 2016 - April 22, 2016</span> <!--Replace with PHP query-->
+                                    <span> <?php echo($leaveRow['start_date'].' - '.$leaveRow['end_date']);?></span>
                                 </div>    
-                                <p style="font-size:18px">Reason: I need to blaze it</p> <!--Replace with PHP query-->
+                                <p style="font-size:18px"><?php echo($leaveRow['leave_reason']);?>
                                 <p>
-                                    <button class="btn waves-effect waves-light" type="submit" name="approve_leave" value="approve_leave">
+                                    <button class="btn waves-effect waves-light" type="submit" name="approve_leave" value="<?php echo($leaveRow['id']);?>">
                                         <i class="material-icons left">done</i>Approve
                                     </button>
-                                    <button class="btn waves-effect waves-light" type="submit" name="reject_leave" value="reject_leave">
+                                    <button class="btn waves-effect waves-light" type="submit" name="reject_leave" value="<?php echo($leaveRow['id']);?>">
                                         <i class="material-icons left">not_interested</i>Reject
                                     </button>
                                 </p>
                             </div>
                         </li>
-                        <!--PHP Loop here-->                        
-                    </ul>
-                    <!--
-                    <p class="center">
-                        <button class="btn waves-effect waves-light" type="submit" name="approve_leaves" value="approve_leaves">
-                            Approve Leaves
-                        </button>
-                    </p>-->
+                        <?php }?>
+                                                
+                    </ul>                    
                     </form>
                 </div>
                 <!--Leave Approval-->

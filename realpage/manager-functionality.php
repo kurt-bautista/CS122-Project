@@ -33,7 +33,7 @@ SQL;
 	$timedIn = $result->num_rows;
 
 	$fetch_leave_requests = <<<SQL
-	SELECT l.id, l.start_date, l.end_date, l.duration, CONCAT(COALESCE(e.first_name, ''), ' ', COALESCE(e.last_name, '')) AS 'employee'
+	SELECT l.id, l.start_date, l.end_date, l.duration, CONCAT(COALESCE(e.first_name, ''), ' ', COALESCE(e.last_name, '')) AS 'employee', l.leave_reason
 	FROM leaves l, employees e WHERE l.status = 'PENDING' AND l.employees_id = e.id
 SQL;
 
@@ -42,6 +42,7 @@ SQL;
 		die('There was an error running the query [' . $db->error . ']');
 	}
 
+	$numPendingLeaves = $result->num_rows;
 	$pendingLeaves = $result->fetch_all(MYSQLI_ASSOC);
 	/*
 	foreach($acceptedLeaveIDs as $leaveId)
@@ -92,9 +93,11 @@ SQL;
 
 	if(isset($_POST['add_employee']))
 	{
+		$hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+		
 		$holiday_type = 'regular'; //
 		$newEmp = $db->prepare("INSERT INTO employees(username, password, first_name, last_name, remaining_leaves, employee_type, manager_id, holiday_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-		$newEmp->bind_param('ssssisis', $_POST['username'], $_POST['password'], $_POST['first-name'], $_POST['last-name'], $_POST['allotted-leaves'], $_POST['employee-type'], $myId, $holiday_type);
+		$newEmp->bind_param('ssssisis', $_POST['username'], $hashedPassword, $_POST['first-name'], $_POST['last-name'], $_POST['allotted-leaves'], $_POST['employee-type'], $myId, $holiday_type);
 		$newEmp->execute();
 		$empId = $newEmp->insert_id;
 		$newEmp->close();
