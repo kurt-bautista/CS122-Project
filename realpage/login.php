@@ -39,7 +39,9 @@ SQL;
         if(!$result = $db->query($verify_login)){
             die('Error retrieving information from database ['. $db->error.']');
         }
-
+        
+        //Uncomment this for password verification
+        
         $usersAssoc = $result->fetch_all(MYSQLI_ASSOC);
         foreach ($usersAssoc as $userRow) {
             if(password_verify($password, $userRow['password'])){
@@ -56,6 +58,22 @@ SQL;
                 $error = "Username or Password is invalid";
             }
         }
+        
+        //Uncomment this for old password verification
+        /*
+        if($result->num_rows == 1){
+            $_SESSION['login_user'] = $username;
+            
+            //Checks for employee type
+            $row = $result->fetch_assoc();
+            $employee_type = $row['employee_type'];
+            $_SESSION['employee_type'] = $employee_type;
+            
+            header("location: dashboard.php");
+        }
+        else{
+            $error = "Username or Password is invalid";
+        }*/
         
         $result->free();
         $db->close();
