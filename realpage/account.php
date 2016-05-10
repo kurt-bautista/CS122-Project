@@ -62,13 +62,6 @@ include('account_functionality.php');
                 <div class="card col s7 offset-s1 hoverable">
                     <div class="card-content">
                         <form action="" method="POST">
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">perm_identity</i>
-                                <input value="<?php echo($user_login);?>" id="username" name="username" type="text" class="validate">
-                                <label for="username">Username</label>
-
-                                <div class="divider" style="margin-top:20px; margin-bottom:20px;"></div>
-                            </div>
 
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">vpn_key</i>
