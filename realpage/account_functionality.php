@@ -1,6 +1,6 @@
 <?php
 
-$error = '';
+$error = ' ';
 $server = 'localhost';
 $server_user = 'root';
 $server_pass = '';
@@ -18,7 +18,7 @@ if(!$user_login = $_SESSION['login_user']){
 }
 
 $fetch_info = <<<SQL
-SELECT first_name, last_name , username, employee_type FROM employees WHERE username = '$user_login'
+SELECT first_name, last_name, password FROM employees WHERE username = '$user_login'
 SQL;
 
 if(!$result = $db->query($fetch_info)){
@@ -28,37 +28,34 @@ if(!$result = $db->query($fetch_info)){
 $row = $result ->fetch_assoc();
 $Fname = $row['first_name'];
 $Lname = $row['last_name'];
-$login = $row['username'];
-$type = $row['employee_type'];
+$password = $row['password'];
+$type = $_SESSION['employee_type'];
+$id = $_SESSION['employee_id'];
 
 if(isset($_POST['submit'])){
-$row = $result -> fetch_assoc();
-$password = $row['password'];
-$id = $row ['id'];
-
-	if(empty($_POST['current_pass']) || empty($_POST['new_pass']) || empty($_POST['confirm_new_pass'])){ 
+	if(empty($_POST['username']) || empty($_POST['current_pass']) || empty($_POST['new_pass']) || empty($_POST['confirm_new_pass'])) {
 		$error =  'Please fill in blank spaces';
 	}
-	else if ($_POST['current_pass'] != $password){
-		$error = 'Wrong Password'; 	
+	elseif ($_POST['current_pass'] != $password){
+		$error = 'Wrong Password';
 	}
-	
-	else if   ($_POST['new_pass'] != $_POST['confirm_new_pass']) { 
+	elseif ($_POST['new_pass'] != $_POST['confirm_new_pass']) {
 		$error = 'New passwords do not match';
 	}
-	else{ 
-		$new_password = $_POST[new_password];
-	}
-
-	$write_data = <<<SQL
-	UPDATE employees SET password = $new_password WHERE  id = $id;
+	else{
+		$new_password = $_POST['new_pass'];
+    $write_data = <<<SQL
+  	UPDATE employees SET password = '$new_password' WHERE id = $id
 SQL;
 
-        if(!$write = $db->query($write_data)){
-            die('Error retrieving user information ['. $db->error.']');
-        }
+    if(!$write = $db->query($write_data)){
+      die('Error retrieving user information ['. $db->error.']');
+    }
+    echo "it passed";
+	}
+
 	$db->close();
-        
-}	
-	
+
+}
+
 ?>
