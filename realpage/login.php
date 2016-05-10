@@ -48,10 +48,9 @@ SQL;
                 $_SESSION['login_user'] = $username;
                 
                 //Checks for employee type
-                $row = $result->fetch_assoc();
-                $employee_type = $row['employee_type'];
+                //$row = $result->fetch_assoc();
+                $employee_type = $userRow['employee_type'];
                 $_SESSION['employee_type'] = $employee_type;
-                
                 header("location: dashboard.php");
             }
             else{
