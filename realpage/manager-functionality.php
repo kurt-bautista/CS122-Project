@@ -43,9 +43,10 @@ SQL;
 	}
 
 	$pendingLeaves = $result->fetch_all(MYSQLI_ASSOC);
-	/*
-	foreach($acceptedLeaveIDs as $leaveId)
+	
+	if(isset($_POST['approve']))
 	{
+		$leaveId = $_POST['approve'];
 		$acceptLeave = <<<SQL
 		UPDATE leaves
 		SET status = 'ACCEPTED'
@@ -79,16 +80,17 @@ SQL;
 		}
 
 	}
-	foreach($rejectedLeavesIDs as $leaveId)
+	if(isset($_POST['reject']))
 	{
+		$leaveId = $_POST['reject'];
 		$rejectLeave = <<<SQL
 		UPDATE leaves
 		SET status = 'REJECTED'
-		WHERE id = $leaveId;
+		WHERE id = $leaveId
 SQL;
 
 		$db->query($rejectLeave);
-	}*/
+	}
 
 	if(isset($_POST['add_employee']))
 	{
@@ -103,5 +105,10 @@ SQL;
 		$newContract = $db->prepare("INSERT INTO employee_contracts(start_date, duration, hourly_rate, employees_id, alloted_leaves) VALUES (?, ?, ?, ?, ?)");
 		$newContract->bind_param('ssdii', $sd, $ed, $_POST['hourly-rate'], $empId, $_POST['allotted-leaves']);
 		$newContract->execute();
+		$contractId = $newContract->insert_id;
+		$updateEmp = <<<SQL
+		UPDATE employees SET employee_contracts_id = '$contractId' WHERE id = $empId
+SQL;
+		$db->query($updateEmp);
 	}
 ?>
