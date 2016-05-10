@@ -36,14 +36,14 @@ if(isset($_POST['submit'])){
 	if(empty($_POST['username']) || empty($_POST['current_pass']) || empty($_POST['new_pass']) || empty($_POST['confirm_new_pass'])) {
 		$error =  'Please fill in blank spaces';
 	}
-	elseif ($_POST['current_pass'] != $password){
+	elseif (password_verify($password, $_POST['current_pass'])){
 		$error = 'Wrong Password';
 	}
 	elseif ($_POST['new_pass'] != $_POST['confirm_new_pass']) {
 		$error = 'New passwords do not match';
 	}
 	else{
-		$new_password = $_POST['new_pass'];
+		$new_password = password_hash($_POST['new_pass'],PASSWORD_DEFAULT);
     $write_data = <<<SQL
   	UPDATE employees SET password = '$new_password' WHERE id = $id
 SQL;
