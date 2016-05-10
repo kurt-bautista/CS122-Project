@@ -41,7 +41,7 @@ SQL;
         }
         
         //Uncomment this for password verification
-        
+        /*
         $usersAssoc = $result->fetch_all(MYSQLI_ASSOC);
         foreach ($usersAssoc as $userRow) {
             if(password_verify($password, $userRow['password'])){
@@ -55,10 +55,10 @@ SQL;
             else{
                 $error = "Username or Password is invalid";
             }
-        }
+        }*/
         
         //Uncomment this for old password verification
-        /*
+        
         if($result->num_rows == 1){
             $_SESSION['login_user'] = $username;
             
@@ -71,7 +71,7 @@ SQL;
         }
         else{
             $error = "Username or Password is invalid";
-        }*/
+        }
         
         $result->free();
         $db->close();
