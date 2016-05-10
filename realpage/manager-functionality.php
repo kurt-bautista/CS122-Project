@@ -52,12 +52,26 @@ SQL;
 		SET status = 'ACCEPTED'
 		WHERE id = $leaveId;
 SQL;
-
+		
+		$getEmpId = <<<SQL
+		SELECT employees_id
+		FROM leaves
+		WHERE id = '$leaveId'
+SQL;
+		
 		$getContract = <<<SQL
 		SELECT *
 		FROM employee_contracts
 		WHERE employees_id = '$empId'
 SQL;
+
+		if(!$result = $db->query($getEmpId))
+		{
+			die('There was an error running the query [' . $db->error . ']');
+		}
+		
+		$leave = $result->fetch_assoc();
+		$empId = $leave['employees_id'];
 
 		if(!$result = $db->query($getContract))
 		{
@@ -67,6 +81,7 @@ SQL;
 		$contract = $result->fetch_assoc();
 		$expected_time_in = $contract['expected_time_in'];
 		$hourly_rate = $contract['hourly_rate'];
+		
 		$time_out = date('Y-m-d H:i:s', strtotime($expected_time_in)+28800);
 		$db->query($acceptLeave);
 		$newWorkday = $db->prepare("INSERT INTO workdays(time_in, time_out, overtime_hours, employees_id, leaves_id, employees_hourly_rate)
