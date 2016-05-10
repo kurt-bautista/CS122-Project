@@ -16,15 +16,13 @@
 	if(!$user_login = $_SESSION['login_user']){
 		header("location: index.php");
 	}
-	
+	$myId = $_SESSION['employee_id'];
 	$getTeamMembers = <<<SQL
 	SELECT CONCAT(COALESCE(e.first_name, ''), ' ', COALESCE(e.last_name, '')) AS "Team Member", w.time_in AS "Time In"
 	FROM employees e LEFT JOIN workdays w
 	ON w.employees_id = e.id AND DATE(w.time_in) = CURDATE()
-	WHERE e.manager_id = ? //Error here
+	WHERE e.manager_id = '$myId' 
 SQL;
-
-//Bind params shit or whatever
 
 	if(!$result = $db->query($getTeamMembers))
 	{
@@ -39,16 +37,15 @@ SQL;
 	FROM leaves l, employees e WHERE l.status = 'PENDING' AND l.employees_id = e.id
 SQL;
 	
-	if(!$result = $db->query($getContract))
+	if(!$result = $db->query($fetch_leave_requests))
 	{
 		die('There was an error running the query [' . $db->error . ']');
 	}
 	
 	$pendingLeaves = $result->fetch_all(MYSQLI_ASSOC);
-	
-	if($accepted)
+	/*
+	foreach($acceptedLeaveIDs as $leaveId)
 	{
-		$leaveId = 0; //fix
 		$acceptLeave = <<<SQL
 		UPDATE leaves
 		SET status = 'ACCEPTED'
@@ -82,9 +79,8 @@ SQL;
 		}
 		
 	}
-	else
+	foreach($rejectedLeavesIDs as $leaveId)
 	{
-		$leaveId = 0; //fix
 		$rejectLeave = <<<SQL
 		UPDATE leaves
 		SET status = 'REJECTED'
@@ -92,22 +88,18 @@ SQL;
 SQL;
 		
 		$db->query($rejectLeave);
-	}
+	}*/
 	
 	if(isset($_POST['submit']))
 	{
-		$employee_type = 'regular'; //pls fix
 		$holiday_type = 'regular'; //
-		$s_date = '2000-4-20'; //
-		$e_date = '2010-4-20'; //
-		$a_leaves = 5; //
 		$newEmp = $db->prepare("INSERT INTO employees(username, password, first_name, last_name, remaining_leaves, employee_type, manager_id, holiday_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-		$newEmp->bind_param('ssssisis', $_POST['username'], $_POST['password'], $_POST['first_name'], $_POST['last_name'], $_POST['allotted_leaves'], $employee_type, $_SESSION['employee_id'], $holiday_type);
+		$newEmp->bind_param('ssssisis', $_POST['username'], $_POST['password'], $_POST['first-name'], $_POST['last-name'], $_POST['alloted-leaves'], $_SESSION['employee-type'], $myId, $holiday_type);
 		$newEmp->execute();
 		$empId = $newEmp->insert_id;
 		$newEmp->close();
 		$newContract = $db->prepare("INSERT INTO employee_contracts(start_date, duration, hourly_rate, employees_id, alloted_leaves) VALUES (?, ?, ?, ?, ?)");
-		$newContract->bind_param('ssdii', $s_date, $e_date, $h_rate, $empId, $a_leaves);
+		$newContract->bind_param('ssdii', $_SESSION['start-date'], $_SESSION['end-date'], $_SESSION['hourly-rate'], $empId, $_SESSION['alloted-leaves']);
 		$newContract->execute();
 	}
 ?>
