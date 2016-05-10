@@ -149,23 +149,38 @@ include('dummy_manager.php');
                         <li>
                             <div class="collapsible-header apply_roboto">                               
                                 <span>Anton Suba</span>
-                                <input class="right" type="checkbox" id="1" style="margin-top:10px"/> <!--Replace ID with leave request id -->
-                                <label class="right" for="1" style="margin-top:10px">Approve</label>                                                           
+                                <!--<input class="right" type="checkbox" id="1" style="margin-top:10px"/>
+                                <label class="right" for="1" style="margin-top:10px">Approve</label>    -->
+                                
+                                <!--
+                                <i class="material-icons red-text text-lighten-1 right tooltipped"
+                                data-position="bottom" data-delay="40" data-tooltip="Reject">not_interested</i>
+                                <i class="material-icons green-text text-lighten-2 right tooltipped" type="submit"
+                                data-position="bottom" data-delay="40" data-tooltip="Approve">done</i>-->                                                                                     
                             </div>
                             <div class="collapsible-body apply_roboto">                               
                                 <div class="chip" style="margin-top:15px; margin-left:25px;">
                                     <span> April 20, 2016 - April 22, 2016</span> <!--Replace with PHP query-->
                                 </div>    
                                 <p style="font-size:18px">Reason: I need to blaze it</p> <!--Replace with PHP query-->
+                                <p>
+                                    <button class="btn waves-effect waves-light" type="submit" name="approve_leave" value="approve_leave">
+                                        <i class="material-icons left">done</i>Approve
+                                    </button>
+                                    <button class="btn waves-effect waves-light" type="submit" name="reject_leave" value="reject_leave">
+                                        <i class="material-icons left">not_interested</i>Reject
+                                    </button>
+                                </p>
                             </div>
                         </li>
                         <!--PHP Loop here-->                        
                     </ul>
+                    <!--
                     <p class="center">
-                    <button class="btn waves-effect waves-light" type="submit" name="approve_leaves" value="approve_leaves">
-                        Approve Leaves
-                    </button>
-                    </p>
+                        <button class="btn waves-effect waves-light" type="submit" name="approve_leaves" value="approve_leaves">
+                            Approve Leaves
+                        </button>
+                    </p>-->
                     </form>
                 </div>
                 <!--Leave Approval-->
