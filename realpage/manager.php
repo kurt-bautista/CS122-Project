@@ -1,5 +1,5 @@
 <?php
-include('dummy_manager.php');
+include('manager-functionality.php');
 ?>
 
 <html>
@@ -97,8 +97,8 @@ include('dummy_manager.php');
                         </div>
                         
                         <div class="input-field col s3">
-                            <input id="alloted-leaves" name="alloted-leaves" type="number" class="validate">
-                            <label for="alloted-leaves">Alloted Leaves</label>
+                            <input id="allotted-leaves" name="allotted-leaves" type="number" class="validate">
+                            <label for="allotted-leaves">Allotted Leaves</label>
                         </div>
                         <div class="input-field col s3">
                             <input id="hourly-rate" name="hourly-rate" type="number" class="validate">
