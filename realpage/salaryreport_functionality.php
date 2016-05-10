@@ -55,6 +55,7 @@ $all_workdays = array();
 $overtime_hours = 0;
 $undertime_hours = 0;
 $expected_salary = 0;
+$base_salary = $hourly_rate * 8 * 30;
 $total_overtime_pay = 0;
 $total_undertime_deduction = 0;
 
