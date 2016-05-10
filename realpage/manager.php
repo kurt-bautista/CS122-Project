@@ -153,7 +153,7 @@ include('manager-functionality.php');
                             </div>
                             <div class="collapsible-body apply_roboto">                               
                                 <div class="chip" style="margin-top:15px; margin-left:25px;">
-                                    <span> <?php echo($leaveRow['start_date'].' - '.$leaveRow['end_date']);?></span>
+                                    <span> <?php echo(date('F j, Y',strtotime($leaveRow['start_date'])).' - '.date('F j, Y',strtotime($leaveRow['end_date'])));?></span>
                                 </div>    
                                 <p style="font-size:18px"><?php echo($leaveRow['leave_reason']);?>
                                 <p>
