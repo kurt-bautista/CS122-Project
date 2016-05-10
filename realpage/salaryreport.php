@@ -97,7 +97,7 @@ include('salaryreport_functionality.php');
                
                var salaryAnimation = new CountUp(document.getElementById("expected-salary").id, 0, <?php echo($expected_salary);?>);
                salaryAnimation.start();
-               var baseAnimation = new CountUp(document.getElementById("base-salary").id, 0, <?php echo($hourly_rate * 8 * 30);?>);
+               var baseAnimation = new CountUp(document.getElementById("base-salary").id, 0, <?php echo($base_salary);?>);
                baseAnimation.start();
                var overtimeAnimation = new CountUp(document.getElementById("overtime-pay").id, 0, <?php echo($total_overtime_pay);?>);
                overtimeAnimation.start();
@@ -106,19 +106,26 @@ include('salaryreport_functionality.php');
                
                
                var graphLabel = [];
+               var graphSeries = [];
                <?php 
                $counter = 0;
                for($i = 1; $i <= 31; $i++){?>                 
-                  graphLabel.push(<?php echo($i);?>);
-                  
-                  
-               <?php }?>                           
+                    graphLabel.push(<?php echo($i);?>);                                 
+               <?php               
+                    if($workdays_count == 0){?>
+                        graphSeries.push(<?php echo($base_salary);?>);
+               <?php }
+                    else {
+                        if($all_workdays[$counter][0] == $i){?>
+                            graphSeries.push(<?php echo($all_workdays[$counter][0]);?>);
+                            <?php $counter += 1;
+                        }
+                    }
+               }?>                           
                
                new Chartist.Line('.ct-chart', {
                     labels: graphLabel,
-                    series: [
-                        [5, -4, 3, 7, 20, 10, 3, 4, 8, -10, 6, -8]
-                    ]
+                    series: graphSeries
                     }, {
                     showArea: true,
                     axisY: {
@@ -126,7 +133,7 @@ include('salaryreport_functionality.php');
                     },
                     plugins: [
                         Chartist.plugins.ctThreshold({
-                        threshold: 4
+                        threshold: <?php echo($base_salary);?>
                         })
                     ]
                 });
