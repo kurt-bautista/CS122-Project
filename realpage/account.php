@@ -78,6 +78,8 @@ include('account_functionality.php');
                                 <input id="confirm_new_pass" name="confirm_new_pass" type="password" class="validate">
                                 <label for="confirm_new_pass">Confirm New Password</label>
 
+                                <span id="login_error" class="red-text text-darken-1"><?php echo $error; ?></span>
+                                
                                 <div class="divider" style="margin-top:20px; margin-bottom:20px;"></div>
                             </div>
                             <div class="center">
