@@ -172,11 +172,23 @@ include('leaves_functionality.php');
                         </div>
                         <div class="col s4" id="canvas">
                             <div class="circle" id="leaves_summary2"></div>
-                            <p class="apply_roboto" style="font-size: 18px">Paid Leave</p>
+                            <p class="apply_roboto" style="font-size: 18px">Sick Leave</p>
                         </div>
                         <div class="col s4" id="canvas">
                             <div class="circle" id="leaves_summary3"></div>
-                            <p class="apply_roboto" style="font-size: 18px">Sick Leave</p>
+                            <p class="apply_roboto" style="font-size: 18px">Vacation Leave</p>
+                        </div>
+                        <div class="col s4" id="canvas">
+                            <div class="circle" id="leaves_summary4"></div>
+                            <p class="apply_roboto" style="font-size: 18px">Special Privileges</p>
+                        </div>
+                        <div class="col s4" id="canvas">
+                            <div class="circle" id="leaves_summary5"></div>
+                            <p class="apply_roboto" style="font-size: 18px">Maternity Leave</p>
+                        </div>
+                        <div class="col s4" id="canvas">
+                            <div class="circle" id="leaves_summary6"></div>
+                            <p class="apply_roboto" style="font-size: 18px">Paternity Leave</p>
                         </div>
                     </div>
 
@@ -270,7 +282,7 @@ include('leaves_functionality.php');
                circle_values.push(<?php echo $maternity_leaves; ?>);
                circle_values.push(<?php echo $paternity_leaves; ?>);
 
-               for (var i = 1; i <= 3; i++){
+               for (var i = 1; i <= 6; i++){
                    var circle = document.getElementById('leaves_summary' + i);
 
                    circles.push(Circles.create({
