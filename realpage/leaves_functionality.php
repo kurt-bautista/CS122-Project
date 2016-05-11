@@ -129,7 +129,7 @@ if(isset($_POST['submit'])){
           $start_date_request = date("Y-m-d", strtotime($_POST['start_date']));
           $end_date_request = date("Y-m-d", strtotime($_POST['end_date']));
 
-          if($start_date_request < $end_date_request){
+          if($start_date_request <= $end_date_request){
             $error = '';
             $leave_reason = $_POST['leave_reason_text'];
             $start_day = date('z', strtotime($start_date_request)) + 1;
