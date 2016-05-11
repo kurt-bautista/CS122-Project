@@ -27,16 +27,16 @@ SQL;
 $employee_id = $_SESSION['employee_id'];
 
 $fetch_leaves = <<<SQL
-SELECT (SELECT COUNT(*) FROM leaves WHERE status = 'APPROVED') "leaves_taken",
-(SELECT COUNT(*) FROM leaves WHERE leave_types_id=1 AND status = 'APPROVED') "sick_leaves",
-(SELECT COUNT(*) FROM leaves WHERE leave_types_id=2 AND status = 'APPROVED') "vacation_leaves",
-(SELECT COUNT(*) FROM leaves WHERE leave_types_id=3 AND status = 'APPROVED') "special_privilege_leaves",
-(SELECT COUNT(*) FROM leaves WHERE leave_types_id=4 AND status = 'APPROVED') "maternity_leaves",
-(SELECT COUNT(*) FROM leaves WHERE leave_types_id=5 AND status = 'APPROVED') "paternity_leaves",
+SELECT (SELECT COUNT(*) FROM leaves WHERE status = 'ACCEPTED') "leaves_taken",
+(SELECT COUNT(*) FROM leaves WHERE leave_types_id=1 AND status = 'ACCEPTED') "sick_leaves",
+(SELECT COUNT(*) FROM leaves WHERE leave_types_id=2 AND status = 'ACCEPTED') "vacation_leaves",
+(SELECT COUNT(*) FROM leaves WHERE leave_types_id=3 AND status = 'ACCEPTED') "special_privilege_leaves",
+(SELECT COUNT(*) FROM leaves WHERE leave_types_id=4 AND status = 'ACCEPTED') "maternity_leaves",
+(SELECT COUNT(*) FROM leaves WHERE leave_types_id=5 AND status = 'ACCEPTED') "paternity_leaves",
 leaves.start_date "start_date", leaves.end_date "end_date", leave_types.name "leave_type",
 leaves.duration "duration", DAYOFYEAR(leaves.start_date) "start_day", DAYOFYEAR(leaves.end_date) "end_day"
 FROM leaves, leave_types
-WHERE leaves.employees_id = '$employee_id' AND leaves.leave_types_id = leave_types.id AND leaves.status = 'APPROVED'
+WHERE leaves.employees_id = '$employee_id' AND leaves.leave_types_id = leave_types.id AND leaves.status = 'ACCEPTED'
 SQL;
 
 $fetch_leave_requests = <<<SQL
