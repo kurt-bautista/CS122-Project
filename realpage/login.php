@@ -73,8 +73,8 @@ SQL;
         }
         else{
             $error = "Username or Password is invalid";
-        }*/
-        
+        }
+        */
         $result->free();
         $db->close();
     }

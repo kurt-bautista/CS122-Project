@@ -89,8 +89,8 @@ SQL;
 		$hourly_rate = $contract['hourly_rate'];
 		
 		$db->query($acceptLeave);
-		$newWorkday = $db->prepare("INSERT INTO workdays(time_in, time_out, overtime_hours, employees_id, leaves_id, employees_hourly_rate)
-		VALUES (?, ?, 0, ?, ?, ?)");
+		$newWorkday = $db->prepare("INSERT INTO workdays(time_in, time_out, employees_id, leaves_id, employees_hourly_rate)
+		VALUES (?, ?, ?, ?, ?)");
 		for($i = strtotime($start_date); $i <= strtotime($end_date); $i+=86400)
 		{
 			$ti = date('Y-m-d', $i) . ' ' . $expected_time_in;
