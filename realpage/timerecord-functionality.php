@@ -9,6 +9,7 @@
 	if($db->connect_errno > 0){
 		die('Unable to connect to database [' . $db->connect_error . ']');
 	}
+
 	ini_set('session.gc_maxlifetime', 86400);
 	session_set_cookie_params(86400);
 	session_start();
@@ -56,6 +57,12 @@ SQL;
 			
 			$_SESSION['time-status'] = "Time In";
 		}
+		$months = array("January"=>1, "February"=>2, "March"=>3, "April"=>4, "May"=>5, "June"=>6, "July"=>7, "August"=>8, "September"=>9, "October"=>10, "November"=>11, "December"=>12);
+		$getWorkdays = $db->prepare("SELECT DATE(time_in) AS 'Date', TIME(time_in) AS 'Time In', TIME(time_out) AS 'Time Out' FROM workdays WHERE YEAR(CURDATE()) = YEAR(time_in) AND MONTH(time_in) = ?");
+		$getWorkdays->bind_param('i', $months['January']);
+		$getWorkdays->execute();
+		$result = $getWorkdays->get_result();
+		$table = $result->fetch_all(MYSQLI_ASSOC);
 	}
 	$months = array("Jan"=>1, "Feb"=>2, "Mar"=>3, "Apr"=>4, "May"=>5, "June"=>6, "July"=>7, "Aug"=>8, "Sept"=>9, "Oct"=>10, "Nov"=>11, "Dec"=>12);
 	$curMonth = date('m');

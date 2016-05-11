@@ -32,18 +32,37 @@ if(isset($_POST['submit'])){
         //MySQLi Query [Checks if username and passowrd matched]
         $verify_login = <<<SQL
             SELECT * FROM employees
-            WHERE username='$username' AND password='$password'
+            WHERE username='$username'
 SQL;
 
         //If connection failed
         if(!$result = $db->query($verify_login)){
             die('Error retrieving information from database ['. $db->error.']');
         }
-
-        //There must be exactly one row
+        
+        //Uncomment this for password verification
+        /*
+        $usersAssoc = $result->fetch_all(MYSQLI_ASSOC);
+        foreach ($usersAssoc as $userRow) {
+            if(password_verify($password, $userRow['password'])){
+                $_SESSION['login_user'] = $username;
+                
+                //Checks for employee type               
+                $employee_type = $userRow['employee_type'];
+                $_SESSION['employee_type'] = $employee_type;
+                header("location: dashboard.php");
+            }
+            else{
+                $error = "Username or Password is invalid";
+            }
+        }*/
+        
+        //Uncomment this for old password verification
+        
         if($result->num_rows == 1){
             $_SESSION['login_user'] = $username;
-            //Checks for emplyee type
+            
+            //Checks for employee type
             $row = $result->fetch_assoc();
             $employee_type = $row['employee_type'];
             $_SESSION['employee_type'] = $employee_type;
@@ -53,6 +72,7 @@ SQL;
         else{
             $error = "Username or Password is invalid";
         }
+        
         $result->free();
         $db->close();
     }
