@@ -27,6 +27,7 @@ include('leaves_functionality.php');
                     <li><a href="timerecord.php">Time Record</a></li>
                     <li class="active"><a href="leaves.php">Leaves</a></li>
                     <li><a href="salaryreport.php">Salary Report</a></li>
+
                     <?php if($_SESSION['employee_type'] == 'manager'){?>
                     <li><a href="manager.php">Manager</a></li>
                     <?php } ?>
@@ -104,6 +105,7 @@ include('leaves_functionality.php');
                         </div>
 
                         <div class="modal-footer">
+
                             <button class="btn waves-effect waves-light" type="submit" name="submit" value="request_leave">Submit</button>
                         </form>
                         </div>
@@ -111,6 +113,9 @@ include('leaves_functionality.php');
                     <!--Leaves Request Modal-->
 
                     <div class="card-action center">
+                      <?php if ($error != ""): ?>
+                        <p class="apply_roboto red-text"><?php echo($error);?></p>
+                      <?php endif; ?>
                         <a class="modal-trigger clickable_text teal-text" href="#leave-request-modal">Request Leave</a>
                     </div>
                 </div>
@@ -120,6 +125,7 @@ include('leaves_functionality.php');
                 <div class="card right col s12 hoverable">
                     <div class="card-content center">
                         <span class="card-title">Pending Approval</span>
+
                         <?php if ($number_of_days < 1): ?>
                           <h1 class="">No current pending leaves</h1>
                         <?php else: ?>
@@ -134,6 +140,7 @@ include('leaves_functionality.php');
 
                     <div class="card-reveal blue-grey darken-4 white-text">
                         <span class="card-title">Approved Leave<i class="material-icons right">close</i></span>
+
                         <?php if(isset($approved_leave_start_date)): ?>
                             <h1 class=" center "><?php echo $approved_leave_duration ?> Day(s)</h1>
                             <p class="apply_roboto teal-text center" style="font-size:18px"><?php echo $approved_leave_start_date." - ".$approved_leave_end_date; ?></p>
@@ -283,8 +290,8 @@ include('leaves_functionality.php');
                         styleText:           true
                    }));
                }
-
             });
+            
         </script>
 
     </body>
