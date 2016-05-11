@@ -63,6 +63,6 @@ header, body, footer{
 }
 
 /*Manager Page*/
-.team_status_card{
-    height: 650px;
+.chip_style{
+    margin: 5px 5px 5px 5px;
 }

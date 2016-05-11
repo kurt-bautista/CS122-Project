@@ -69,7 +69,7 @@ include('manager-functionality.php');
                                 $signInCounter++;
                             }
                             ?>
-                            <div class="chip tooltipped" data-position="botom" data-delay="40" data-tooltip="<?php echo($signInTime);?>">
+                            <div class="chip tooltipped chip_style" data-position="botom" data-delay="40" data-tooltip="<?php echo($signInTime);?>">
                                 <img src="img/employee.jpg" alt="Contact Person">
                                 <?php echo($memberRow['Team Member']);?>
                             </div>
