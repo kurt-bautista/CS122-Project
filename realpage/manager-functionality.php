@@ -121,11 +121,21 @@ SQL;
 
 	if(isset($_POST['add_employee']))
 	{
+		$getUsernames = $db->prepare("SELECT username FROM employees WHERE username = ?");
+		$getUsernames->bind_param('s', $_POST['username']);
+		$getUsernames->execute();
+		$getUsernames->store_result();
+		$numrows = $getUsernames->num_rows;
 		if(empty($_POST['username']) || empty($_POST['password']) || empty($_POST['first-name']) || empty($_POST['last-name']) || empty($_POST['allotted-leaves']) || 
 			empty($_POST['employee-type']) || empty($_POST['hourly-rate']) || empty($_POST['start-date']) || empty($_POST['end-date']) || empty($_POST['expected-time'])){
 			$error = 'Make sure all fields are filled up';
 		}
-		else{
+		else if($numrows > 0)
+		{
+			$error = 'Username already exists';
+		}
+		else
+		{
 			$hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
 			
 			$holiday_type = 'regular';
