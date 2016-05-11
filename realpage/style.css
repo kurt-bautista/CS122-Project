@@ -48,9 +48,7 @@ header, body, footer{
 }
 
 /*Salary Report Page*/
-.salary_card{
-    height: 400px;
-}
+
 
 .ct-chart .ct-line.ct-threshold-above, .ct-bar.ct-threshold-above {
   stroke: #66bb6a;
@@ -81,6 +79,3 @@ header, body, footer{
 }
 
 /*Manager Page*/
-.team_status_card{
-    height: 650px;
-}
