@@ -121,7 +121,10 @@ include('salaryreport_functionality.php');
                             <?php $counter += 1;
                         }
                     }
-               }?>                           
+               }?>
+               
+               alert(graphLabel);
+               alert(graphSeries);                           
                
                new Chartist.Line('.ct-chart', {
                     labels: graphLabel,
