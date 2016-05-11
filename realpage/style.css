@@ -44,9 +44,10 @@ header, body, footer{
 
 /*Time Record Page*/
 .time_in_out_card{
-    height: 150px;
+    height: 100px;
 }
 
+<<<<<<< HEAD
 /*Salary Report Page*/
 
 
@@ -73,9 +74,34 @@ header, body, footer{
   fill: #ef5350;
 }
 
-.salary_padding{
-    padding-top: 10px;
-    padding-bottom: 10px;
+.time_btn{
+    margin-left: 40px;
+    margin-top: 45px;
+
+#tab-bar{
+    overflow: auto;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.tabs .indicator {
+    background-color: #009688;
+}
+
+.tab_div{
+    position: absolute;
+    right:40px;
+
 }
 
 /*Manager Page*/
+.chip_style{
+    margin: 5px 5px 5px 5px;
+}
+
+/*Account Page*/
+.profile_pic{
+    height: 180px;
+    width: 180px;
+    overflow: hidden;
+}

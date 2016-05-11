@@ -20,6 +20,7 @@ CREATE TABLE employee_contracts(
 	start_date DATE NOT NULL,
 	duration DATE NOT NULL,
 	hourly_rate DOUBLE NOT NULL,
+	expected_time_in TIME NOT NULL,
 	employees_id INT NOT NULL,
 	FOREIGN KEY(employees_id) REFERENCES employees(id));
 
@@ -45,7 +46,6 @@ CREATE TABLE workdays(
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	time_in DATETIME NOT NULL,
 	time_out DATETIME NOT NULL,
-	overtime_hours INT,
 	employees_id INT NOT NULL,
 	leaves_id INT,
 	FOREIGN KEY(employees_id) REFERENCES employees(id),
@@ -54,10 +54,15 @@ CREATE TABLE workdays(
 ALTER TABLE workdays
 ADD COLUMN employees_hourly_rate DECIMAL NOT NULL;
 
-INSERT INTO employees(username, password, remaining_leaves, employee_type, holiday_type) VALUES ('admin', 'password', 0, 'manager', 'regular');
+INSERT INTO employees(username, password, remaining_leaves, employee_type, holiday_type) VALUES ('admin', 'password', 40, 'manager', 'regular');
 
 ALTER TABLE employee_contracts
-ADD COLUMN alloted_leaves INT NOT NULL;
+ADD COLUMN allotted_leaves INT NOT NULL;
+
+INSERT INTO employee_contracts(start_date, duration, hourly_rate, expected_time_in, employees_id, allotted_leaves) 
+VALUES ('1970-01-01', '2037-12-31', 0.0, '09:00:00', 1, 0);
+
+UPDATE employees SET employee_contracts_id = 1 WHERE id = 1;
 
 ALTER TABLE leave_types
 DROP COLUMN paid;

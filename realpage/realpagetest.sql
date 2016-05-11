@@ -60,7 +60,7 @@ INSERT INTO employees (username,password,first_name,last_name,remaining_leaves,e
     'antonsuba', '420blazeit', 'Anton', 'Suba', 69,'Manager','Local',NULL
 );
 
-INSERT INTO employees(username, password, employee_type, holiday_type) VALUES ('admin', 'password', 'manager', 'regular');
+INSERT INTO employees(username, password, remaining_leaves, employee_type, holiday_type) VALUES ('admin', 'password', 40, 'manager', 'regular');
 
 ALTER TABLE employee_contracts
 ADD COLUMN alloted_leaves INT NOT NULL;
