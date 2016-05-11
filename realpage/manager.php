@@ -52,16 +52,30 @@ include('manager-functionality.php');
                         <div id="canvas">
                             <div class="circle" id="team_circle"></div>
                         </div>
-                        <p class="apply_roboto" style="font-size:18px">Total Members: 420</p> 
+                        <p class="apply_roboto" style="font-size:18px">Total Members: <?php echo($allMembers);?></p> 
                         
                         <div class="divider" style="margin-top:20px; margin-bottom:20px;"></div>
                                               
                         <!--Team Attendance-->
-                        <!--PHP for loop-->
-                        <div class="chip tooltipped" data-position="botom" data-delay="40" data-tooltip="Signed in at: 4:20 AM">
-                            <img src="img/employee.jpg" alt="Contact Person">
-                            Anton Suba <!--Replace with PHP-->
-                        </div>
+                        <?php 
+                        $signInCounter = 0;
+                        foreach ($teamMembers as $memberRow) {
+                            $signInTime = '';                           
+                            if($memberRow['Time In'] == NULL){
+                                $signInTime = 'Not yet signed in';
+                            }
+                            else {
+                                $signInTime = 'Signed in at: '.$memberRow['Time In'];
+                                $signInCounter++;
+                            }
+                            ?>
+                            <div class="chip tooltipped" data-position="botom" data-delay="40" data-tooltip="<?php echo($signInTime);?>">
+                                <img src="img/employee.jpg" alt="Contact Person">
+                                <?php echo($memberRow['Team Member']);?>
+                            </div>
+                        <?php }
+                        ?>                        
+                        
                     </div>
                     
                     <div class="card-action">
@@ -196,8 +210,8 @@ include('manager-functionality.php');
                var myCircle = Circles.create({
                     id:                  'team_circle',
                     radius:              70,
-                    value:               24,
-                    maxValue:            100, //Replace with php query
+                    value:               parseInt("<?php echo $signInCounter ?>"),
+                    maxValue:            parseInt("<?php echo $allMembers ?>"),
                     width:               10,
                     text:                function(value){return value;},
                     colors:              ['#b2dfdb', '#009688'],

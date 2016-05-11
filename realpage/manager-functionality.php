@@ -30,7 +30,7 @@ SQL;
 	}
 
 	$teamMembers = $result->fetch_all(MYSQLI_ASSOC);
-	$timedIn = $result->num_rows;
+	$allMembers = $result->num_rows;
 
 	$fetch_leave_requests = <<<SQL
 	SELECT l.id, lt. name, l.start_date, l.end_date, l.duration, CONCAT(COALESCE(e.first_name, ''), ' ', COALESCE(e.last_name, '')) AS 'employee', l.leave_reason
