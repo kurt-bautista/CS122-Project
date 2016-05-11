@@ -51,7 +51,7 @@ SQL;
 		else
 		{
 			$timeOut = $db->prepare("UPDATE workdays SET time_out = ? WHERE id = ?");
-			$timeOut->bind_param('sii', $timeNow, $_SESSION['workday_id']);
+			$timeOut->bind_param('si', $timeNow, $_SESSION['workday_id']);
 			$timeOut->execute();
 			$timeOut->close();
 			
