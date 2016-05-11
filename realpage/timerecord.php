@@ -235,7 +235,7 @@ include('timerecord-functionality.php');
                 var expectedTimeOut = "<?php $time_out = date('Y/m/d H:i:s', time()+28800); 
                                             echo $time_out; ?>";
                              
-                var a = "<?php echo date('Y-m-d'); ?>" == "<?php if(!$workdaysMonth){ echo '0000-00-00'; } else{ echo $workdaysMonth[0][0]; }?>";
+                var a = "<?php echo date('Y-m-d'); ?>" == "<?php if(!$_SESSION['date_today']){ echo '0000-00-00'; } else{ echo $_SESSION['date_today']; }?>";
                 
                 if(timeStatus == "Time In"){
                     if(a)

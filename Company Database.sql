@@ -46,7 +46,6 @@ CREATE TABLE workdays(
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	time_in DATETIME NOT NULL,
 	time_out DATETIME NOT NULL,
-	overtime_hours INT,
 	employees_id INT NOT NULL,
 	leaves_id INT,
 	FOREIGN KEY(employees_id) REFERENCES employees(id),

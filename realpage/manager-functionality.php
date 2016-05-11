@@ -55,7 +55,7 @@ SQL;
 SQL;
 		
 		$getEmpId = <<<SQL
-		SELECT employees_id, start_date, end_date
+		SELECT employees_id, start_date, end_date, duration
 		FROM leaves
 		WHERE id = '$leaveId'
 SQL;
@@ -69,6 +69,7 @@ SQL;
 		$empId = $leave['employees_id'];
 		$start_date = $leave['start_date'];
 		$end_date = $leave['end_date'];
+		$duration = $leave['duration'];
 		
 		$getContract = <<<SQL
 		SELECT *
@@ -97,6 +98,13 @@ SQL;
 			$newWorkday->bind_param('ssiid', $ti, $to, $empId, $leaveId, $hourly_rate);
 			$newWorkday->execute();
 		}
+		
+		$deductLeaves = <<<SQL
+		UPDATE employees
+		SET remaining_leaves  = remaining_leaves - '$duration'
+		WHERE id = '$empId'
+SQL;
+		$db->query($deductLeaves);
 
 	}
 	if(isset($_POST['reject_leave']))

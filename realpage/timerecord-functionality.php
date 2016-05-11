@@ -43,15 +43,15 @@ SQL;
 			$workday->bind_param('ssid', $timeNow, $timeNow, $empId, $hourly_rate);
 			$workday->execute();
 			$_SESSION['workday_id'] = $workday->insert_id;
+			$_SESSION['date_today'] = date('Y-m-d', strtotime($timeNow));
 			$workday->close();
 			
 			$_SESSION['time-status'] = "Time Out";
 		}
 		else
 		{
-			$hours = 0;
-			$timeOut = $db->prepare("UPDATE workdays SET time_out = ?, overtime_hours = ? WHERE id = ?");
-			$timeOut->bind_param('sii', $timeNow, $hours, $_SESSION['workday_id']);
+			$timeOut = $db->prepare("UPDATE workdays SET time_out = ? WHERE id = ?");
+			$timeOut->bind_param('sii', $timeNow, $_SESSION['workday_id']);
 			$timeOut->execute();
 			$timeOut->close();
 			
