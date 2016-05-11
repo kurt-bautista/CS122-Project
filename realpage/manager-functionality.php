@@ -86,13 +86,11 @@ SQL;
 		$expected_time_in = $contract['expected_time_in'];
 		$hourly_rate = $contract['hourly_rate'];
 		
-		//$time_out = date('Y-m-d H:i:s', strtotime($expected_time_in)+28800);
 		$db->query($acceptLeave);
 		$newWorkday = $db->prepare("INSERT INTO workdays(time_in, time_out, overtime_hours, employees_id, leaves_id, employees_hourly_rate)
 		VALUES (?, ?, 0, ?, ?, ?)");
 		for($i = strtotime($start_date); $i <= strtotime($end_date); $i+=86400)
 		{
-			//echo date('y-m-d', $i);
 			$ti = date('Y-m-d', $i) . ' ' . $expected_time_in;
 			$to = date('Y-m-d H:i:s', strtotime('+8 hours', strtotime($ti)));
 			$newWorkday->bind_param('ssiid', $ti, $to, $empId, $leaveId, $hourly_rate);
