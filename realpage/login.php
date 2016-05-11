@@ -50,7 +50,7 @@ SQL;
                 //Checks for employee type               
                 $employee_type = $userRow['employee_type'];
                 $_SESSION['employee_type'] = $employee_type;
-                $_SESSION['employee_id'] = $row['id'];
+                $_SESSION['employee_id'] = $userRow['id'];
                 header("location: dashboard.php");
             }
             else{

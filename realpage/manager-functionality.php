@@ -124,7 +124,7 @@ SQL;
 		$newEmp->close();
 		$sd = date('Y-m-d', strtotime($_POST['start-date']));
 		$ed = date('Y-m-d', strtotime($_POST['end-date']));
-		$newContract = $db->prepare("INSERT INTO employee_contracts(start_date, duration, hourly_rate, employees_id, allotted_leaves) VALUES (?, ?, ?, ?, ?)");
+		$newContract = $db->prepare("INSERT INTO employee_contracts(start_date, duration, hourly_rate, employees_id, allotted_leaves, expected_time_in) VALUES (?, ?, ?, ?, ?, '09:00:00')");
 		$newContract->bind_param('ssdii', $sd, $ed, $_POST['hourly-rate'], $empId, $_POST['allotted-leaves']);
 		$newContract->execute();
 		$contractId = $newContract->insert_id;
