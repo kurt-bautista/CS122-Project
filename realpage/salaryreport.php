@@ -45,7 +45,7 @@ include('salaryreport_functionality.php');
             <div class="row">
                 
                 <!--Salary Card-->
-                <div class="card col s12 center hoverable salary_card">
+                <div class="card col s4 center hoverable salary_card">
                     <div class="card-content">
                         <span class="card-title">Expected Salary</span>                       
                         <h1 id="expected-salary" class="teal-text apply_roboto"></h1>
@@ -53,17 +53,17 @@ include('salaryreport_functionality.php');
                         <div class="divider"></div>
                         
                         <div class="row apply_roboto" style="font-size: 26px">
-                            <p class="salary_padding col s4" style="padding-top: 20px">
+                            <p class="salary_padding" style="padding-top: 20px">
                                 <span class="tooltipped" data-position="left" data-delay="40" data-tooltip="Base Salary">
                                 <i class="material-icons">trending_flat</i><span id="base-salary" class="green-text text-lighten-1"></span>
                                 </span>
                             </p>
-                            <p class="salary_padding col s4" style="padding-top: 20px">
+                            <p class="salary_padding" style="padding-top: 20px">
                                 <span class="tooltipped" data-position="left" data-delay="40" data-tooltip="Overtime Pay">
                                 <i class="material-icons">trending_up</i><span id="overtime-pay" class="green-text text-lighten-1"></span>
                                 </span>
                             </p>
-                            <p class="salary_padding col s4" style="padding-top: 20px">
+                            <p class="salary_padding" style="padding-top: 20px">
                                 <span class="tooltipped" data-position="left" data-delay="40" data-tooltip="Undertime Deductions">
                                 <i class="material-icons">trending_down</i><span id="undertime-deductions" class="red-text text-lighten-1"></span>
                                 </span>
@@ -74,10 +74,41 @@ include('salaryreport_functionality.php');
                 <!--Salary Card-->
                 
                 <!--Graph-->
-                <div class="card col s12 center hoverable">
+                <div class="card col s7 offset-s1 center hoverable">
                     <div class="card-content">
                         <span class="card-title">Salary Record</span>
-                        <div class="ct-chart ct-perfect-fourth"></div>
+                        
+                        <table class="highlight centered responsive-table">
+                            <thead>
+                                <tr>
+                                    <th data-field="date">Date</th>
+                                    <th data-field="overtime">Overtime Pay</th>
+                                    <th data-field="undertime">Undertime Deduction</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <?php foreach ($all_workdays as $workday_array) {?>
+                                    <tr>
+                                        <td><?php echo($workday_array[0]);?></td>
+                                        <td>
+                                            <?php if($workday_array[1] == 'overtime'){
+                                                echo($workday_array[2]);
+                                            }else{
+                                                echo('0');
+                                            }?>
+                                        </td>
+                                        <td>
+                                            <?php if($workday_array[1] == 'undertime'){
+                                                echo($workday_array[2]);
+                                            }else{
+                                                echo('0');
+                                            }?>
+                                        </td>
+                                    </tr>
+                                <?php }?>                               
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <!--Graph-->             
@@ -113,18 +144,18 @@ include('salaryreport_functionality.php');
                     graphLabel.push(<?php echo($i);?>);                                 
                <?php               
                     if($workdays_count == 0){?>
-                        graphSeries.push(<?php echo($base_salary);?>);
+                        graphSeries.push(<?php echo($hourly_rate * 8);?>);
                <?php }
                     else {
                         if($all_workdays[$counter][0] == $i){?>
-                            graphSeries.push(<?php echo($all_workdays[$counter][0]);?>);
+                            graphSeries.push(<?php echo($all_workdays[$counter][2]);?>);
                             <?php $counter += 1;
                         }
+                        else{?>
+                            graphSeries.push(<?php echo($hourly_rate * 8);?>);
+                        <?php }
                     }
-               }?>
-               
-               alert(graphLabel);
-               alert(graphSeries);                           
+               }?>                                      
                
                new Chartist.Line('.ct-chart', {
                     labels: graphLabel,
@@ -136,7 +167,7 @@ include('salaryreport_functionality.php');
                     },
                     plugins: [
                         Chartist.plugins.ctThreshold({
-                        threshold: <?php echo($base_salary);?>
+                        threshold: <?php echo($hourly_rate * 8);?>
                         })
                     ]
                 });
