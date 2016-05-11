@@ -11,6 +11,8 @@ if($db->connect_errno > 0){
     die('Unable to connect to database ['. $db->connect_error.']');
 }
 
+ini_set('session.gc_maxlifetime', 86400);
+session_set_cookie_params(86400);
 session_start();
 if(!$user_login = $_SESSION['login_user']){
     header("location: index.php");
@@ -34,7 +36,7 @@ ELSE 0 END "overtime_hours",
 CASE WHEN HOUR(TIMEDIFF(time_out, time_in)) > 8 THEN 0
 ELSE 8 - HOUR(TIMEDIFF(time_out, time_in)) END "undertime_hours",
 HOUR(TIMEDIFF(time_out, time_in)) "num_of_hours"
-FROM workdays WHERE YEAR(CURDATE()) = YEAR(time_in) AND MONTH(time_in) = MONTH(NOW()) AND employees_id = $employee_id
+FROM workdays WHERE YEAR(CURDATE()) = YEAR(time_in) AND MONTH(time_in) = MONTH(NOW()) AND employees_id = '$employee_id'
 SQL;
 
 //fetch user info
@@ -82,5 +84,11 @@ while($row2 = $salary_result->fetch_assoc()){
 
 if(isset($login_session)){
     $db->close();
+}
+
+if(empty($_SESSION['time-status'])){
+    $_SESSION['time-status'] = "Time In";
+    
+    //Query database if timed in, in case of session time out
 }
 ?>

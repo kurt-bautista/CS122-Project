@@ -36,12 +36,12 @@ SELECT (SELECT COUNT(*) FROM leaves WHERE status = 'APPROVED') "leaves_taken",
 leaves.start_date "start_date", leaves.end_date "end_date", leave_types.name "leave_type",
 leaves.duration "duration", DAYOFYEAR(leaves.start_date) "start_day", DAYOFYEAR(leaves.end_date) "end_day"
 FROM leaves, leave_types
-WHERE leaves.employees_id = $employee_id AND leaves.leave_types_id = leave_types.id AND leaves.status = 'APPROVED'
+WHERE leaves.employees_id = '$employee_id' AND leaves.leave_types_id = leave_types.id AND leaves.status = 'APPROVED'
 SQL;
 
 $fetch_leave_requests = <<<SQL
 SELECT start_date, end_date, duration, (SELECT COUNT(*) FROM leaves) "num_of_requests"
-FROM leaves WHERE employees_id = $employee_id AND status = 'PENDING'
+FROM leaves WHERE employees_id = '$employee_id' AND status = 'PENDING'
 SQL;
 
 //fetch user info

@@ -40,7 +40,7 @@ include('session.php');
         
         <div id="main" class="container">
             
-            <h1 class="center"> Welcome <?php echo $first_name; ?> </h1>
+            <h1 class="center"> Welcome <?php echo($first_name); ?> </h1>
                
             <div class="row">
                 <p class="apply_roboto center" style="font-size:35px">Here are a few things to get you started</p>
