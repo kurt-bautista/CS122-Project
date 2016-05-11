@@ -33,8 +33,8 @@ SQL;
 	$timedIn = $result->num_rows;
 
 	$fetch_leave_requests = <<<SQL
-	SELECT l.id, l.start_date, l.end_date, l.duration, CONCAT(COALESCE(e.first_name, ''), ' ', COALESCE(e.last_name, '')) AS 'employee', l.leave_reason
-	FROM leaves l, employees e WHERE l.status = 'PENDING' AND l.employees_id = e.id AND e.manager_id = '$myId'
+	SELECT l.id, lt. name, l.start_date, l.end_date, l.duration, CONCAT(COALESCE(e.first_name, ''), ' ', COALESCE(e.last_name, '')) AS 'employee', l.leave_reason
+	FROM leaves l, employees e, leave_types lt WHERE l.status = 'PENDING' AND l.employees_id = e.id AND e.manager_id = '$myId' AND l.leave_type = lt.id
 SQL;
 
 	if(!$result = $db->query($fetch_leave_requests))
