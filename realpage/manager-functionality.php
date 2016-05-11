@@ -3,6 +3,8 @@
 	$server_user = 'root';
 	$server_pass = '';
 	$database_name = 'company';
+	
+	$error = '';
 
 	$db = new mysqli($server, $server_user, $server_pass, $database_name);
 
@@ -121,24 +123,30 @@ SQL;
 
 	if(isset($_POST['add_employee']))
 	{
-		$hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
-		
-		$holiday_type = 'regular';
-		$newEmp = $db->prepare("INSERT INTO employees(username, password, first_name, last_name, remaining_leaves, employee_type, manager_id, holiday_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-		$newEmp->bind_param('ssssisis', $_POST['username'], $hashedPassword, $_POST['first-name'], $_POST['last-name'], $_POST['allotted-leaves'], $_POST['employee-type'], $myId, $holiday_type);
-		//$newEmp->bind_param('ssssisis', $_POST['username'], $_POST['password'], $_POST['first-name'], $_POST['last-name'], $_POST['allotted-leaves'], $_POST['employee-type'], $myId, $holiday_type);
-		$newEmp->execute();
-		$empId = $newEmp->insert_id;
-		$newEmp->close();
-		$sd = date('Y-m-d', strtotime($_POST['start-date']));
-		$ed = date('Y-m-d', strtotime($_POST['end-date']));
-		$newContract = $db->prepare("INSERT INTO employee_contracts(start_date, duration, hourly_rate, employees_id, allotted_leaves, expected_time_in) VALUES (?, ?, ?, ?, ?, '09:00:00')");
-		$newContract->bind_param('ssdii', $sd, $ed, $_POST['hourly-rate'], $empId, $_POST['allotted-leaves']);
-		$newContract->execute();
-		$contractId = $newContract->insert_id;
-		$updateEmp = <<<SQL
-		UPDATE employees SET employee_contracts_id = '$contractId' WHERE id = $empId
+		if(empty($_POST['username']) || empty($_POST['password']) || empty($_POST['first-name']) || empty($_POST['last-name']) || empty($_POST['allotted-leaves']) || 
+			empty($_POST['employee-type']) || empty($_POST['hourly-rate']) || empty($_POST['start-date']) || empty($_POST['end-date']) || empty($_POST['expected-time'])){
+			$error = 'Make sure all fields are filled up';
+		}
+		else{
+			$hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+			
+			$holiday_type = 'regular';
+			$newEmp = $db->prepare("INSERT INTO employees(username, password, first_name, last_name, remaining_leaves, employee_type, manager_id, holiday_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+			$newEmp->bind_param('ssssisis', $_POST['username'], $hashedPassword, $_POST['first-name'], $_POST['last-name'], $_POST['allotted-leaves'], $_POST['employee-type'], $myId, $holiday_type);
+			//$newEmp->bind_param('ssssisis', $_POST['username'], $_POST['password'], $_POST['first-name'], $_POST['last-name'], $_POST['allotted-leaves'], $_POST['employee-type'], $myId, $holiday_type);
+			$newEmp->execute();
+			$empId = $newEmp->insert_id;
+			$newEmp->close();
+			$sd = date('Y-m-d', strtotime($_POST['start-date']));
+			$ed = date('Y-m-d', strtotime($_POST['end-date']));
+			$newContract = $db->prepare("INSERT INTO employee_contracts(start_date, duration, hourly_rate, employees_id, allotted_leaves, expected_time_in) VALUES (?, ?, ?, ?, ?, '09:00:00')");
+			$newContract->bind_param('ssdii', $sd, $ed, $_POST['hourly-rate'], $empId, $_POST['allotted-leaves']);
+			$newContract->execute();
+			$contractId = $newContract->insert_id;
+			$updateEmp = <<<SQL
+			UPDATE employees SET employee_contracts_id = '$contractId' WHERE id = $empId
 SQL;
-		$db->query($updateEmp);
+			$db->query($updateEmp);
+		}
 	}
 ?>

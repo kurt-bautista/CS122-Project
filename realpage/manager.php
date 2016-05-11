@@ -76,9 +76,11 @@ include('manager-functionality.php');
                         <?php }
                         ?>                        
                         
+                        
                     </div>
                     
                     <div class="card-action">
+                        <span class="red-text text-darken-1 col s12"><?php echo $error; ?></span> 
                         <a class="modal-trigger clickable_text teal-text" href="#add-emp-modal">
                             <i class="material-icons" style="margin-right:5px">supervisor_account</i>Add Employee
                         </a>
@@ -140,7 +142,7 @@ include('manager-functionality.php');
                                 <input name="employee-type" id="manager" class="with-gap" type="radio" value="manager"/>
                                 <label for="manager">Manager</label>
                             </span>
-                        </div>                        
+                        </div>                                              
                     </div>
                     
                     <div class="modal-footer">
