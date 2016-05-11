@@ -132,8 +132,9 @@ SQL;
 		$newEmp->close();
 		$sd = date('Y-m-d', strtotime($_POST['start-date']));
 		$ed = date('Y-m-d', strtotime($_POST['end-date']));
+		$et = date('H:i:s', strtotime($_POST['expected-time']));
 		$newContract = $db->prepare("INSERT INTO employee_contracts(start_date, duration, hourly_rate, employees_id, allotted_leaves, expected_time_in) VALUES (?, ?, ?, ?, ?, ?)");
-		$newContract->bind_param('ssdiis', $sd, $ed, $_POST['hourly-rate'], $empId, $_POST['allotted-leaves'], $_POST['expected-time']);
+		$newContract->bind_param('ssdiis', $sd, $ed, $_POST['hourly-rate'], $empId, $_POST['allotted-leaves'], $et);
 		$newContract->execute();
 		$contractId = $newContract->insert_id;
 		$updateEmp = <<<SQL
