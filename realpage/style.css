@@ -72,3 +72,10 @@ header, body, footer{
 .chip_style{
     margin: 5px 5px 5px 5px;
 }
+
+/*Account Page*/
+.profile_pic{
+    height: 180px;
+    width: 180px;
+    overflow: hidden;
+}
