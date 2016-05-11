@@ -10,6 +10,7 @@ include('timerecord-functionality.php');
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="css/jquery.mCustomScrollbar.css"/>
         
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
@@ -75,7 +76,7 @@ include('timerecord-functionality.php');
                             else{?>
                                 <div class="col s12">
                                     <p class="teal-text apply_roboto" style="font-size:28px">Expected Time Out: <?php
-                                    $time_out = date('h:i:s A', time()+28800); 
+                                    $time_out = date('H:i:s', time()+28800); 
                                     echo $time_out; ?> </p>
                                 </div>
                                 <div class="col s1">
@@ -98,38 +99,67 @@ include('timerecord-functionality.php');
             <div class="row">
                 <div class="card col s12 center hoverable">
                     <div class="card-content">
-                        <span class="card-title">Time In - Time Out Record</span>
+                        <span class="card-title">Time In - Time Out Record</span>                                                                                     
                         
-                        <div class="divider"></div>
-                        
-                        <table class="highlight centered apply_roboto">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Time In</th>
-                                    <th>Time Out</th>
-                                    <th>Overtime</th>
-                                    <th>Undertime</th>
-                                    <th>Total Hours</th>
-                                </tr>
-                            </thead>
-                            
-                            <tbody>
-                                <?php
-                                foreach($workdaysTable as $row)
-                                {
-                                echo "<tr>";
-                                    echo "<td>".$row['Date']."</td>";
-                                    echo "<td>".$row['Time In']."</td>";
-                                    echo "<td>".$row['Time Out']."</td>";
-                                    echo "<td>".$row['Overtime']."</td>";
-                                    echo "<td>".$row['Undertime']."</td>";
-                                    echo "<td>".$row['Total Hours']."</td>";
-                                echo "</tr>";
+                            <ul class="tabs"> 
+                                <div class="row tab_div" style="max-width: 95%">                              
+                                <?php                              
+                                foreach ($months as $key => $value) {
+                                    echo("<div class='col s1' style=''>");
+                                    
+                                    $active_month = date('m');
+                                    if($active_month == $value){
+                                        printf("<li class='tab'><a class='active' href='#%s'>%s</a></li>", $key, $key);
+                                    }
+                                    else{
+                                        printf("<li class='tab'><a href='#%s'>%s</a></li>", $key, $key);
+                                    }                                   
+                                    echo("</div>");
                                 }
-                                ?>
-                            </tbody>
-                        </table>
+                                ?>  
+                                </div>                             
+                            </ul>
+                        
+                       
+                        
+                        <?php foreach ($months as $key => $value) {?>
+                            <div class="col s12" id="<?php echo($key);?>">
+                            <table class="highlight centered apply_roboto">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Time In</th>
+                                        <th>Time Out</th>
+                                        <th>Overtime</th>
+                                        <th>Undertime</th>
+                                        <th>Total Hours</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                    <?php
+                                    $getWorkdays->bind_param('ii', $months[$key], $empId);
+                                    $getWorkdays->execute();
+                                    $result = $getWorkdays->get_result();
+                                    $workdaysTable = $result->fetch_all(MYSQLI_ASSOC);
+                                    
+                                    foreach($workdaysTable as $row)
+                                    {
+                                    echo "<tr>";
+                                        echo "<td>".$row['Date']."</td>";
+                                        echo "<td>".$row['Time In']."</td>";
+                                        echo "<td>".$row['Time Out']."</td>";
+                                        echo "<td>".$row['Overtime']."</td>";
+                                        echo "<td>".$row['Undertime']."</td>";
+                                        echo "<td>".$row['Total Hours']."</td>";
+                                    echo "</tr>";
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                            </div>
+                        <?php }?>
+                        
                     </div>
                 </div>
             </div>
@@ -139,7 +169,10 @@ include('timerecord-functionality.php');
             <div class="modal" id="warning-modal">
                 <div class="modal-content center">
                     <p class="apply_roboto teal-text" style="font-size:36px">Are you sure you want to time out?</p>
-                    <p class="apply_roboto" style="font-size:24px">This may cause undertime deductions towards your salary</p>
+                    <p class="apply_roboto" style="font-size:24px">This may cause undertime deductions towards your salary
+                    </p>
+                    <p class="apply_roboto" style="font-size:24px">Warning: You will not be able to time in again within the day
+                    </p>
                     <div class="divider"></div>
                     <p>
                     <button class="btn-large waves-effect waves-light" onclick="modalTimeOut()">Time Out</button>
@@ -148,16 +181,34 @@ include('timerecord-functionality.php');
             </div>
             <!--Warning Modal-->
             
+            <!--Time In Modal-->
+            <div class="modal" id="time-in-modal">
+                <div class="modal-content center">
+                    <p class="apply_roboto teal-text" style="font-size:36px">You have already timed in today.</p>
+                    <p class="apply_roboto" style="font-size:24px">Please wait until the next day to time in again
+                    </p>
+                </div>               
+            </div>
+            <!--Time In Modal-->
+            
         </div>
        
        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="js/jquery.mCustomScrollbar.concat.min.js"></script>
         
         <script>       
                     
             $(document).ready(function(){
-               $(".button-collapse").sideNav();                                         
+               $(".button-collapse").sideNav();
+               
+               $('ul.tabs').tabs();
+               
+               $("#tab-bar").mCustomScrollbar({
+                   axis: "x",
+                   theme: "minmal-dark"
+               });                                                     
             });
             
             function appendTime(x){
@@ -181,11 +232,20 @@ include('timerecord-functionality.php');
             
             function timeSafety(){
                 var timeStatus = "<?php echo($_SESSION['time-status']);?>";
-                var expectedTimeOut = "<?php $time_out = date('Y/m/d h:i:s', time()+28800); 
-                                            echo $time_out; ?>";                              
+                var expectedTimeOut = "<?php $time_out = date('Y/m/d H:i:s', time()+28800); 
+                                            echo $time_out; ?>";
+                             
+                var a = "<?php echo date('Y-m-d'); ?>" == "<?php if(!$workdaysMonth){ echo '0000-00-00'; } else{ echo $workdaysMonth[0][0]; }?>";
                 
-                if(timeStatus == "Time In"){                  
-                    document.forms['time-in-form'].submit();
+                if(timeStatus == "Time In"){
+                    if(a)
+                    {
+                        $('#time-in-modal').openModal();
+                    }
+                    else
+                    {                  
+                        document.forms['time-in-form'].submit();
+                    }
                 }
                 else{
                     if(getCurrentTime() < expectedTimeOut){                       
