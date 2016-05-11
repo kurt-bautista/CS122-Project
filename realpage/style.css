@@ -71,3 +71,10 @@ header, body, footer{
 .team_status_card{
     height: 650px;
 }
+
+/*Account Page*/
+.profile_pic{
+    height: 180px;
+    width: 180px;
+    overflow: hidden;
+}
