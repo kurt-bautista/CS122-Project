@@ -47,6 +47,31 @@ header, body, footer{
     height: 100px;
 }
 
+/*Salary Report Page*/
+
+.ct-chart .ct-line.ct-threshold-above, .ct-bar.ct-threshold-above {
+  stroke: #66bb6a;
+}
+.ct-chart .ct-point.ct-threshold-above{
+  stroke: #66bb6a;
+}
+
+.ct-chart .ct-line.ct-threshold-below, .ct-point.ct-threshold-below, .ct-bar.ct-threshold-below {
+  stroke: #ef5350;
+}
+
+.ct-chart .ct-point.ct-threshold-below{
+  stroke: #ef5350;
+}
+
+.ct-chart .ct-area.ct-threshold-above {
+  fill: #66bb6a;
+}
+
+.ct-chart .ct-area.ct-threshold-below {
+  fill: #ef5350;
+}
+
 .time_btn{
     margin-left: 40px;
     margin-top: 45px;
