@@ -109,15 +109,16 @@ include('timerecord-functionality.php');
                                     
                                     $active_month = date('m');
                                     if($active_month == $value){
-                                        printf("<li class='tab'><a class='active' href='#%s'>%s</a></li>", $key, $key);
+                                        printf("<li class='tab'><a class='active teal-text' href='#%s'>%s</a></li>", $key, $key);
                                     }
                                     else{
-                                        printf("<li class='tab'><a href='#%s'>%s</a></li>", $key, $key);
+                                        printf("<li class='tab'><a class='teal-text' href='#%s'>%s</a></li>", $key, $key);
                                     }                                   
                                     echo("</div>");
                                 }
                                 ?>  
-                                </div>                             
+                                </div>
+                                <div class="indicator teal" style="z-index:1"></div>                             
                             </ul>
                         
                        

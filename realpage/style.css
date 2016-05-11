@@ -32,10 +32,16 @@ header, body, footer{
     cursor: pointer
 }
 
-/*Leaves Page*/
-.leave_summary_card{
-    height: 675px
+.flip{
+    -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+    transform: scale(-1, 1);
 }
+
+/*Leaves Page*/
+
 
 #canvas .circle{
     display: inline-block;
