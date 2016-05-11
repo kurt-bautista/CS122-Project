@@ -66,6 +66,7 @@ SQL;
             $row = $result->fetch_assoc();
             $employee_type = $row['employee_type'];
             $_SESSION['employee_type'] = $employee_type;
+            $_SESSION['employee_id'] = $row['id'];
             
             header("location: dashboard.php");
         }
