@@ -82,8 +82,7 @@ include('account_functionality.php');
                                 
                                 <div class="divider" style="margin-top:20px; margin-bottom:20px;"></div>
                             </div>
-                            <div class="center">
-                                <span class="apply_roboto red-text"><?php echo($error);?></span>
+                            <div class="center">                               
                                 <button class="btn waves-effect waves-light" type="submit" name="submit" value="account_change">
                                     Save Changes
                                 </button>

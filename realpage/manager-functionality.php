@@ -113,12 +113,12 @@ SQL;
 
 	if(isset($_POST['add_employee']))
 	{
-		//$hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+		$hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
 		
 		$holiday_type = 'regular';
 		$newEmp = $db->prepare("INSERT INTO employees(username, password, first_name, last_name, remaining_leaves, employee_type, manager_id, holiday_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-		//$newEmp->bind_param('ssssisis', $_POST['username'], $hashedPassword, $_POST['first-name'], $_POST['last-name'], $_POST['allotted-leaves'], $_POST['employee-type'], $myId, $holiday_type);
-		$newEmp->bind_param('ssssisis', $_POST['username'], $_POST['password'], $_POST['first-name'], $_POST['last-name'], $_POST['allotted-leaves'], $_POST['employee-type'], $myId, $holiday_type);
+		$newEmp->bind_param('ssssisis', $_POST['username'], $hashedPassword, $_POST['first-name'], $_POST['last-name'], $_POST['allotted-leaves'], $_POST['employee-type'], $myId, $holiday_type);
+		//$newEmp->bind_param('ssssisis', $_POST['username'], $_POST['password'], $_POST['first-name'], $_POST['last-name'], $_POST['allotted-leaves'], $_POST['employee-type'], $myId, $holiday_type);
 		$newEmp->execute();
 		$empId = $newEmp->insert_id;
 		$newEmp->close();

@@ -33,7 +33,7 @@ $type = $_SESSION['employee_type'];
 $id = $_SESSION['employee_id'];
 
 if(isset($_POST['submit'])){
-	if(empty($_POST['username']) || empty($_POST['current_pass']) || empty($_POST['new_pass']) || empty($_POST['confirm_new_pass'])) {
+	if(empty($_POST['current_pass']) || empty($_POST['new_pass']) || empty($_POST['confirm_new_pass'])) {
 		$error =  'Please fill in blank spaces';
 	}
 	elseif (password_verify($password, $_POST['current_pass'])){
@@ -44,14 +44,14 @@ if(isset($_POST['submit'])){
 	}
 	else{
 		$new_password = password_hash($_POST['new_pass'],PASSWORD_DEFAULT);
+		
     $write_data = <<<SQL
   	UPDATE employees SET password = '$new_password' WHERE id = $id
 SQL;
 
-    if(!$write = $db->query($write_data)){
-      die('Error retrieving user information ['. $db->error.']');
-    }
-    echo "it passed";
+		if(!$write = $db->query($write_data)){
+		die('Error retrieving user information ['. $db->error.']');
+		}    
 	}
 
 	$db->close();
