@@ -20,11 +20,11 @@ $employee_id = $_SESSION['employee_id'];
 
 $fetch_info = <<<SQL
 SELECT employees.first_name "first_name", employees.remaining_leaves "remaining_leaves",
-employees.allotted_leaves "allotted_leaves",
+employee_contracts.allotted_leaves "allotted_leaves",
 employee_contracts.expected_time_in "expected_time_in",
-employee_contracts.hourly_rate "hourly_rate",
+employee_contracts.hourly_rate "hourly_rate"
 FROM employees, employee_contracts
-WHERE employees.username='$user_login' AND employee_contracts.employees_id=$employee_id
+WHERE employees.username='$user_login' AND employee_contracts.employees_id= '$employee_id'
 SQL;
 
 $fetch_salary_info = <<<SQL

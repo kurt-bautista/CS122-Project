@@ -1,6 +1,7 @@
 <?php
 
 $error = ' ';
+$success = '';
 $server = 'localhost';
 $server_user = 'root';
 $server_pass = '';
@@ -51,7 +52,8 @@ SQL;
 
 		if(!$write = $db->query($write_data)){
 		die('Error retrieving user information ['. $db->error.']');
-		}    
+		}
+		$success = 'Password successfully changed';    
 	}
 
 	$db->close();
