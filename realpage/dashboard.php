@@ -14,7 +14,7 @@ include('session.php');
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     
-    <body class="grey lighten-5">
+    <body class="blue-grey lighten-1">
         <!--Navbar [Copy this to all pages]-->
         <nav class="blue-grey darken-4">
             <div class="nav-wrapper">
@@ -40,15 +40,48 @@ include('session.php');
         
         <div id="main" class="container">
             
-            <h1 class="center"> Welcome <?php echo($first_name); ?> </h1>
+            <h1 class="center white-text"> Welcome <?php echo($first_name); ?> </h1>
                
             <div class="row">
-                <p class="apply_roboto center" style="font-size:35px">Here are a few things to get you started</p>
+                <p class="apply_roboto center white-text" style="font-size:35px">Here are a few things to get you started</p>
             </div>
             
             <div class="row">
-                
+                <ul id="quick-cards">
+                    
+                    <li style="opacity:0">
+                    <div class="card col s6 offset-s3 center hoverable">
+                        <div class="card-content ">
+                            <p class="apply_roboto" style="font-size:24px">Expected Time In: 
+                                <span class="teal-text"><?php echo($expected_time_in);?></span>
+                            </p>                       
+                        </div>
+                    </div>
+                    </li>
+                    
+                    <li style="opacity:0">
+                    <div class="card col s6 offset-s3 center hoverable">
+                        <div class="card-content ">
+                            <p class="apply_roboto" style="font-size:24px">Remaining Leaves: 
+                                <span class="teal-text"><?php echo($remaining_leaves);?></span>
+                            </p>                       
+                        </div>
+                    </div>
+                    </li>
+                    
+                    <li style="opacity:0">
+                    <div class="card col s6 offset-s3 center hoverable">
+                        <div class="card-content ">
+                            <p class="apply_roboto" style="font-size:24px">Expected Salary: 
+                                <span class="teal-text"><?php echo($expected_salary);?></span>
+                            </p>                       
+                        </div>
+                    </div>
+                    </li>
+                    
+                </ul>
             </div>
+              
         </div>
             
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -56,7 +89,9 @@ include('session.php');
         
         <script>            
             $(document).ready(function(){
-               $(".button-collapse").sideNav(); 
+               $(".button-collapse").sideNav();
+               
+               Materialize.showStaggeredList("#quick-cards"); 
             });
         </script>
     </body>
