@@ -127,7 +127,11 @@ include('manager-functionality.php');
                             <label for="end-date">End Date</label>
                         </div>
                         
-                        <div class="input-field col s12 center">
+                        <div class="input-field col s6">
+                            <input id="expected-time" name="expected-time" type="text" class="validate">
+                            <label for="expected-time">Expected Time In [24 hour format - Hour:Minute]</label>
+                        </div>
+                        <div class="input-field col s6 center">
                             <span style="margin-right:10px">
                                 <input name="employee-type" id="regular" class="with-gap" type="radio" value="regular"/>
                                 <label for="regular">Regular</label>
