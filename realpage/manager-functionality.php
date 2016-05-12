@@ -3,7 +3,7 @@
 	$server_user = 'root';
 	$server_pass = '';
 	$database_name = 'company';
-	
+
 	$error = '';
 
 	$db = new mysqli($server, $server_user, $server_pass, $database_name);
@@ -46,7 +46,7 @@ SQL;
 
 	$numPendingLeaves = $result->num_rows;
 	$pendingLeaves = $result->fetch_all(MYSQLI_ASSOC);
-	
+
 	if(isset($_POST['approve_leave']))
 	{
 		$leaveId = $_POST['approve_leave'];
@@ -55,7 +55,7 @@ SQL;
 		SET status = 'ACCEPTED'
 		WHERE id = $leaveId;
 SQL;
-		
+
 		$getEmpId = <<<SQL
 		SELECT employees_id, start_date, end_date, duration
 		FROM leaves
@@ -66,13 +66,13 @@ SQL;
 		{
 			die('There was an error running the query [' . $db->error . ']');
 		}
-		
+
 		$leave = $result->fetch_assoc();
 		$empId = $leave['employees_id'];
 		$start_date = $leave['start_date'];
 		$end_date = $leave['end_date'];
 		$duration = $leave['duration'];
-		
+
 		$getContract = <<<SQL
 		SELECT *
 		FROM employee_contracts
@@ -87,7 +87,7 @@ SQL;
 		$contract = $result->fetch_assoc();
 		$expected_time_in = $contract['expected_time_in'];
 		$hourly_rate = $contract['hourly_rate'];
-		
+
 		$db->query($acceptLeave);
 		$newWorkday = $db->prepare("INSERT INTO workdays(time_in, time_out, employees_id, leaves_id, employees_hourly_rate)
 		VALUES (?, ?, ?, ?, ?)");
@@ -98,7 +98,7 @@ SQL;
 			$newWorkday->bind_param('ssiid', $ti, $to, $empId, $leaveId, $hourly_rate);
 			$newWorkday->execute();
 		}
-		
+
 		$deductLeaves = <<<SQL
 		UPDATE employees
 		SET remaining_leaves  = remaining_leaves - '$duration'
@@ -126,7 +126,7 @@ SQL;
 		$getUsernames->execute();
 		$getUsernames->store_result();
 		$numrows = $getUsernames->num_rows;
-		if(empty($_POST['username']) || empty($_POST['password']) || empty($_POST['first-name']) || empty($_POST['last-name']) || empty($_POST['allotted-leaves']) || 
+		if(empty($_POST['username']) || empty($_POST['password']) || empty($_POST['first-name']) || empty($_POST['last-name']) || empty($_POST['allotted-leaves']) ||
 			empty($_POST['employee-type']) || empty($_POST['hourly-rate']) || empty($_POST['start-date']) || empty($_POST['end-date']) || empty($_POST['expected-time'])){
 			$error = 'Make sure all fields are filled up';
 		}
@@ -137,7 +137,7 @@ SQL;
 		else
 		{
 			$hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
-			
+
 			$holiday_type = 'regular';
 			$newEmp = $db->prepare("INSERT INTO employees(username, password, first_name, last_name, remaining_leaves, employee_type, manager_id, holiday_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 			$newEmp->bind_param('ssssisis', $_POST['username'], $hashedPassword, $_POST['first-name'], $_POST['last-name'], $_POST['allotted-leaves'], $_POST['employee-type'], $myId, $holiday_type);
@@ -147,8 +147,8 @@ SQL;
 			$newEmp->close();
 			$sd = date('Y-m-d', strtotime($_POST['start-date']));
 			$ed = date('Y-m-d', strtotime($_POST['end-date']));
-			$newContract = $db->prepare("INSERT INTO employee_contracts(start_date, duration, hourly_rate, employees_id, allotted_leaves, expected_time_in) VALUES (?, ?, ?, ?, ?, '09:00:00')");
-			$newContract->bind_param('ssdii', $sd, $ed, $_POST['hourly-rate'], $empId, $_POST['allotted-leaves']);
+			$newContract = $db->prepare("INSERT INTO employee_contracts(start_date, duration, hourly_rate, employees_id, allotted_leaves, expected_time_in) VALUES (?, ?, ?, ?, ?, ?)");
+			$newContract->bind_param('ssdiis', $sd, $ed, $_POST['hourly-rate'], $empId, $_POST['allotted-leaves'], $_POST['expected-time']);
 			$newContract->execute();
 			$contractId = $newContract->insert_id;
 			$updateEmp = <<<SQL

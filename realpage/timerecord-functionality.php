@@ -28,14 +28,14 @@ SQL;
 	{
 		die('There was an error running the query [' . $db->error . ']');
 	}
-	
+
 	$contract = $result->fetch_assoc();
-	$expected_time_in = $contract['expected_time_in'];
-	
+	$expected_time_in = date('H:i', strtotime($contract['expected_time_in']));
+
 	if(isset($_POST['btnsubmit']))
 	{
 		date_default_timezone_set('Asia/Manila');
-		$timeNow = date('Y-m-d H:i:s');		
+		$timeNow = date('Y-m-d H:i:s');
 		if($_POST['btnsubmit'] == 'Time In')
 		{
 			$hourly_rate = $contract['hourly_rate'];
@@ -45,7 +45,7 @@ SQL;
 			$_SESSION['workday_id'] = $workday->insert_id;
 			$_SESSION['date_today'] = date('Y-m-d', strtotime($timeNow));
 			$workday->close();
-			
+
 			$_SESSION['time-status'] = "Time Out";
 		}
 		else
@@ -54,17 +54,17 @@ SQL;
 			$timeOut->bind_param('si', $timeNow, $_SESSION['workday_id']);
 			$timeOut->execute();
 			$timeOut->close();
-			
+
 			$_SESSION['time-status'] = "Time In";
 		}
 	}
 	$months = array("Jan"=>1, "Feb"=>2, "Mar"=>3, "Apr"=>4, "May"=>5, "June"=>6, "July"=>7, "Aug"=>8, "Sept"=>9, "Oct"=>10, "Nov"=>11, "Dec"=>12);
 	$curMonth = date('m');
-	$getWorkdays = $db->prepare("SELECT DATE(time_in) AS 'Date', TIME(time_in) AS 'Time In', TIME(time_out) AS 'Time Out', 
-	CASE WHEN HOUR(TIMEDIFF(time_out, time_in)) - 8 > 0 THEN HOUR(TIMEDIFF(time_out, time_in)) - 8 
-	ELSE 0 END AS 'Overtime', 
-	CASE WHEN HOUR(TIMEDIFF(time_out, time_in)) > 8 THEN 0 
-	ELSE 8 - HOUR(TIMEDIFF(time_out, time_in)) END AS 'Undertime', 
+	$getWorkdays = $db->prepare("SELECT DATE(time_in) AS 'Date', TIME(time_in) AS 'Time In', TIME(time_out) AS 'Time Out',
+	CASE WHEN HOUR(TIMEDIFF(time_out, time_in)) - 8 > 0 THEN HOUR(TIMEDIFF(time_out, time_in)) - 8
+	ELSE 0 END AS 'Overtime',
+	CASE WHEN HOUR(TIMEDIFF(time_out, time_in)) > 8 THEN 0
+	ELSE 8 - HOUR(TIMEDIFF(time_out, time_in)) END AS 'Undertime',
 	HOUR(TIMEDIFF(time_out, time_in)) AS 'Total Hours'
 	FROM workdays WHERE YEAR(CURDATE()) = YEAR(time_in) AND MONTH(time_in) = ? AND employees_id = ? AND time_in != time_out ORDER BY time_in DESC");
 	$getWorkdays->bind_param('ii', $curMonth, $empId);

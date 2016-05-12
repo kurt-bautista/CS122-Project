@@ -53,7 +53,7 @@ $row = $result->fetch_assoc();
 $first_name = $row['first_name'];
 $remaining_leaves = $row['remaining_leaves'];
 $allotted_leaves = $row['allotted_leaves'];
-$expected_time_in = $row['expected_time_in'];
+$expected_time_in = date('H:i', strtotime($row['expected_time_in']));
 $hourly_rate = $row['hourly_rate'];
 
 $overtime_hours = 0;
