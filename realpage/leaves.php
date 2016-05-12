@@ -97,7 +97,7 @@ include('leaves_functionality.php');
                                 <label for="maternity">Maternity</label>
                             </p>
                             <p class="col s2" >
-                                <input class="with-gap" name="leave-type" type="radio" id="paternity" value="paterntity">
+                                <input class="with-gap" name="leave-type" type="radio" id="paternity" value="paternity">
                                 <label for="paternity">Paternity</label>
                             </p>
                             </div>
@@ -179,7 +179,7 @@ include('leaves_functionality.php');
                             <p class="apply_roboto" style="font-size: 18px">Vacation Leave</p>
                         </div>
                     </div>
-                    
+
                     <div class="row center" id="leave-circle2">
                         <div class="col s4" id="canvas">
                             <div class="circle" id="leaves_summary4"></div>
@@ -194,7 +194,7 @@ include('leaves_functionality.php');
                             <p class="apply_roboto" style="font-size: 18px">Paternity Leave</p>
                         </div>
                     </div>
-                    
+
                     <ul class="tabs">
                         <li class="tab col s6"><a class="active teal-text" href="#leave-circle1"><i class="material-icons flip">play_arrow</i></a></li>
                         <li class="tab col s6"><a class="teal-text" href="#leave-circle2"><i class="material-icons">play_arrow</i></a></li>
@@ -312,7 +312,7 @@ include('leaves_functionality.php');
                    }));
                }
             });
-            
+
         </script>
 
     </body>
