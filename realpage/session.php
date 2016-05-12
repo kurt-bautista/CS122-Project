@@ -70,11 +70,11 @@ while($row2 = $salary_result->fetch_assoc()){
   $undertime_deduction = ($hourly_rate*0.80) * $undertime_hours;
   if($overtime_hours > 0){
     $day_pay = (8*$hourly_rate) + $overtime_pay;
-    $expected_salary = $expected_salary + $day_pay;
+    $expected_salary = $expected_salary + $overtime_pay;
     $total_overtime_pay = $total_overtime_pay + $overtime_pay;
   } elseif ($undertime_hours > 0) {
     $day_pay = (8*$hourly_rate) - $undertime_deduction;
-    $expected_salary = $expected_salary + $day_pay;
+    $expected_salary = $expected_salary - $undertime_deduction;
     $total_undertime_deduction = $total_undertime_deduction + $undertime_deduction;
   } else{
     $day_pay = $work_hours*$hourly_rate;
@@ -88,7 +88,7 @@ if(isset($login_session)){
 
 if(empty($_SESSION['time-status'])){
     $_SESSION['time-status'] = "Time In";
-    
+
     //Query database if timed in, in case of session time out
 }
 ?>
