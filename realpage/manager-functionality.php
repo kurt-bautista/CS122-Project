@@ -20,7 +20,7 @@
 	}
 	$myId = $_SESSION['employee_id'];
 	$getTeamMembers = <<<SQL
-	SELECT CONCAT(COALESCE(e.first_name, ''), ' ', COALESCE(e.last_name, '')) AS "Team Member", w.time_in AS "Time In"
+	SELECT CONCAT(COALESCE(e.first_name, ''), ' ', COALESCE(e.last_name, '')) AS "Team Member", w.time_in AS "Time In", w.leaves_id AS "Leave ID"
 	FROM employees e LEFT JOIN workdays w
 	ON w.employees_id = e.id AND DATE(w.time_in) = CURDATE()
 	WHERE e.manager_id = '$myId'

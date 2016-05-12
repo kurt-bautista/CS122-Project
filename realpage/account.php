@@ -46,7 +46,7 @@ include('account_functionality.php');
                 <div class="card col s4 center hoverable">
                     <div class="card-content">
                         <p><img src="img/employee.jpg" class="circle profile_pic"></p>
-                        <span class="card-title"><?php echo($Fname); echo($Lname);?></span>
+                        <span class="card-title"><?php echo($Fname." ".$Lname);?></span>
 
                         <div class="divider" style="margin-top:25px; margin-bottom:25px;"></div>
 
@@ -80,10 +80,10 @@ include('account_functionality.php');
 
                                 <span class="red-text text-darken-1"><?php echo $error; ?></span>
                                 <span class="green-text text-darken-1"><?php echo $success; ?></span>
-                                
+
                                 <div class="divider" style="margin-top:20px; margin-bottom:20px;"></div>
                             </div>
-                            <div class="center">                               
+                            <div class="center">
                                 <button class="btn waves-effect waves-light" type="submit" name="submit" value="account_change">
                                     Save Changes
                                 </button>
