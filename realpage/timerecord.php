@@ -1,5 +1,5 @@
 <?php
-//Made by: Anton Suba
+//Made by: Anton Suba and Kurt Bautista
 
 include('timerecord-functionality.php');
 ?>
@@ -12,7 +12,6 @@ include('timerecord-functionality.php');
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-        <link type="text/css" rel="stylesheet" href="css/jquery.mCustomScrollbar.css"/>
         
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
@@ -199,19 +198,13 @@ include('timerecord-functionality.php');
        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="js/jquery.mCustomScrollbar.concat.min.js"></script>
         
         <script>       
                     
             $(document).ready(function(){
                $(".button-collapse").sideNav();
                
-               $('ul.tabs').tabs();
-               
-               $("#tab-bar").mCustomScrollbar({
-                   axis: "x",
-                   theme: "minmal-dark"
-               });                                                     
+               $('ul.tabs').tabs();                                                     
             });
             
             function appendTime(x){

@@ -244,14 +244,6 @@ include('leaves_functionality.php');
 
 
         <script>
-            /**
-            $(document).ready(function(){
-                $('#date_picker').picakdate({
-                    selectMonths: true,
-                    selectYears: 15
-                });
-            });
-            */
 
             $(document).ready(function(){
                 $('.datepicker').pickadate({

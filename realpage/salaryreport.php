@@ -121,8 +121,6 @@ include('salaryreport_functionality.php');
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>       
         <script type="text/javascript" src="js/countUp.js"></script>
-        <script type="text/javascript" src="js/chartist.min.js"></script>
-        <script type="text/javascript" src="js/chartist-plugin-threshold.min.js"></script>
 
         <script>
             $(document).ready(function(){
@@ -136,43 +134,6 @@ include('salaryreport_functionality.php');
                overtimeAnimation.start();
                var undertimeAnimation = new CountUp(document.getElementById("undertime-deductions").id, 0, <?php echo($total_undertime_deduction);?>);
                undertimeAnimation.start();
-               
-               
-               var graphLabel = [];
-               var graphSeries = [];
-               <?php 
-               $counter = 0;
-               for($i = 1; $i <= 31; $i++){?>                 
-                    graphLabel.push(<?php echo($i);?>);                                 
-               <?php               
-                    if($workdays_count == 0){?>
-                        graphSeries.push(<?php echo($hourly_rate * 8);?>);
-               <?php }
-                    else {
-                        if($all_workdays[$counter][0] == $i){?>
-                            graphSeries.push(<?php echo($all_workdays[$counter][2]);?>);
-                            <?php $counter += 1;
-                        }
-                        else{?>
-                            graphSeries.push(<?php echo($hourly_rate * 8);?>);
-                        <?php }
-                    }
-               }?>                                      
-               
-               new Chartist.Line('.ct-chart', {
-                    labels: graphLabel,
-                    series: graphSeries
-                    }, {
-                    showArea: true,
-                    axisY: {
-                        onlyInteger: true
-                    },
-                    plugins: [
-                        Chartist.plugins.ctThreshold({
-                        threshold: <?php echo($hourly_rate * 8);?>
-                        })
-                    ]
-                });
             });
         </script>
 
