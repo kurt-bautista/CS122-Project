@@ -195,6 +195,50 @@ include('manager-functionality.php');
                     </form>
                 </div>
                 <!--Leave Approval-->
+                
+                <div class="card col s12 center hoverable">
+                    <table>
+                        <thead>
+                        <?php
+                        foreach ($empNum as $empNumRow) {
+                            $empRecordId = $empNumRow['id'];
+                            $empRecordName = $empNumRow['first_name'];
+                            ?>
+                            <th><?php echo $empRecordName;?></th>
+                        </thead>
+                        <tbody>
+                            
+                            <?php
+                            $getAllTimeRecords = <<<SQL
+                            SELECT w.time_in AS "Time In"
+                            FROM employees e LEFT JOIN workdays w
+                            ON w.employees_id = '$empRecordId'
+SQL;
+                            
+                            if(!$result = $db->query($getAllTimeRecords)){
+                                die('There was an error running the query [' . $db->error . ']');
+                            }
+                            $allTimeRecords = $result->fetch_all(MYSQLI_ASSOC);
+                            
+                            
+                            foreach ($allTimeRecords as $timeRecordRow) {
+                                $timeRecord = $timeRecordRow['Time In'];
+                                ?>
+                                <tr>
+                                <?php echo "<br>".$timeRecord;?>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        ?>
+                                                         
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="class col s12 hoverable center">
+                    
+                </div>
 
             </div>
 
