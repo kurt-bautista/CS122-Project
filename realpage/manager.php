@@ -3,17 +3,17 @@ include('manager-functionality.php');
 ?>
 
 <html>
-    
+
     <head>
         <title>Manager</title>
-        
+
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-        
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
-    
+
     <body class="grey lighten-5">
 
          <!--Navbar [Copy this to all pages]-->
@@ -27,40 +27,40 @@ include('manager-functionality.php');
                     <li><a href="timerecord.php">Time Record</a></li>
                     <li><a href="leaves.php">Leaves</a></li>
                     <li><a href="salaryreport.php">Salary Report</a></li>
-                    
+
                     <?php if($_SESSION['employee_type'] == 'manager'){?>
                     <li class="active"><a href="manager.php">Manager</a></li>
                     <?php } ?>
-                    
+
                     <li><a href="account.php">Account</a></li>
                     <li><a href="logout.php">Logout</a></li>
-                </ul>       
+                </ul>
             </div>
         </nav>
         <!--Navbar-->
-        
+
         <div id="main" class="center_container">
-            
+
             <div class="row">
-                
+
                 <!--Team Status-->
                 <div class="card col s4 team_status_card center hoverable">
                     <div class="card-content">
-                        
+
                         <span class="card-title col s12">Team Status</span>
-                        
+
                         <div id="canvas">
                             <div class="circle" id="team_circle"></div>
                         </div>
-                        <p class="apply_roboto" style="font-size:18px">Total Members: <?php echo($allMembers);?></p> 
-                        
+                        <p class="apply_roboto" style="font-size:18px">Total Members: <?php echo($allMembers);?></p>
+
                         <div class="divider" style="margin-top:20px; margin-bottom:20px;"></div>
-                                              
+
                         <!--Team Attendance-->
-                        <?php 
+                        <?php
                         $signInCounter = 0;
                         foreach ($teamMembers as $memberRow) {
-                            $signInTime = '';                           
+                            $signInTime = '';
                             if($memberRow['Time In'] == NULL){
                                 $signInTime = 'Not yet signed in';
                             }
@@ -74,20 +74,20 @@ include('manager-functionality.php');
                                 <?php echo($memberRow['Team Member']);?>
                             </div>
                         <?php }
-                        ?>                        
-                        
-                        
+                        ?>
+
+
                     </div>
-                    
+
                     <div class="card-action">
-                        <span class="red-text text-darken-1 col s12"><?php echo $error; ?></span> 
+                        <span class="red-text text-darken-1 col s12"><?php echo $error; ?></span>
                         <a class="modal-trigger clickable_text teal-text" href="#add-emp-modal">
                             <i class="material-icons" style="margin-right:5px">supervisor_account</i>Add Employee
                         </a>
                     </div>
                 </div>
                 <!--Team Status-->
-                
+
                 <!--Add Employee Modal-->
                 <div class="modal modal-fixed-footer" id="add-emp-modal">
                     <form action="" method="POST">
@@ -101,17 +101,17 @@ include('manager-functionality.php');
                             <input id="last-name" name="last-name" type="text" class="validate">
                             <label for="last-name">Last Name</label>
                         </div>
-                        
+
                         <div class="input-field col s12">
                             <input id="username" name="username" type="text" class="validate">
                             <label for="username">Username</label>
                         </div>
-                        
+
                         <div class="input-field col s12">
                             <input id="password" name="password" type="password" class="validate">
                             <label for="password">Password</label>
                         </div>
-                        
+
                         <div class="input-field col s3">
                             <input id="allotted-leaves" name="allotted-leaves" type="number" class="validate">
                             <label for="allotted-leaves">Allotted Leaves</label>
@@ -128,7 +128,7 @@ include('manager-functionality.php');
                             <input id="end-date" name="end-date" type="date" class="datepicker">
                             <label for="end-date">End Date</label>
                         </div>
-                        
+
                         <div class="input-field col s6">
                             <input id="expected-time" name="expected-time" type="text" class="validate">
                             <label for="expected-time">Expected Time In [24 hour format - Hour:Minute]</label>
@@ -142,19 +142,19 @@ include('manager-functionality.php');
                                 <input name="employee-type" id="manager" class="with-gap" type="radio" value="manager"/>
                                 <label for="manager">Manager</label>
                             </span>
-                        </div>                                              
+                        </div>
                     </div>
-                    
+
                     <div class="modal-footer">
                         <button class="btn waves-effect waves-light" type="submit" name="add_employee" value="add_employee">
                             Submit
                         </button>
                     </div>
-                    
+
                     </form>
                 </div>
                 <!--Add Employee Modal-->
-                
+
                 <!--Leave Approval-->
                 <div class="col s7 offset-s1">
                     <form action="" method="POST">
@@ -164,17 +164,20 @@ include('manager-functionality.php');
                                 Pending Leave Requests
                             </div>
                         </li>
-                        
-                        <?php foreach ($pendingLeaves as $leaveRow) {                                                          
+
+                        <?php foreach ($pendingLeaves as $leaveRow) {
                         ?>
                         <li>
-                            <div class="collapsible-header apply_roboto">                               
-                                <span><?php echo($leaveRow['employee']);?></span>                                                                                                                 
+                            <div class="collapsible-header apply_roboto">
+                                <span><?php echo($leaveRow['employee']);?></span>
                             </div>
-                            <div class="collapsible-body apply_roboto">                               
+                            <div class="collapsible-body apply_roboto">
                                 <div class="chip" style="margin-top:15px; margin-left:25px;">
                                     <span> <?php echo(date('F j, Y',strtotime($leaveRow['start_date'])).' - '.date('F j, Y',strtotime($leaveRow['end_date'])));?></span>
-                                </div>    
+                                </div>
+                                <div class="chip" style="margin-top:15px; margin-left:25px;">
+                                    <span> <?php echo $leaveRow['name'];?></span>
+                                </div>
                                 <p style="font-size:18px"><?php echo($leaveRow['leave_reason']);?>
                                 <p>
                                     <button class="btn waves-effect waves-light" type="submit" name="approve_leave" value="<?php echo($leaveRow['id']);?>">
@@ -187,32 +190,32 @@ include('manager-functionality.php');
                             </div>
                         </li>
                         <?php }?>
-                                                
-                    </ul>                    
+
+                    </ul>
                     </form>
                 </div>
                 <!--Leave Approval-->
-                
+
             </div>
-            
+
         </div>
-       
+
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script type="text/javascript" src="js/circles.min.js"></script>
-        
-        <script>            
+
+        <script>
             $(document).ready(function(){
-               $(".button-collapse").sideNav(); 
-               
+               $(".button-collapse").sideNav();
+
                $('.modal-trigger').leanModal();
-               
+
                $('.datepicker').pickadate({
                     selectMonths: true,
                     selectYears: 15
                 });
-               
+
                var myCircle = Circles.create({
                     id:                  'team_circle',
                     radius:              70,
@@ -231,7 +234,7 @@ include('manager-functionality.php');
                });
             });
         </script>
-        
+
     </body>
-    
+
 </html>

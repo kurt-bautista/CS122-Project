@@ -40,8 +40,11 @@ WHERE leaves.employees_id = '$employee_id' AND leaves.leave_types_id = leave_typ
 SQL;
 
 $fetch_leave_requests = <<<SQL
-SELECT start_date, end_date, duration, (SELECT COUNT(*) FROM leaves) "num_of_requests"
-FROM leaves WHERE employees_id = '$employee_id' AND status = 'PENDING'
+SELECT leaves.start_date "start_date", leaves.end_date "end_date", leaves.duration "duration",
+(SELECT COUNT(*) FROM leaves) "num_of_requests", leave_types.name "leave type"
+FROM leaves, leave_types
+WHERE leaves.employees_id = '$employee_id' AND leaves.status = 'PENDING' AND
+leaves.leave_types_id=leave_types.id
 SQL;
 
 //fetch user info
@@ -110,6 +113,7 @@ $num_of_requests = $row3['num_of_requests'];
 $start_date = $row3['start_date'];
 $end_date = $row3['end_date'];
 $number_of_days = $row3['duration'];
+$leave_type = $row3['leave type'];
 
 if($num_of_requests < 1){
   $has_pending_leave = false;
