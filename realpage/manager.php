@@ -1,4 +1,6 @@
 <?php
+//Made by: Anton Suba and Kurt Bautista
+
 include('manager-functionality.php');
 ?>
 

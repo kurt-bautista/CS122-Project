@@ -1,4 +1,6 @@
 <?php
+//Made by: Kurt Bautista
+
 	$server = 'localhost';
 	$server_user = 'root';
 	$server_pass = '';

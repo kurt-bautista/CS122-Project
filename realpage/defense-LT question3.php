@@ -1,4 +1,5 @@
 <?php
+//Made by: Kurt Bautista and Julio Ledesma
 
     $server = 'localhost';
     $server_user = 'root';

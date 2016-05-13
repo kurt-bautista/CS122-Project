@@ -1,5 +1,6 @@
 <?php
-//session_start();
+//Made by: Anton Suba, Fiel Faustino and Julio Ledesma
+
 $server = 'localhost';
 $server_user = 'root';
 $server_pass = '';
