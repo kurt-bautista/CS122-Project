@@ -35,8 +35,10 @@ SQL;
 	$allMembers = $result->num_rows;
 	
 	//All Employee Time Record
+	$employee_id = $_SESSION['employee_id'];
+	
 	$getEmpNum = <<<SQL
-	SELECT e.id, e.first_name FROM employees e
+	SELECT e.id, e.first_name FROM employees e WHERE e.manager_id = '$employee_id'
 SQL;
 
 	if(!$result = $db->query($getEmpNum))
@@ -45,6 +47,7 @@ SQL;
 	}
 	$empNum = $result->fetch_all(MYSQLI_ASSOC);
 	$empNumCount = $result->num_rows;
+	//All Employee Time Record
 	
 	//All employees given a specific date
 	$getDistinctDates = <<<SQL
@@ -56,26 +59,6 @@ SQL;
 		die('There was an error running the query [' . $db->error . ']');
 	}
 	$distinctDates = $result->fetch_all(MYSQLI_ASSOC);
-	
-	foreach ($distinctDates as $distinctDateRow) {
-		$distinctDate = $distinctDateRow['Date'];
-		$getEmpPerDate = <<<SQL
-		SELECT e.first_name FROM employees e, workdays w WHERE e.id = w.employees_id AND DATE(w.time_in) = '$distinctDate'
-SQL;
-
-		echo $distinctDate."<br>";
-		
-		if(!$result = $db->query($getEmpPerDate))
-		{
-			die('There was an error running the query [' . $db->error . ']');
-		}
-		$empPerDate = $result->fetch_all(MYSQLI_ASSOC);
-		
-		foreach ($empPerDate as $empPerDateRow) {
-			$empDate = $empPerDateRow['first_name'];
-			echo $empDate."<br>";
-		}	
-	}
 	//All employees given a specific date
 	
 	$fetch_leave_requests = <<<SQL

@@ -200,18 +200,79 @@ include('manager-functionality.php');
                 <!--Leave Approval-->
                 
                 <div class="card col s12 center hoverable">
-                    <table>
-                        <thead>
+                    <p class="card-title">Team Time Record</p>
+                    
+                    <ul class="tabs">
+                        <li class="tab"><a class="teal-text" href="#sort-by-emp">Sort by Employee</a></li>
+                        <li class="tab"><a class="teal-text" href="#sort-by-date">Sort by Date</a></li>
+                        <div class="indicator teal" style="z-index:1"></div>  
+                    </ul>
+                    <div class="divider"></div>
+                    
+                    <div id="sort-by-date">
+                    <!--Sort by Date - Display Employees per Date-->
+                    <ul class="tabs">
                         <?php
-                        foreach ($empNum as $empNumRow) {
-                            $empRecordId = $empNumRow['id'];
+                        foreach ($distinctDates as $distinctDateRow) {
+                            $distinctDate = $distinctDateRow['Date'];?>
+                            <li class="tab"><a class="teal-text" href="<?php echo("#".$distinctDate);?>"><?php echo($distinctDate);?></a></li>
+                        <?php }?>
+                        <div class="indicator teal" style="z-index:1"></div>  
+                    </ul>
+                    
+                    <?php
+                    foreach ($distinctDates as $distinctDateRow) {
+                        $distinctDate = $distinctDateRow['Date'];
+                        $getEmpPerDate = <<<SQL
+                        SELECT e.first_name FROM employees e, workdays w WHERE e.id = w.employees_id AND DATE(w.time_in) = '$distinctDate'
+SQL;
+                        
+                        if(!$result = $db->query($getEmpPerDate))
+                        {
+                            die('There was an error running the query [' . $db->error . ']');
+                        }
+                        $empPerDate = $result->fetch_all(MYSQLI_ASSOC);
+                        ?>
+                        
+                        <div class="col s12" id="<?php echo($distinctDate)?>">
+                            <table class="centered highlight responsive-table">
+                                    <tbody>
+                                        <?php
+                                        foreach ($empPerDate as $empPerDateRow) {
+                                            $empDate = $empPerDateRow['first_name'];
+                                            ?>
+                                            <tr>
+                                                <td><?php echo($empDate);?></td>
+                                            </tr>
+                                            <?php
+                                        }?>
+                                    </tbody>
+                                </table>
+                        </div>
+                        
+                    <?php
+                    }
+                    ?>
+                    <!--Sort by Date - Display Employees per Date-->
+                    </div>
+                    
+                    <div id="sort-by-emp">
+                    <!--Sort by Employee - Display Dates per Employee-->
+                    <ul class="tabs">                 
+                        <?php
+                        foreach ($empNum as $empNumRow) {                           
                             $empRecordName = $empNumRow['first_name'];
                             ?>
-                            <th><?php echo $empRecordName;?></th>
-                        </thead>
-                        <tbody>
+                           <li class="tab"><a class="teal-text" href="<?php echo("#".$empRecordName)?>"><?php echo $empRecordName;?></a></li>
+                        <?php }?>
+                        <div class="indicator teal" style="z-index:1"></div>  
+                    </ul>
+                    <div class="divider"></div>
+                        <?php         
+                         foreach ($empNum as $empNumRow) {
+                            $empRecordId = $empNumRow['id'];
+                            $empRecordName = $empNumRow['first_name'];
                             
-                            <?php
                             $getAllTimeRecords = <<<SQL
                             SELECT w.time_in AS "Time In"
                             FROM employees e LEFT JOIN workdays w
@@ -223,20 +284,29 @@ SQL;
                             }
                             $allTimeRecords = $result->fetch_all(MYSQLI_ASSOC);
                             
-                            
-                            foreach ($allTimeRecords as $timeRecordRow) {
-                                $timeRecord = $timeRecordRow['Time In'];
-                                ?>
-                                <tr>
-                                <?php echo "<br>".$timeRecord;?>
-                                </tr>
-                                <?php
-                            }
+                            ?>
+                            <div class="col s12" id="<?php echo($empRecordName);?>">
+                                <table class="centered highlight responsive-table">
+                                    <tbody>
+                                        
+                                        <?php
+                                        foreach ($allTimeRecords as $timeRecordRow) {
+                                            $timeRecord = $timeRecordRow['Time In'];
+                                            ?>
+                                            <tr>                               
+                                                <td><?php echo "<br>".$timeRecord;?></td>
+                                            </tr>
+                                            <?php
+                                        }?>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <?php
                         }
                         ?>
-                                                         
-                        </tbody>
-                    </table>
+                        <!--Sort by Employee - Display Dates per Employee-->
+                        </div>                       
                 </div>
                 
                 <div class="class col s12 hoverable center">
@@ -257,6 +327,8 @@ SQL;
                $(".button-collapse").sideNav();
 
                $('.modal-trigger').leanModal();
+               
+               $('ul.tabs').tabs();
 
                $('.datepicker').pickadate({
                     selectMonths: true,
