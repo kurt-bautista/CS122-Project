@@ -254,7 +254,8 @@ include('leaves_functionality.php');
             $(document).ready(function(){
                 $('.datepicker').pickadate({
                     selectMonths: true,
-                    selectYears: 15
+                    selectYears: 15,
+                    format: 'yyyy/mm/dd'
                 });
 
                $(".button-collapse").sideNav();

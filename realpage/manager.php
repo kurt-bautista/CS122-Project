@@ -332,7 +332,8 @@ SQL;
 
                $('.datepicker').pickadate({
                     selectMonths: true,
-                    selectYears: 15
+                    selectYears: 15,
+                    format: 'yyyy/mm/dd'
                 });
 
                var myCircle = Circles.create({
