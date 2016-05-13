@@ -160,6 +160,12 @@ if(isset($_POST['submit'])){
                 break;
             }
 
+            $write_data = $db->prepare("INSERT INTO leaves (status, employees_id, leave_types_id, start_date, end_date, duration, leave_reason)
+            VALUES ('PENDING', ?, ?, ?, ?, ?, ?)");
+            $write_data->bind_param('iissis', $employee_id, $leave_type_id, $start_date_request, $end_date_request, $duration, $leave_reason);
+            $write_data->execute();
+            $write_data->close();
+            /*
             $write_data = <<<SQL
             INSERT INTO leaves (status, employees_id, leave_types_id, start_date, end_date, duration, leave_reason) VALUES
             ('PENDING', '$employee_id', '$leave_type_id', '$start_date_request', '$end_date_request', '$duration', '$leave_reason')
@@ -168,6 +174,7 @@ SQL;
             if(!$write = $db->query($write_data)){
                 die('Error retrieving user information ['. $db->error.']');
             }
+            */
           } else{
             $error = "Ending date cannot come before starting date of the leave";
           }

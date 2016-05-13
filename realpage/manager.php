@@ -64,9 +64,12 @@ include('manager-functionality.php');
                             if($memberRow['Time In'] == NULL){
                                 $signInTime = 'Not yet signed in';
                             }
-                            else {
+                            else if($memberRow['Leave ID'] == NULL) {
                                 $signInTime = 'Signed in at: '.$memberRow['Time In'];
                                 $signInCounter++;
+                            }
+                            else {
+                                $signInTime = 'On leave';
                             }
                             ?>
                             <div class="chip tooltipped chip_style" data-position="botom" data-delay="40" data-tooltip="<?php echo($signInTime);?>">
