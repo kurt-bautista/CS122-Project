@@ -1,0 +1,112 @@
+header, body, footer{
+    padding-left: 240px;
+}
+
+@media only screen and (max-width : 992px){
+    header, body, footer{
+        padding-left: 0;
+    }
+}
+
+.center_container{
+    margin: 0 auto;
+    width:85%;
+}
+
+.vertical_center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card_padding{
+    padding: 50px;
+}
+
+.apply_roboto{
+    font-family: "Roboto",sans serif;
+    font-weight: 300;
+}
+
+.clickable_text{
+    cursor: pointer
+}
+
+.flip{
+    -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+    transform: scale(-1, 1);
+}
+
+/*Leaves Page*/
+
+
+#canvas .circle{
+    display: inline-block;
+    margin: 1em;
+}
+
+/*Time Record Page*/
+.time_in_out_card{
+    height: 100px;
+}
+
+/*Salary Report Page*/
+
+.ct-chart .ct-line.ct-threshold-above, .ct-bar.ct-threshold-above {
+  stroke: #66bb6a;
+}
+.ct-chart .ct-point.ct-threshold-above{
+  stroke: #66bb6a;
+}
+
+.ct-chart .ct-line.ct-threshold-below, .ct-point.ct-threshold-below, .ct-bar.ct-threshold-below {
+  stroke: #ef5350;
+}
+
+.ct-chart .ct-point.ct-threshold-below{
+  stroke: #ef5350;
+}
+
+.ct-chart .ct-area.ct-threshold-above {
+  fill: #66bb6a;
+}
+
+.ct-chart .ct-area.ct-threshold-below {
+  fill: #ef5350;
+}
+
+.time_btn{
+    margin-left: 40px;
+    margin-top: 45px;
+}
+
+#tab-bar{
+    overflow: auto;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.tabs .indicator {
+    background-color: #009688;
+}
+
+.tab_div{
+    position: absolute;
+    right:40px;
+
+}
+
+/*Manager Page*/
+.chip_style{
+    margin: 5px 5px 5px 5px;
+}
+
+/*Account Page*/
+.profile_pic{
+    height: 180px;
+    width: 180px;
+    overflow: hidden;
+}
