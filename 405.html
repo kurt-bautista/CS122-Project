@@ -1,8 +1,4 @@
-<?php
-//Made by: Anton Suba
 
-include('session.php');
-?>
 
 <html>
     
@@ -28,11 +24,6 @@ include('session.php');
                     <li><a href="timerecord.php">Time Record</a></li>
                     <li><a href="leaves.php">Leaves</a></li>
                     <li><a href="salaryreport.php">Salary Report</a></li>
-                    
-                    <?php if($_SESSION['employee_type'] == 'manager'){?>
-                    <li><a href="manager.php">Manager</a></li>
-                    <?php } ?>
-                    
                     <li><a href="account.php">Account</a></li>
                     <li><a href="logout.php">Logout</a></li>
                 </ul>       
@@ -42,7 +33,7 @@ include('session.php');
         
         <div id="main" class="container">
             
-            <h1 class="center white-text"> Welcome <?php echo($first_name); ?> </h1>
+            <h1 class="center white-text">Hello there!</h1>
                
             <div class="row">
                 <p class="apply_roboto center white-text" style="font-size:35px">Here are a few things to get you started</p>
@@ -55,7 +46,7 @@ include('session.php');
                     <div class="card col s6 offset-s3 center hoverable">
                         <div class="card-content ">
                             <p class="apply_roboto" style="font-size:24px">Expected Time In: 
-                                <span class="teal-text"><?php echo($expected_time_in);?></span>
+                                <span class="teal-text">4:20 AM</span>
                             </p>                       
                         </div>
                     </div>
@@ -65,7 +56,7 @@ include('session.php');
                     <div class="card col s6 offset-s3 center hoverable">
                         <div class="card-content ">
                             <p class="apply_roboto" style="font-size:24px">Remaining Leaves: 
-                                <span class="teal-text"><?php echo($remaining_leaves);?></span>
+                                <span class="teal-text">69</span>
                             </p>                       
                         </div>
                     </div>
@@ -75,7 +66,7 @@ include('session.php');
                     <div class="card col s6 offset-s3 center hoverable">
                         <div class="card-content ">
                             <p class="apply_roboto" style="font-size:24px">Expected Salary: 
-                                <span class="teal-text"><?php echo($expected_salary);?></span>
+                                <span class="teal-text">$690</span>
                             </p>                       
                         </div>
                     </div>
