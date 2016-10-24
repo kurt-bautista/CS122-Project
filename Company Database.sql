@@ -74,3 +74,5 @@ ADD COLUMN start_date DATE NOT NULL,
 ADD COLUMN end_date DATE NOT NULL,
 ADD COLUMN duration INT NOT NULL,
 ADD COLUMN leave_reason VARCHAR(255);
+
+/* Hi kurt */
